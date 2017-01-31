@@ -1,0 +1,22 @@
+<ul layout="row" layout-nowrap id="related-products">
+  {% for related in relatedProducts %}
+  <li md-ink-ripple class="ls-product-tile margin-small">
+      <div>
+        <div flex layout="row" layout-align="space-between center" layout-fill class="padding-regular">
+          <div layout="row" layout-align="center center" class="on-sale-container">
+            <h3 class="ls-subheading text-black letter-spacing-none" >
+              [[ '$' + ({{ related.price }} | trailingZero ) ]]
+            </h3>
+          </div>
+        </div>
+      </div>
+      <a class="no-link-style" href="{{ site_url('/product/') ~ related.url_name }}">
+        <img src="{{ related.images.first.thumbnail(365, 365) }}" alt="{{ related.name }}" />
+        <div class="text-center margin-y">
+          <h3 class="ls-subheading text-black">{{ related.name }}</h3>
+          <p class="ls-caption md-caption">{{ related.manufacturer.name }}</p>
+        </div>
+      </a>
+  </li>
+  {% endfor %}
+</ul>

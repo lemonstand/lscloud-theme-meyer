@@ -1,0 +1,47 @@
+---
+action: 'cmscontent:archive'
+template: main
+protocol: all
+published: true
+name: 'Blog'
+url: /blog
+---
+
+<script type="text/javascript">
+  var blogPosts = {
+    "blog": [
+      {% for post in archives %}
+        {% if post.type is same as('blog') %}
+          {
+            "title": "{{ post.title }}",
+            "author": {
+              "name": "{{ post.author_name }}",
+              "image": "{{ profile_image.thumbnail(252, 'auto')|default('http://placehold.it/100x100') }}"
+            },
+            "thumbnail": "{{ post.featured_image.thumbnail(1000, 'auto')|default('http://placehold.it/1000x365') }}",
+            "permalink": "{{ post.slug }}",
+            "categories": [
+              {% for category in post.categories %}
+                "{{ category.name }}"
+                {% if not loop.last %},{% endif %}
+              {% endfor %}
+            ],
+            "publish_date": "{{ post.published_on |  date("m-d-Y") }}",
+            "excerpt": "{{ post.excerpt | unescape }}"
+          }
+          {% if not loop.last %},{% endif %}
+        {% endif %}
+      {% endfor %}
+    ]
+  }
+</script>
+
+{{ partial('partial-banner', {
+  'banner': {
+    'button': false,
+    'title': 'The Blog',
+    'subheading': 'Where possibilities are endless',
+    'backgroundImage': 'images/living-room-tile.jpg' | theme_resource
+  }}) }}
+
+  {{ partial('partial-blog-page') }}

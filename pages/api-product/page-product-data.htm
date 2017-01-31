@@ -1,0 +1,16 @@
+---
+action: 'shop:product'
+template: json-api
+protocol: all
+published: true
+name: 'Product API'
+url: '/api/product/:urlName'
+---
+{% if product %}
+    {{ product | raw }}
+
+  {% else %}
+    {
+        "error": "We can't find this product"
+    }
+  {% endif %}

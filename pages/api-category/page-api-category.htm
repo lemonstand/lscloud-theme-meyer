@@ -1,0 +1,35 @@
+---
+action: 'shop:category'
+template: json-api
+protocol: all
+published: true
+name: 'Category API'
+url: '/api/categories/:urlName'
+---
+
+{
+  "name": "{{ category.name | raw }}",
+  "short_description": "{{ category.short_description | raw }}",
+  "thumbnail": "{{ category.images.first.thumbnail(600,'auto') |default('http://placehold.it/1920x1080') }}",
+  "images": [
+    {% for image in category.images %}
+    "{{ image.thumbnail(1280, 'auto') }}"
+    {% if not loop.last %},{% endif %}
+    {% endfor %}
+  ],
+  "children":
+  {% if category.children is not empty %}
+    {{ category.children | raw }},
+    {% else %}
+    [],
+  {% endif %}
+  "parent":
+  {% if category.parent is not empty %}
+    {{ category.parent | raw }},
+    {% else %}
+    {},
+  {% endif %}
+  "products": [
+    {{ partial("partial-product", { "products": category.productList }) }}
+  ]
+}

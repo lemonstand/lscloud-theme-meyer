@@ -1,0 +1,18 @@
+---
+action: 'cmscontent:archive'
+template: main
+protocol: all
+published: true
+name: 'Blog category'
+url: /blog/category/:category
+---
+
+{{ partial('partial-banner', {
+  'banner': {
+    'button': false,
+    'title': 'The Blog',
+    'subheading': 'Where possibilities are endless',
+    'backgroundImage': 'images/living-room-tile.jpg' | theme_resource
+  }}) }}
+
+  {{ partial('partial-blog-page') }}

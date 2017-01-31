@@ -1,0 +1,33 @@
+<div layout="row" layout-fill layout-align="center start" ng-controller="BlogCtrl">
+  <div layout="row" layout-xs="column" class="content-container padding-y-large padding-y-mobile padding-mobile" layout-align="center start">
+
+    <div layout="column" flex>
+      <div layout="row" layout-wrap>
+        {% for post in archives %}
+          {% if post.type is same as('blog') %}
+            {{ partial('partial-blog-card-twig', { 'post': post }) }}
+          {% endif %}
+        {% endfor %}
+      </div>
+    </div>
+
+    <!-- sidebar -->
+    <div layout="column" flex="25" flex-xs="100" class="padding-small padding-x-medium no-padding-mobile">
+      <p class="ls-heading md-caption theme-heading">Categories</p>
+      <ul class="theme-list">
+        <li class="md-caption" ng-repeat="category in categories track by $index">
+          <a ng-href="/blog/category/[[ category | lowercase ]]">[[ category ]]</a>
+        </li>
+      </ul>
+
+      <p class="ls-heading md-caption theme-heading">Archive</p>
+      <ul class="theme-list">
+        <li class="md-caption" ng-repeat="archive in months track by $index">
+          <a ng-href="/blog/archive/[[ archive | date:'yyyy/MM' ]]">[[ archive | date:'MMMM yyyy' ]]</a>
+        </li>
+      </ul>
+    </div>
+
+
+  </div>
+</div>

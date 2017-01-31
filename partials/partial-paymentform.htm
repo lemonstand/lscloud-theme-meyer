@@ -1,0 +1,14 @@
+{% if paymentMethod is defined %}
+  {% set name = paymentMethod.getFrontendPartialName() %}
+  {{ partial(name, {paymentMethod: paymentMethod, payment: payment}) }}
+{% else %}
+  {% set message = payment_method.pay_offline_message() %}
+  {% if message %}
+    <p class="md-body-1 margin-y">{{ message }}</p>
+  {% else %}
+    <p class="md-body-1 margin-y">This payment method has no payment form.</p>
+  {% endif %}
+  <div layout="row" layout-align="space-between center" class="padding-y-medium">
+    <a md-ink-ripple class="md-button ls-button md-button-outline  opacity-50 no-margin" ng-href="{{ site_url('products') }}">Continue shopping</a>
+  </div>
+{% endif %}

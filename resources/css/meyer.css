@@ -1,0 +1,170 @@
+/**
+
+  Meyer LemonStand theme
+  * A responsive LemonStand theme made with AngularJS.
+  * Matt Neill, October 2016
+
+  COLOURS
+  * Violet/blue     #647EC9
+  * Pink            #EE728F
+  * Orange          #F56345
+  * Yellow          #FFCB40
+  * Green           #9BD070
+  * Baby blue       #64CDE0
+  * Teal            #03DAD2
+  * Dark blue       #0074E1
+  * Red             #ED3C3C
+  * Black           #171717
+
+  FONTS
+  Header            Montserrat Bold
+  Sub-header        Roboto Medium
+  Body              Roboto Regular
+
+*/
+
+/*text colours*/
+
+  .text-white { color:#FFFFFF !important; }
+  .text-yellow { color:#FFCB40 !important; }
+  .text-black { color:#171717 !important; }
+  .text-blue { color:#64CDE0 !important; }
+  .text-dark-blue { color: #0074E1 !important; }
+  .text-red { color:#ED3C3C !important; }
+  .text-grey { color:#868686 !important; }
+  .text-white .md-button-outline { border-color: #FFFFFF !important; }
+  .ls-product-tile .fav-button:hover md-icon { color: #ED3C3C; }
+  .strikethrough { text-decoration: line-through; color:#ED3C3C; margin-left:10px; }
+
+  #flash-container .md-icon-button,
+  #flash-container .md-icon-button md-icon,
+  #flash-container p { color: #FFFFFF !important;}
+  #flash-container p { font-weight: 500; }
+
+  md-menu-content md-menu-item button.md-button.button-active { background:#fafafa; font-weight: 500; }
+
+/*error messages*/
+  form.mailchimp-form .message.error { background:#ED3C3C; }
+  form.mailchimp-form .message.warning { background:#FFCB40; }
+  form.mailchimp-form .message.success { background:#9BD070; }
+
+/*lemonstand theme text*/
+  #blog-body h1,
+  #blog-body h2,
+  #blog-body h3,
+  #blog-body blockquote:before,
+  #blog-body blockquote:after,
+  .ls-page h2,
+  .ls-page div.image-tiles a span,
+  .ls-heading { text-transform: uppercase; font-weight: 700; letter-spacing: 5px; }
+  .ls-heading-thin { text-transform: uppercase; font-weight: 300; letter-spacing: 2px; }
+  .ls-heading-small { text-transform: uppercase; font-weight: 700; letter-spacing: 0.5px; font-size: 0.75em; }
+  .ls-checkout-progress { font-weight: 400; }
+
+
+  .ls-page div.image-tiles a span,
+  .ls-page h2,
+  #blog-body h1,
+  #blog-body h2,
+  #blog-body h3,
+  h2.ls-heading { letter-spacing: 2px; }
+
+  .ls-accent-link { color:#FFCB40; }
+  #blog-bio-card h2,
+  #blog-body h1,
+  #blog-body h2,
+  #blog-body h3 { font-size: 1em; }
+  button.ls-error { background-color:#ED3C3C !important; color:#fff; }
+
+  md-tab-item span,
+  input.ls-search,
+  md-menu-content.md-menu-bar-menu.md-dense .md-button span,
+  .ls-subheading { letter-spacing: 1.5px; text-transform: uppercase !important; font-size: 0.8125em !important; font-weight: 500 !important; }
+
+  md-tab-item.md-active span { color:#171717; }
+  md-tabs md-ink-bar { color:#171717; background: #171717;}
+
+
+  .ls-button { padding:5px 35px; font-size: 0.8125em; }
+  .ls-button:hover, .ls-button:active { opacity: 1; }
+  .ls-button-wide { padding:5px 50px; }
+  #blog-body p,
+  #blog-body blockquote,
+  .ls-caption { color: rgba(0,0,0,0.54); font-weight: 400 !important; }
+  .ls-ribbon { background: #f1f1f2; }
+  #featured-sale img,
+  .ls-product-tile img { width:auto; height: auto; max-width: 100%; max-height: 100%; position: relative; top:0; left:0; }
+  .ls-product-tile { background: #fafafa; }
+
+  .ls-page {}
+  .ls-page h2 {
+    margin: 25px 0 10px 0;
+  }
+
+  .ls-page p {
+    font-size: 0.875em;
+    color:#868686;
+    font-weight: 400;
+    margin:5px 0;
+    line-height: 1.5em;
+    max-width: 640px;
+  }
+
+  .ls-page p strong {
+    font-weight: 500;
+    color:#171717;
+    margin-top:10px;
+    float: left;
+  }
+  .ls-page a {
+    text-decoration: none;
+    color:#868686;
+  }
+
+  .ls-page div.image-tiles { display: -webkit-box; display: -ms-flexbox; display: flex; -webkit-box-orient: horizontal; -webkit-box-direction: normal; -ms-flex-direction: row; flex-direction: row; }
+
+  .ls-page div.image-tiles a {
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-box-align: center;
+        -ms-flex-align: center;
+            align-items: center;
+    -webkit-box-pack: center;
+        -ms-flex-pack: center;
+            justify-content: center;
+    position: relative;
+    margin: 8px;
+  }
+  .ls-page div.image-tiles a img {
+    width:auto !important;
+    height: auto;
+    max-height: 300px;
+    max-width: 100%;
+  }
+  .ls-page div.image-tiles a span {
+    position: absolute;
+    color:#FFFFFF;
+    font-size: 2em;
+    top:50%;
+    left:50%;
+    -webkit-transform: translate3d(-50%,-50%,0);
+            transform: translate3d(-50%,-50%,0);
+   }
+
+   @media only screen and (max-width: 599px){
+     .ls-page div.image-tiles {
+       -webkit-box-orient: vertical;
+       -webkit-box-direction: normal;
+           -ms-flex-direction: column;
+               flex-direction: column;
+     }
+   }
+
+  #card-preview.card-active {
+    /* Permalink - use to edit and share this gradient: http://colorzilla.com/gradient-editor/#3aafe2+0,4c87bd+100 */
+    background: #3aafe2; /* Old browsers */ /* FF3.6-15 */
+    background: -webkit-linear-gradient(top,  #3aafe2 0%,#4c87bd 100%); /* Chrome10-25,Safari5.1-6 */
+    background: linear-gradient(to bottom,  #3aafe2 0%,#4c87bd 100%); /* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */
+    filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#3aafe2', endColorstr='#4c87bd',GradientType=0 ); /* IE6-9 */
+  }

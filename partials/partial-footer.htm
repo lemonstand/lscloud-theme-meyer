@@ -1,0 +1,89 @@
+<div id="footer">
+
+  <div layout="column" layout-align="center center" class="padding-mobile">
+    <div layout="row" layout-xs="row" layout-sm="row" layout-wrap layout-align="space-between start" layout-fill class="content-container padding-y-large padding-y-mobile">
+
+      <div layout="column" class="theme-column" flex flex-xs="100" flex-sm="50">
+        <p class="ls-heading md-caption theme-heading">Company</p>
+        <ul class="theme-list" layout-xs="row" layout-wrap>
+          <li class="md-caption" flex-xs="50"><a href="{{ site_url('/company') }}">About us</a></li>
+          <li class="md-caption" flex-xs="50"><a href="#">History</a></li>
+          <li class="md-caption" flex-xs="50"><a href="#">Return Policy</a></li>
+          <li class="md-caption" flex-xs="50"><a href="{{ site_url('/blog') }}">Blog</a></li>
+          <li class="md-caption" flex-xs="50"><a href="{{ site_url('/contact') }}">Contact us</a></li>
+          <li class="md-caption" flex-xs="50"><a href="{{ site_url('/products/brands') }}">Brands</a></li>
+        </ul>
+      </div>
+
+      <div layout="column" class="theme-column" flex flex-xs="100" flex-sm="50">
+        <p class="ls-heading md-caption theme-heading">Product</p>
+        <ul class="theme-list" layout-xs="row" layout-wrap>
+          {% for category in categories %}
+            {% if category.children is not empty %}
+              <li class="md-caption" flex-xs="50"><a href="{{ site_url('/categories/') ~ category.url_name }}">{{ category.name }}</a></li>
+            {% endif %}
+          {% endfor %}
+        </ul>
+      </div>
+
+      <div layout="column" class="theme-column" flex flex-xs="100" flex-sm="50">
+        <a class="ls-heading md-caption theme-heading no-link-style ls-link" href="{{ site_url('/contact') }}">Contact</a>
+        <ul class="theme-list">
+          <li class="md-caption"><a href="mailto:info@meyer.com">info@meyer.com</a></li>
+          <li class="md-caption"><a href="tel:+15195025122">1-519-502-5122</a></li>
+        </ul>
+
+        <p class="ls-heading md-caption theme-heading" >Social</p>
+        <ul class="social-icons" layout="row" layout-wrap layout-align="space-between start" layout-align-xs="start start" layout-align-sm="start start">
+
+          {% if theme.pinterestUrl %}
+            <li md-ink-ripple>
+                <a href="{{ theme.pinterestUrl }}" target="_blank" class="socicon pinterest">
+                  <i class="socicon-pinterest"></i>
+                </a>
+            </li>
+          {% endif %}
+
+          {% if theme.facebookUrl %}
+            <li md-ink-ripple>
+                <a href="{{ theme.facebookUrl }}" target="_blank" class="socicon facebook">
+                  <i class="socicon-facebook"></i>
+                </a>
+            </li>
+          {% endif %}
+
+          {% if theme.twitterUrl %}
+            <li md-ink-ripple>
+                <a href="https://twitter.com/{{ theme.twitterUrl }}" target="_blank" class="socicon twitter">
+                  <i class="socicon-twitter"></i>
+                </a>
+            </li>
+          {% endif %}
+
+          {% if theme.instagramUrl %}
+            <li md-ink-ripple>
+                <a href="{{ theme.instagramUrl }}" target="_blank" class="socicon instagram">
+                  <i class="socicon-instagram"></i>
+                </a>
+            </li>
+          {% endif %}
+
+        </ul>
+      </div>
+    </div>
+
+    <div class="content-container" layout-fill layout="column">
+      <md-divider layout="row"></md-divider>
+      <div layout="row" class="padding-y-medium" layout-align="space-between center">
+        <div layout="row" layout-align="center center ">
+          <a href="/" class="footer-nav-link">
+            <img class="footer-nav-img" alt="{{ theme.storeTitle }}_logo" src="{{ theme.logoImage.thumbnail('auto', 'auto') }}" />
+          </a>
+          <p class="md-caption ls-caption copyright">
+            [[ $root.date | date: 'yyyy' ]] {{ theme.storeTitle }}
+          </p>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

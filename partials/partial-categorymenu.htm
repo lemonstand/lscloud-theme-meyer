@@ -1,0 +1,27 @@
+<div layout="row" layout-align="center center" id="category-menu" ng-click="$root.categoryViewActive = false;" ng-class="{ 'category-menu-active': $root.categoryViewActive }">
+  <div layout="row" layout-fill class="content-container" flex>
+
+    <div layout="column" class="padding-y-medium padding-x-medium" flex ng-repeat="column in categories track by $index">
+      <div class="row theme-column" ng-repeat="row in column track by $index">
+        <a ng-href="categories/[[row.url_name]]" class="ls-heading md-caption theme-heading no-link-style">[[row.name]]</a>
+        <ul class="theme-list">
+          <li class="md-caption" ng-repeat="category in row.children track by $index">
+            <a ng-href="categories/[[row.url_name]]/[[ category.url_name ]]">[[ category.name ]]</a>
+          </li>
+        </ul>
+      </div>
+    </div>
+
+    <div layout="column" flex="33" class="featured-ad background-cover padding-medium text-left text-white" ng-style="{ 'background-image': 'url('+ $theme.featured_sale.image +')' }">
+      <h2 class="ls-heading" ng-bind-html="$theme.featured_sale.excerpt"></h2>
+      <div layout="row" layout-align="start center">
+        <md-button ng-href="/[[ $theme.featured_sale.slug ]]" class="md-lowercase md-body-1 no-margin-left">
+          View Collection
+        </md-button>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<md-backdrop ng-show="$root.categoryViewActive" ng-click="$root.categoryViewActive = false;"></md-backdrop>

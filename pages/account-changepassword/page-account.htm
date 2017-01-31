@@ -1,0 +1,23 @@
+---
+action: 'shop:customerProfile'
+template: main
+protocol: all
+published: true
+name: Account
+url: /account
+---
+
+{{ partial('partial-banner-alt', { banner: { title: 'Account' }}) }}
+
+<div layout="column" layout-align="center center" class="bg-white" id="checkout-page" ng-controller="CheckoutCtrl" compile-on-change="#checkout-shippingMethod">
+  <div layout="column" class="content-container padding-y-large" layout-align="start center">
+    {% if customer %}
+      {{ partial('partial-account') }}
+    {% else %}
+      <h2 class="ls-heading">You're not logged in</h2>
+      <div layout="column">
+        <md-button class="ls-button  margin-y-medium" ng-href="{{ site_url('/account/login') }}">Log in</md-button>
+      </div>
+    {% endif %}
+  </div>
+</div>

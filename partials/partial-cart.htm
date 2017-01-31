@@ -1,0 +1,73 @@
+{{ partial('partial-banner-alt', { banner: { title: 'My cart' }}) }}
+
+
+<div layout="column" layout-align="center center" class="bg-white padding-mobile">
+
+  <div class="content-container padding-y-large" layout="column" layout-align="center center">
+  {% if itemCount %}
+
+    <ul class="ls-cart" id="cart-items" layout="column" flex>
+      {{ partial('shop-cart-items') }}
+    </ul>
+
+    <div layout="row" layout-xs="column" layout-align="space-between center" layout-fill class="padding-y-small border-bottom">
+      <p class="md-caption ls-caption margin-y-mobile" flex>
+        Have a discount code?  Get juicy savings now!
+      </p>
+      <div layout="row" layout-xs="column" layout-align="end center" flex>
+        <md-input-container md-no-float flex class="hide-errors margin-x no-margin-left no-margin-mobile">
+          <input name="coupon" id="coupon" placeholder="Enter discount code" type="text">
+        </md-input-container>
+        <md-button
+          class="ls-button ls-button-wide  no-margin margin-y-mobile md-primary"
+          id="discount-button"
+          ng-href="#"
+          ng-click="$root.showLoadingScreen();"
+          data-ajax-handler="shop:cart"
+          data-ajax-update="#cart-total=shop-cart-totals"
+          compile-on-click="#cart-total"
+          value="Apply code">
+          Apply code
+        </md-button>
+      </div>
+    </div>
+
+    <div layout="row" layout-align="end center" layout-fill flex class="padding-y-medium border-bottom padding-x-medium" id="cart-total">
+      {{ partial('shop-cart-totals') }}
+    </div>
+  {% else %}
+    <h2 class="ls-heading">Your cart is empty.</h2>
+    <div layout="column">
+      <md-button class="ls-button  margin-y-medium" ng-href="{{ site_url('products') }}">Continue shopping</md-button>
+    </div>
+  {% endif %}
+
+
+  {% if itemCount %}
+    <div layout="row" layout-xs="column" layout-fill layout-align="space-between start" layout-align-xs="center center" flex class="padding-y-medium border-bottom">
+      <div layout="column" flex-order-xs="2">
+        <md-button class="ls-button md-button-outline no-margin  opacity-50" ng-href="{{ site_url('products') }}">Continue shopping</md-button>
+      </div>
+      <div layout="column" flex-order-xs="1" class="margin-bottom-mobile">
+        {% if customer %}
+          <md-button class="ls-button  no-margin ls-button-wide" ng-href="{{ site_url('/checkout') }}">
+            Checkout
+          </md-button>
+        {% else %}
+          <md-button class="ls-button  no-margin ls-button-wide" ng-href="{{ site_url('/checkout-start') }}">
+            Checkout
+          </md-button>
+        {% endif %}
+      </div>
+    </div>
+  {% endif %}
+
+  {% if upsells.isEmpty() == false %}
+  <div layout="column" layout-fill class="padding-y-medium">
+    <h3 class="ls-subheading padding-y-medium">You might also like...</h3>
+    {{ partial('partial-relatedproducts', { relatedProducts: upsells }) }}
+  </div>
+  {% endif %}
+
+  </div>
+</div>

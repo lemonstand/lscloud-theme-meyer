@@ -1,0 +1,53 @@
+<h3 class="ls-heading letter-spacing-2 padding-y-medium">Customer information</h3>
+<div layout="row">
+  <md-input-container flex class="md-input-has-placeholder hide-errors">
+    <label class="ls-subheading">First name</label>
+    <input ng-model="billing.fname" name="billingInfo[firstName]" id="billing_firstName" type="text">
+  </md-input-container>
+  <md-input-container flex class="md-input-has-placeholder hide-errors">
+    <label class="ls-subheading">Last name</label>
+    <input ng-model="billing.lname" name="billingInfo[lastName]" id="billing_lastName" type="text">
+  </md-input-container>
+</div>
+<div layout="row">
+  <md-input-container flex class="md-input-has-placeholder hide-errors">
+    <label class="ls-subheading font-16">Email address</label>
+    <input ng-model="billing.email" name="billingInfo[email]" id="billing_email" type="email">
+  </md-input-container>
+</div>
+
+<div layout="row">
+  <md-input-container flex class="md-input-has-placeholder hide-errors">
+    <label class="ls-subheading font-16">Street address</label>
+    <input ng-model="billing.street" name="billingInfo[streetAddressLine1]" id="billing_address" type="text">
+  </md-input-container>
+</div>
+
+<div layout="row">
+  <md-input-container flex class="md-input-has-placeholder hide-errors">
+    <label for="billing_country" class="ls-subheading font-16">Country</label>
+    <select id="billing_country" name="billingInfo[countryId]" ng-model="billing.country" ng-change="getValue('country', '#billing_country'); $root.showLoadingScreen();" ng-disabled="!billing.street.length" data-state-selector="#billing_state" data-current-state="{{ billingInfo.stateId }}">
+      {% for country in countries %}
+        <option {{ option_state(billingInfo.countryId, country.id) }} value="{{ country.id }}">{{ country.name }}</option>
+      {% endfor %}
+    </select>
+  </md-input-container>
+
+  <md-input-container flex class="md-input-has-placeholder hide-errors">
+    <label for="billing_state" class="ls-subheading font-16">State/Province</label>
+    <select id="billing_state" name="billingInfo[stateId]" ng-model="billing.state" ng-change="getValue('state', '#billing_state');" ng-disabled="!billing.street.length" data-ajax-refresh >
+      {{ partial('shop-stateoptions', {'states': billingStates, 'selected': billingInfo.stateId}) }}
+    </select>
+  </md-input-container>
+</div>
+
+<div layout="row">
+  <md-input-container flex class="md-input-has-placeholder hide-errors">
+    <label class="ls-subheading font-16">City</label>
+    <input ng-disabled="!billing.street.length" ng-model="billing.city" name="billingInfo[city]" id="billing_city" type="text">
+  </md-input-container>
+  <md-input-container flex class="md-input-has-placeholder hide-errors">
+    <label class="ls-subheading font-16">Postcode</label>
+    <input  ng-model="billing.postcode" name="billingInfo[postalCode]" id="billing_postalCode" type="text">
+  </md-input-container>
+</div>

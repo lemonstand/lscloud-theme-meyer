@@ -1,0 +1,128 @@
+<div layout="row" layout-align="center center" id="category-products">
+  <div layout="column" layout-fill class="content-container">
+
+    <div layout="row" layout-align="center center">
+      <form layout="row" layout-align="space-around center" offset="100 -35" id="search" flex-xs="90" flex="60" ng-submit="filters.search = searchQuery">
+        <input flex type="text" class="ls-search" placeholder="search" name="search" ng-model="searchQuery" />
+        <div flex="10" flex-xs="25">
+          <md-button  class="md-icon-button" type="submit">
+            <md-icon>search</md-icon>
+          </md-button>
+        </div>
+      </form>
+    </div>
+    <div layout="column" layout-fill>
+
+      <div layout="column" layout-fill layout-align="space-between none" class="padding-y-medium" min-height>
+
+        <div layout="column">
+          <div layout="row" layout-xs="column" id="sorting-bar" layout-align="space-between center" layout-align-xs="center start">
+            <md-menu-bar layout-xs="column">
+              <!-- change search quantity -->
+              <md-menu md-position-mode="target-right target">
+                <md-button aria-label="Product count" ng-disabled="!productList.length" ng-click="$mdOpenMenu($event)" class="ls-subheading">
+                  Results per page: <span>[[ productListLimit ]]</span>
+                  <md-icon>arrow_drop_down</md-icon>
+                </md-button>
+                <md-menu-content width="2">
+                  <md-menu-item ng-repeat="quantity in [5, 10, 15, 25, 50, 100]">
+                    <md-button ng-click="setProductLimit(quantity)">
+                      <span>[[ quantity ]]</span>
+                    </md-button>
+                  </md-menu-item>
+                </md-menu-content>
+              </md-menu>
+
+              <!-- change category -->
+              <md-menu>
+                <md-button ng-click="$mdOpenMenu($event)" class="ls-subheading">
+                  [[ currentCategory.name ]]
+                  <md-icon>arrow_drop_down</md-icon>
+                </md-button>
+                <md-menu-content width="3">
+                  <md-menu-item ng-repeat="category in productCategories track by $index">
+                    <md-menu>
+                      <md-button ng-click="$mdOpenMenu()">[[ category.name ]]</md-button>
+                      <md-menu-content width="3">
+                        <md-menu-item>
+                          <md-button ng-click="getCategoryProducts(category.url_name)">All ([[ category.products_count ]])</md-button>
+                        </md-menu-item>
+                        <md-menu-divider></md-menu-divider>
+                        <md-menu-item ng-repeat="child in category.children track by $index">
+                          <md-button ng-click="getCategoryProducts(category.url_name, child.url_name)">[[ child.name ]] ([[ child.products_count ]])</md-button>
+                        </md-menu-item>
+                      </md-menu-content>
+                    </md-menu>
+                  </md-menu-item>
+                </md-menu-content>
+              </md-menu>
+
+              <!-- price range -->
+              <md-menu id="price-dropdown">
+                <md-button aria-label="Price" ng-click="$mdOpenMenu($event)" class="ls-subheading">
+                  Price
+                  <md-icon>arrow_drop_down</md-icon>
+                </md-button>
+                <md-menu-content>
+                  <div layout="column" layout-fill class="padding-medium">
+                    <md-slider-container ng-if="priceFilter.max">
+                      <md-slider flex md-discrete step="10" min="[[priceFilter.min]]" max="[[priceFilter.max]]" ng-model="filters.price" aria-label="Max price" id="max-price"></md-slider>
+                    </md-slider-container>
+                    <div layout="row" flex layout-align="space-between center">
+                      <span>$0</span>
+                      <span>$[[priceFilter.max]]</span>
+                    </div>
+                  </div>
+                </md-menu-content>
+              </md-menu>
+
+              <md-menu id="brand-dropdown">
+                <md-button aria-label="Brand" ng-click="$mdOpenMenu($event)" class="ls-subheading">
+                  [[ displayBrand ? displayBrand : "Brand" ]]
+                  <md-icon>arrow_drop_down</md-icon>
+                </md-button>
+                <md-menu-content width="3">
+                  <md-menu-item>
+                    <md-button ng-click="filters.brand = null">
+                      <span>All ([[brands.length]])</span>
+                    </md-button>
+                  </md-menu-item>
+
+                  <md-menu-item ng-repeat="brand in brands track by $index">
+                    <md-button ng-click="filters.brand = brand.url_name">
+                      <span>[[ brand.name ]]</span>
+                    </md-button>
+                  </md-menu-item>
+                </md-menu-content>
+              </md-menu>
+            </md-menu-bar>
+            <md-button class="text-white bg-black md-primary md-raised  margin-x" ng-click="saleItemsOnly();">
+              Sale
+            </md-button>
+          </div>
+          <div ng-hide="productsLoading" class="padding-y-medium padding-mobile">
+            {{ partial('partial-product-tiles') }}
+          </div>
+          <div layout="row" ng-show="productsLoading" id="products-loading" layout-align="center center">
+            <md-progress-circular class="md-warn" md-mode="indeterminate" md-diameter="20px"></md-progress-circular>
+          </div>
+
+        </div>
+        <div layout="row" layout-align="space-between center" ng-hide="pages.length <= 1">
+          <md-button class="md-square-button" ng-disabled="currentPage <= 1" ng-click="goToPage( currentPage - 1, filteredProducts )">
+            <md-icon>chevron_left</md-icon>
+          </md-button>
+
+          <div layout="row" layout-align="center center" layout-nowrap flex style="overflow-x:auto;">
+            <md-button class="md-small-button pagination-button" ng-class="{ 'page-active': currentPage === $index + 1 }" ng-disabled="currentPage === $index + 1" ng-repeat="page in pages track by $index" ng-click="goToPage( $index +1, filteredProducts )">
+              [[ $index +1 ]]
+            </md-button>
+          </div>
+          <md-button class="md-square-button" ng-disabled="currentPage >= pages.length" ng-click="goToPage( currentPage + 1, filteredProducts )">
+            <md-icon>chevron_right</md-icon>
+          </md-button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

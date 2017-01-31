@@ -1,0 +1,34 @@
+{% for product in products %}
+  {
+      "id": {{ product.id }},
+      "name" : "{{ product.name | unescape }}",
+      "sku" : "{{ product.sku }}",
+      "description" : "{{ product.short_description }}",
+      "url_name": "{{ product.url_name }}",
+      "price": {{ product.price }},
+      "on_sale": {{ product.is_on_sale is same as(1) ? "true" : "false" }},
+      "manufacturer": "{{ product.manufacturer.name }}",
+      "manufacturer_url": "{{ product.manufacturer.url_name }}",
+      "categories": [
+        {% for category in product.categories %}
+          "{{ category.url_name }}"{% if not loop.last %},{% endif %}
+        {% endfor %}
+      ],
+      "thumbnail": "{{ product.images.first.thumbnail(500, 'auto')|default('http://placehold.it/460x300') }}",
+      "options": [
+        {% for option in product.options %}
+        {
+          "id": {{ option.id }},
+          "name": "{{ option.name }}",
+          "values": [
+            {% for value in option.values  %}
+              "{{ value }}"{% if not loop.last %},{% endif %}
+            {% endfor %}
+          ]
+        }
+          {% if not loop.last %},{% endif %}
+        {% endfor %}
+      ]
+  }
+{% if not loop.last %},{% endif %}
+{% endfor %}

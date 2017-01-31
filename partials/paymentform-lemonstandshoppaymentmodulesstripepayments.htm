@@ -1,0 +1,11 @@
+---
+description: 'Payment form partial for Stripe Payments payment method'
+---
+<form method="post" name="paymentForm" action="" data-ajax-handler="shop:onPay">
+    <input type="hidden" value="{{ paymentMethod.id }}" name="payment_method_id">
+    {{ partial('shop-ccvalidate') }}
+    <div layout="row" layout-xs="column" layout-align="space-between center" class="padding-y-medium">
+      <a md-ink-ripple class="md-button ls-button md-button-outline  opacity-50 no-margin" flex-order-xs="2" ng-href="{{ site_url('products') }}">Continue shopping</a>
+      <md-button type="submit" ng-click="paymentForm.submitAttempt=true;" flex-order-xs="1" class="ls-button  ls-button-wide no-margin">Purchase</md-button>
+    </div>
+</form>

@@ -1,0 +1,37 @@
+---
+action: 'shop:receipt'
+template: main
+protocol: all
+published: true
+name: Receipt
+url: '/receipt/:paymenthash'
+---
+{{ partial('partial-banner-alt', { banner: { title: 'Receipt' }}) }}
+
+<div layout="column" layout-align="center center" class="bg-white" id="receipt-page">
+  <div layout="column" class="content-container padding-y-large padding-mobile" layout-align="start center" >
+
+    {% if invoice %}
+      <h1 class="text-center padding-y-medium weight-300">Thank you!</h1>
+      <div layout="column" layout-fill>
+        <div layout="column" flex="50">
+          <h3 class="ls-heading letter-spacing-none">Your confirmation number: <span class="weight-400">{{ invoice.order.number }}</span></h3>
+          <p class="ls-caption md-caption margin-y-medium">
+            You will be sent a confirmation email shortly with your receipt.
+          </p>
+        </div>
+        <div layout="row">
+          <md-button class="ls-button md-button-outline  opacity-50 no-margin" ng-href="{{ site_url('products') }}">Continue shopping</md-button>
+        </div>
+      </div>
+    {% else %}
+    <div layout="column" layout-align="center center">
+      <h2 class="ls-heading padding-y-medium">No receipt found.</h2>
+      <md-button class="ls-button  no-margin" ng-href="{{ site_url('products') }}">
+        Continue shopping
+      </md-button>
+    </div>
+    {% endif %}
+
+  </div>
+</div>

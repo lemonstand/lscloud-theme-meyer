@@ -1,0 +1,83 @@
+  <li layout="row" flex class="ls-cart-heading" hide-xs>
+    <h3 flex="50" class="ls-heading text-grey font-13 letter-spacing-none">Product</h3>
+    <h3 flex="35" class="ls-heading text-grey font-13 letter-spacing-none">QTY</h3>
+    <h3 flex class="ls-heading text-grey font-13 letter-spacing-none">Price</h3>
+  </li>
+
+  {% for item in cart.items %}
+    <li class="ls-cart-item" layout="row" layout-xs="column" flex ng-hide="items['{{ item.key }}'].removed">
+      <div flex="50" flex-xs="100" class="cart-item-info no-padding-mobile" layout="row" layout-xs="column">
+        <div class="cart-item-image-container" layout="column">
+          <img class="cart-item-image" src="{{ item.product.images.first.thumbnail(136, 136) }}" alt="product-image" />
+        </div>
+        <div class="cart-item-text padding-x-small margin-left-medium no-margin-tablet" layout="column" layout-align="center start">
+          <a ng-href="{{ site_url('/product/') ~ item.product.url_name }}" class="ls-heading no-link-style letter-spacing-none font-16 margin-bottom-xs ls-link margin-y-mobile">
+            {{ item.product.name }}
+
+            <p class="text-grey" show-xs>
+              [[ '$' + ({{ item.price }} | trailingZero) ]]
+              {% if item.price != item.fullPrice() %}
+                <span class="original-price margin-left-small">
+                  [[ '$' + ({{ item.fullPrice() }} | trailingZero) ]]
+                </span>
+              {% endif %}
+            </p>
+
+          </a>
+          {% if item.options %}
+            <ul>
+              {% for option in item.options %}
+                <li class="md-caption ls-caption">[[ '{{ option.value }}' | capitalize ]]</li>
+              {% endfor %}
+            </ul>
+          {% endif %}
+
+          {% if item.extras %}
+            <ul>
+              {% for extra in item.extras %}
+                <li class="md-caption ls-caption">+ [[ '{{ extra.name }}' | capitalize ]] ({{ extra.base_price | currency }})</li>
+              {% endfor %}
+            </ul>
+          {% endif %}
+
+        </div>
+      </div>
+      <div class="cart-item-qty" layout="row" flex="35" flex-xs="100" layout-align="space-between center">
+        <div layout="row" ng-init="items['{{ item.key }}'] = { qty: {{ item.quantity }}, initialQty: {{ item.quantity }}}; " class="order-quantity" layout-align="center center" flex-order-xs="2">
+          <a ng-href="#" ng-click="items['{{ item.key }}'].qty = items['{{ item.key }}'].qty - 1 >= 1 ? items['{{ item.key }}'].qty - 1 : 1; $root.showLoadingScreen();" md-ink-ripple class="md-button md-icon-button" compile-on-click="#cart-total">
+            <md-icon>remove</md-icon>
+          </a>
+          <input type="text" min="1" readonly max="99" ng-model="items['{{ item.key }}'].qty" value="{{ item.quantity }}" name="item_quantity[{{ item.key }}]" data-ajax-handler="shop:cart" watch-change data-ajax-update="#cart-total=shop-cart-totals" />
+          <a ng-href="#" ng-click="items['{{ item.key }}'].qty = items['{{ item.key }}'].qty + 1 <= 99 ? items['{{ item.key }}'].qty + 1 : 99; $root.showLoadingScreen();" md-ink-ripple class="md-button md-icon-button" compile-on-click="#cart-total">
+            <md-icon>add</md-icon>
+          </a>
+        </div>
+
+        <div flex layout="row" layout-align="center center">
+          <a
+            md-ink-ripple
+            class="md-button md-icon-button"
+            aria-label="Remove"
+            ng-href="#"
+            ng-click="$root.showLoadingScreen();"
+            data-ajax-handler="shop:cart"
+            data-ajax-extra-fields="delete_item='{{ item.key }}'"
+            data-ajax-update="#cart=partial-cart"
+            compile-on-click="#cart" >
+            <md-icon>cancel</md-icon>
+          </a>
+        </div>
+      </div>
+
+      <div class="cart-item-price" layout="row" flex layout-align="start center" hide-xs>
+        <p class="text-grey">
+          [[ '$' + ({{ item.price }} | trailingZero) ]]
+          {% if item.price != item.fullPrice() %}
+            <span class="original-price margin-left-small">
+              [[ '$' + ({{ item.fullPrice() }} | trailingZero) ]]
+            </span>
+          {% endif %}
+        </p>
+      </div>
+    </li>
+  {% endfor %}

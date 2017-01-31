@@ -1,0 +1,44 @@
+
+    {% tree categories %}
+
+    {% set parentCategories = 0 %}{# Sets variable #}
+    {% for category in tree.items %}
+        {% if category.parent is empty %}
+            {% set parentCategories = parentCategories + 1 %}
+        {% endif %}
+    {% endfor %}
+
+    "categories": [
+      {% for category in tree.items if category.parent is empty %}
+          {
+            "id": {{ category.id }},
+            "name": "{{ category.name | raw }}",
+            "url_name": "{{ category.url_name | raw }}",
+            "api_code": "{{ category.api_code }}",
+            "meta_keywords": "{{ category.meta_keywords | raw }}",
+            "products_count": {{ category.products_count }},
+            "is_visible": {{ category.is_visible is same as(1) ? "true" : "false" }},
+            "thumbnail": "{{ category.images.first.thumbnail(800, 'auto')|default('http://placehold.it/460x300') }}",
+            "children": [
+              {% for child in category.children %}
+              {
+                "id": {{ child.id }},
+                "name": "{{ child.name | raw }}",
+                "url_name": "{{ child.url_name | raw }}",
+                "parent_name": "{{ child.parent.name | raw }}",
+                "parent_id": "{{ child.parent.id }}",
+                "api_code": "{{ child.api_code }}",
+                "meta_keywords": "{{ child.meta_keywords | raw }}",
+                "products_count": {{ child.products_count }},
+                "is_visible": {{ child.is_visible is same as(1) ? "true" : "false" }},
+                "thumbnail": "{{ category.images.first.thumbnail(800, 'auto')|default('http://placehold.it/460x300') }}"
+              }
+              {% if not loop.last %},{% endif %}
+              {% endfor %}
+            ],
+            "last": "{{ parentCategories }}"
+          }
+          {% if loop.index != parentCategories %},{% endif %}
+      {% endfor %}
+    ]
+    {% endtree %}

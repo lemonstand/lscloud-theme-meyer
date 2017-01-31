@@ -1,0 +1,70 @@
+{% if step == 'billing_info' %}
+  <!-- step 1 -->
+  <div layout="row" class="no-link-style checkout-step step-active" layout-align="start center">
+    <span class="step-number ls-checkout-progress ls-heading-small" layout="row" layout-align="center center">1</span>
+    <p class="step-name ls-checkout-progress ls-heading-small">Info</p>
+  </div>
+
+  <!-- step 2 -->
+  <div layout="row" class="no-link-style checkout-step margin-y-mobile" layout-align="start center">
+    <span class="step-number ls-checkout-progress ls-heading-small" layout="row" layout-align="center center">2</span>
+    <p class="step-name ls-checkout-progress ls-heading-small">Shipping</p>
+  </div>
+
+  <!-- step 3 -->
+  <div layout="row" class="no-link-style checkout-step" layout-align="start center">
+    <span class="step-number ls-checkout-progress ls-heading-small" layout="row" layout-align="center center">3</span>
+    <p class="step-name ls-checkout-progress ls-heading-small">Payment</p>
+  </div>
+
+{% elseif step == 'shipping_method' %}
+  <!-- step 1 -->
+  <a href="#" layout="row" class="no-link-style checkout-step" layout-align="start center"
+    ng-click="$root.showLoadingScreen();"
+    data-ajax-handler="shop:checkout"
+    data-ajax-update="#checkout-progress=shop-checkout-progress,#checkout-steps=shop-checkout-steps"
+    data-ajax-extra-fields="nextStep=billing_info">
+    <span class="step-number ls-checkout-progress ls-heading-small" layout="row" layout-align="center center">1</span>
+    <p class="step-name ls-checkout-progress ls-heading-small">Info</p>
+  </a>
+
+  <!-- step 2 -->
+  <div layout="row" class="no-link-style checkout-step step-active margin-y-mobile" layout-align="start center">
+    <span class="step-number ls-checkout-progress ls-heading-small" layout="row" layout-align="center center">2</span>
+    <p class="step-name ls-checkout-progress ls-heading-small">Shipping</p>
+  </div>
+
+  <!-- step 3 -->
+  <div layout="row" class="no-link-style checkout-step" layout-align="start center">
+    <span class="step-number ls-checkout-progress ls-heading-small" layout="row" layout-align="center center">3</span>
+    <p class="step-name ls-checkout-progress ls-heading-small">Payment</p>
+  </div>
+
+{% elseif step == 'pay' %}
+  <!-- step 1 -->
+  <a href="#" layout="row" class="no-link-style checkout-step" layout-align="start center"
+    ng-click="$root.showLoadingScreen();"
+    data-ajax-handler="shop:checkout"
+    data-ajax-update="#checkout-progress=shop-checkout-progress,#checkout-steps=shop-checkout-steps"
+    data-ajax-extra-fields="nextStep=billing_info">
+    <span class="step-number ls-checkout-progress ls-heading-small" layout="row" layout-align="center center">1</span>
+    <p class="step-name ls-checkout-progress ls-heading-small">Info</p>
+  </a>
+
+  <!-- step 2 -->
+  <a href="#" layout="row" class="no-link-style checkout-step margin-y-mobile" layout-align="start center"
+    ng-click="$root.showLoadingScreen();"
+    data-ajax-handler="shop:checkout"
+    data-ajax-update="#checkout-progress=shop-checkout-progress,#checkout-steps=shop-checkout-steps"
+
+    data-ajax-extra-fields="nextStep=shipping_method">
+    <span class="step-number ls-checkout-progress ls-heading-small" layout="row" layout-align="center center">2</span>
+    <p class="step-name ls-checkout-progress ls-heading-small">Shipping</p>
+  </a>
+
+  <!-- step 3 -->
+  <div layout="row" class="no-link-style checkout-step step-active" layout-align="start center">
+    <span class="step-number ls-checkout-progress ls-heading-small" layout="row" layout-align="center center">3</span>
+    <p class="step-name ls-checkout-progress ls-heading-small">Payment</p>
+  </div>
+{% endif %}

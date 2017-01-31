@@ -1,0 +1,21 @@
+---
+action: 'shop:login'
+template: main
+protocol: all
+published: true
+name: Create account
+url: /account/create
+---
+
+{{ partial('partial-banner-alt', { banner: { title: 'Create account' }}) }}
+
+<div layout="column" layout-align="center center" class="bg-white" id="checkout-page" ng-controller="CheckoutCtrl" compile-on-change="#checkout-shippingMethod">
+
+  <div layout="column" class="content-container padding-y-large padding-mobile" layout-align="start center">
+    <div layout="column" class="min-width-640">
+      {{ open_form({'data-ajax-handler': 'shop:onSignup', 'data-validation-message' : '', 'class' : 'form-horizontal' }) }}
+        {{ partial('partial-createaccount') }}
+      {{ close_form() }}
+    </div>
+  </div>
+</div>

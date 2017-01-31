@@ -1,0 +1,47 @@
+---
+action: 'shop:login'
+template: main
+protocol: all
+published: true
+name: Login
+url: /account/login
+---
+
+<div layout="row" id="login" class="padding-y-xl background-cover" layout-align="center center" style="background-image: url('{{ theme.loginPageBackground.thumbnail(1280,'auto') }}');">
+  <div layout="column" class="content-container" layout-align="center center">
+
+    <md-card layout="column" class="no-padding ">
+
+      <div layout="row" layout-align="center center" flex class="padding-y-medium">
+        <h2 class="text-center ls-heading">Login</h2>
+      </div>
+      <md-divider></md-divider>
+        {{ open_form({'data-ajax-handler': 'shop:onLogin', 'data-validation-message' : ''}) }}
+        <div layout="column" class="padding-medium">
+          <div layout="row">
+            <md-input-container flex class="md-input-has-placeholder hide-errors">
+              <label class="ls-subheading font-16">Username</label>
+              <input id="login_email" name="email" ng-value="login.email" value="{{ post('email') }}" type="email">
+            </md-input-container>
+          </div>
+
+          <div layout="column">
+            <md-input-container flex class="md-input-has-placeholder hide-errors no-margin-bottom">
+              <label class="ls-subheading">Password</label>
+              <input ng-model="login.password" type="password" name="password" id="login_password">
+              <a class="no-link-style font-12 ls-link float-right margin-y-small" href="{{ site_url('/account/login/forgot-password') }}">Forgot password?</a>
+            </md-input-container>
+          </div>
+
+          <div layout="row" layout-align="start center" id="login-action">
+            <md-button class="ls-button ls-button-wide  no-margin" type="submit" value="Login" ng-click="$root.showLoadingScreen();">
+              Log in
+            </md-button>
+            <a ng-href="{{ site_url('/account/create') }}" class="no-link-style md-caption margin-left-small">or <span class="text-blue">create account</span></a>
+          </div>
+        </div>
+        <input type="hidden" name="redirect" value="{{ site_url('/account') }}"/>
+        {{ close_form() }}
+      </md-card>
+    </div>
+  </div>

@@ -1,0 +1,36 @@
+---
+description: 'Stored credit card form partial for Stripe Payments payment method'
+---
+<form method="post" action="" data-ajax-handler="shop:onUpdateStoredCard">
+    <input type="hidden" value="{{  paymentMethod.id }}" name="payment_method_id">
+    <ul class="form">
+        <li class="field text left">
+            <label for="FIRSTNAME">Cardholder First Name</label>
+            <div><input autocomplete="off" name="firstName" value="" id="firstName" type="text" class="text"/></div>
+        </li>
+        <li class="field text right">
+            <label for="LASTNAME">Cardholder Last Name</label>
+            <div><input autocomplete="off" name="lastName" value="" id="LASTNAME" type="text" class="text"/></div>
+        </li>
+        <li class="field text">
+            <label for="ACCT">Credit Card Number</label>
+            <div><input autocomplete="off" name="cardNumber" value="" id="cardNumber" type="text" class="text"/></div>
+        </li>
+        <li class="field select left">
+            <label for="EXPDATE_MONTH">Expiration Date - Month</label>
+            <div><input type="text" name="expiryMonth" value="01"></div>
+        </li>
+        <li class="field text right">
+            <label for="EXPDATE_YEAR">Expiration Date - Year</label>
+            <div><input type="text" name="expiryYear" value="2016"></div>
+        </li>
+        <li class="field text">
+            <label for="CVV2">
+                CVV2
+                <span class="comment">For MasterCard, Visa, and Discover, the CSC is the last three digits in the signature area on the back of your card. For American Express, it's the four digits on the front of the card.</span>
+            </label>
+            <div><input autocomplete="off" name="securityCode" value="" id="securityCode" type="text" class="text"/></div>
+        </li>
+    </div>
+    <input type="submit" value="Save" class="button">
+</form>

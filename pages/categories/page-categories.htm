@@ -1,0 +1,30 @@
+---
+action: 'shop:categories'
+template: main
+protocol: all
+published: true
+name: Meyer
+url: /products
+---
+
+<script type="text/javascript">
+
+  var $route = {
+    current: {
+      params: {
+        parentCategory: null,
+        category: null
+      }
+    }
+  }
+
+</script>
+
+<div ng-controller="CategoriesCtrl">
+
+  {{ partial('partial-banner') }}
+
+  {{ partial('partial-categorypage') }}
+
+
+</div>

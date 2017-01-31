@@ -1,0 +1,138 @@
+---
+description: 'Default Template'
+---
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <!-- Set the viewport width to device width for mobile -->
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="Description" content="{{ page.description }}"/>
+    <meta name="Keywords" content="{{ page.keywords }}"/>
+
+    {% if theme.twitterUrl %}
+      <meta name="twitter:site" content="@{{ theme.twitterUrl }}" />
+      {% if product %}
+      <meta name="twitter:card" content="summary" />
+      <meta property="og:url" content="https:{{ site_url('/product/') ~ product.url_name }}" />
+      <meta property="og:title" content="{{ product.name }} | {{ theme.storeTitle }}" />
+      <meta name="twitter:title" content="{{ product.name }} | {{ theme.storeTitle }}" />
+      <meta name="twitter:description" content="{{ product.short_description | unescape }}" />
+      <meta property="og:description" content="{{ product.short_description | unescape }}" />
+      <meta name="twitter:image:src" content="https:{{ product.images.first.thumbnail(280, 'auto') }}" />
+      {% endif %}
+    {% endif %}
+
+
+    <link href="https://file.myfontastic.com/n6vo44Re5QaWo8oCKShBs7/icons.css" rel="stylesheet">
+    <link rel="icon" type="image/png" href="{{ theme.faviconImage.thumbnail('16', '16') }}"/>
+    <title>
+    	{% if page.title %}
+    	 {{ page.title }} |
+    	{% elseif product.name %}
+        {{ product.name }} |
+    	{% endif %}
+      {{ theme.storeTitle }}
+    </title>
+
+    <link rel="stylesheet" type="text/css" href="{{ 'css/vendor.css' | theme_resource }}">
+    <link rel="stylesheet" type="text/css" href="{{ 'css/main.css' | theme_resource }}">
+    <link rel="stylesheet" type="text/css" href="{{ 'css/meyer.css' | theme_resource }}">
+    <script type="text/javascript" src="{{ 'js/jquery.js'|theme_resource }}"></script>
+    <script type="text/javascript" src="{{ 'js/vendor.min.js' | theme_resource }}"></script>
+    <script type="text/javascript" src="/cms/core.js"></script>
+    <script type="text/javascript">
+      var themePrimaryColor = '{{ theme.primaryColor }}';
+      var themeSecondaryColor = '{{ theme.secondaryColor }}';
+      var themeAccentColor = '{{ theme.accentColor }}';
+
+      var themeHeadingFont = ('{{ theme.headingFont }}').split(',');
+      var themeBodyFont = ('{{ theme.bodyFont }}').split(',');
+
+      WebFont.load({
+        google: {
+          families: ['Material Icons', themeHeadingFont[0],themeBodyFont[0]]
+        }
+      });
+
+      var categories = {
+        {{ partial("partial-categories") }}
+      };
+    </script>
+    <script type="text/javascript" src="{{ 'js/meyer.js' | theme_resource }}"></script>
+    <style>
+      #loading-indicator,
+      [ng\:cloak], [ng-cloak], [data-ng-cloak], [x-ng-cloak], .ng-cloak, .x-ng-cloak { display: none !important; }
+      .layout-fill { height:auto !important; }
+      md-grid-tile.product-on-sale div.on-sale-container,
+      .md-button.ls-button:not(.md-button-outline):not(.md-primary) { background-color: {{ theme.secondaryColor }}; color: #FFFFFF; }
+      .md-button.ls-button.md-primary { background-color: {{ theme.primaryColor }}; color: #FFFFFF; }
+      .md-button .md-ripple-container,
+      .md-button.ls-button { border-radius: {{ theme.buttonShape }}; }
+      #category-menu a.ls-heading,
+      #category-menu ul.theme-list li a,
+      #navbar nav .md-button,
+      #footer .ls-heading,
+      #footer ul.theme-list li a { color: {{ theme.headerTextColor }}; }
+      #footer,
+      div#category-menu .content-container,
+      #navbar div.nav-container { background-color: {{ theme.headerBackgroundColor }}; }
+      .md-small-button.page-active span,
+      a.ls-link:hover,
+      .ls-page a:hover,
+      md-menu-content md-menu-item button.md-button.button-active,
+      ul.theme-list li a.filter-active,
+      ul.theme-list li a:hover { opacity: 1; color: {{ theme.accentColor }}; }
+      .ls-product-tile .cart-button:hover md-icon { color: {{ theme.primaryColor }}; }
+      #blog-body blockquote { border-color: {{ theme.secondaryColor }};}
+      #blog-body blockquote:before,
+      #blog-body blockquote:after { color:{{ theme.secondaryColor }}; }
+      md-grid-tile.ls-product-tile md-grid-tile-footer { background: {{ theme.productTileOverlay }}; }
+      h1,h2,h3,h4,h5,h6,
+      #blog-body h1,
+      #blog-body h2,
+      #blog-body h3,
+      #blog-body blockquote:before,
+      #blog-body blockquote:after,
+      .ls-page h2,
+      .ls-page div.image-tiles a span,
+      .ls-heading { font-family: {{theme.headingFont}}; }
+      ul,li,p,blockquote,a,select,option,table,th,td,span,button,input,textarea,
+      .ls-heading-thin { font-family: {{theme.bodyFont}}; }
+      .ls-heading-small { font-family: {{theme.headingFont}}; }
+    </style>
+  </head>
+  <body ng-app="lsAngularApp" id="ls-store" ng-cloak ng-hide="$root.pendingRefresh">
+
+    <!-- dont show the header on checkout screens -->
+    {% if page.name != "Checkout" %}
+      {{ partial('partial-sidenav') }}
+      {{ partial('partial-navbar') }}
+    {% endif %}
+
+    <div class="container page-{{ page.name | lower}}" id="main-view">
+      {{ page() }}
+    </div>
+
+
+    <!-- dont show the full footer on checkout screens -->
+    {% if page.name != "Checkout" %}
+      {{ partial('partial-footer') }}
+    {% else %}
+      {{ partial('partial-mini-footer') }}
+    {% endif %}
+
+    <!-- loading spinner -->
+    <div layout="row" id="loading-spinner-container" ng-show="$root.loadingScreen" layout-align="center center">
+        <md-progress-circular md-mode="indeterminate" class="md-warn" md-diameter="40"></md-progress-circular>
+    </div>
+
+    <!-- flash messages -->
+    <script type="text/javascript">
+      setTimeout(function(){
+        window.flash('{{ flash() }}');
+      },500);
+    </script>
+
+  </body>
+</html>

@@ -1,0 +1,17 @@
+---
+action: 'shop:category'
+template: json-api
+protocol: all
+published: true
+name: 'Featured Products API'
+url: '/api/products/featured/:page'
+---
+
+{% set featuredCollection = 'featured'|collection %}
+{% paginate featuredCollection.products by 10 %}
+  {
+    "products": [
+      {{ partial("partial-product", { "products": pagination.items }) }}
+    ]
+  }
+{% endpaginate %}

@@ -1,0 +1,81 @@
+---
+action: 'cmscontent:blog'
+template: main
+protocol: all
+published: true
+name: 'Blog page'
+url: '/blog/:slug'
+---
+
+{% set categories = '' %}
+{% for category in post.categories %}
+  {% set categories = categories ~ category.name %}
+  {% if not loop.last %},{% endif %}
+{% endfor %}
+<div style="display:none;">{{  featured_image.thumbnail(1280, 'auto') }}</div>
+
+{{ partial('partial-banner', {
+  'banner': {
+    'button': false,
+    'title': post.title,
+    'subheading': categories ~ ' · ' ~ post.published_on | date("j M"),
+    'backgroundImage': featured_image.thumbnail(1280, 'auto')
+  }}) }}
+
+<div layout="row" layout-fill layout-align="start center">
+  <div class="content-container" layout="row" layout-xs="column" layout-align="center start">
+    <div layout="column" flex="25" flex-xs="100" flex-order-xs="2">
+      <div id="blog-bio-card" layout="column" layout-align="start center" class="padding-medium">
+        <div style="display:none;">{{ post.user.image.first.thumbnail('auto','180') }}</div>
+        <div class="round-image-container">
+          <img src="{{ post.user.image.first.thumbnail('auto','180') }}" alt="{{ post.user.first_name}}"  />
+        </div>
+        <h2 class="ls-heading text-center padding-y-small">
+          {{ post.user.first_name ~ ' ' ~ post.user.last_name }}
+        </h2>
+        <p class="ls-caption md-caption text-center line-height-15">
+          {{ post.user.user_bio | striptags | raw }}
+        </p>
+      </div>
+    </div>
+
+    <div layout="column" flex class="padding-y-medium padding-y-mobile" flex-order-xs="1">
+      <div style="border-left:1px solid #ededed;" class="padding-x-medium">
+        <div id="blog-excerpt">
+          {{ post.excerpt | raw }}
+        </div>
+        <div id="blog-body">
+          {{ post.body | raw }}
+        </div>
+        <div layout="column" id="blog-after" class="padding-y-large padding-y-mobile">
+          <div id="blog-meta" layout="row" layout-align="start center">
+            <p class="ls-heading md-caption theme-heading margin-right-small">Tags:</p><span class="selected-value">{{ post.seo_keywords }}</span>
+          </div>
+
+          <div layout="row" layout-align="start center">
+            <p class="ls-heading md-caption theme-heading margin-right-small">Share:</p>
+            <ul class="social-icons" layout="row" layout-align="start start">
+              <li md-ink-ripple>
+                <a ng-href="http://pinterest.com/pin/create/button/?url={{ post.permalink }}&description={{ (post.title ~ ' on ' ~ theme.storeTitle) | url_encode }}" target="_blank" class="socicon pinterest">
+                  <i class="socicon-pinterest"></i>
+                </a>
+              </li>
+              <li md-ink-ripple>
+                <a ng-href="http://www.facebook.com/sharer.php?u={{ post.permalink }}&title={{ (post.title ~ ' on ' ~ theme.storeTitle) | url_encode }}" target="_blank" class="socicon facebook">
+                  <i class="socicon-facebook"></i>
+                </a>
+              </li>
+              <li md-ink-ripple>
+                <a ng-href="http://twitter.com/share?text={{ (post.title ~ ' on ' ~ theme.storeTitle) | url_encode }}&url={{ post.permalink }}" target="_blank" class="socicon twitter">
+                  <i class="socicon-twitter"></i>
+                </a>
+              </li>
+            </ul>
+          </div>
+
+        </div>
+      </div>
+    </div>
+  </div>
+
+</div>

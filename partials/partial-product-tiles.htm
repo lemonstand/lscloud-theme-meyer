@@ -1,0 +1,105 @@
+<md-grid-list
+  md-cols="4"
+  md-row-height="1:1"
+  md-gutter="20px"
+
+  md-cols-xs="1"
+  md-row-height-xs="1:1"
+  md-gutter-xs="10px"
+
+  flex>
+
+  <md-grid-tile
+  ng-if="childCategories.length"
+  class="ls-product-tile ls-menu-tile"
+  md-rowspan="2"
+  md-colspan="1"
+  md-rowspan-xs="1"
+  md-colspan-xs="1">
+    <div layout="column" class="theme-column">
+      <ul class="theme-list">
+        <li class="md-caption">
+          <a href="#" class="no-link-style" ng-class="{ 'filter-active': currentCategory.url_name === activeFilter }" onClick="return false;" ng-click="filters.category.child = null;">All ([[ currentCategory.products_count ]])</a>
+        </li>
+        <md-divider></md-divider>
+        <li class="md-caption" ng-repeat="category in childCategories track by $index">
+          <a href="#" class="no-link-style" ng-class="{ 'filter-active': category.url_name === activeFilter }" onClick="return false;" ng-click="filters.category.child = category.url_name;">[[ category.name ]] ([[ category.products_count ]])</a>
+        </li>
+      </ul>
+    </div>
+  </md-grid-tile>
+
+  <md-grid-tile
+    ng-cloak
+    ng-if="!productList.length"
+    class="ls-product-tile no-results"
+    md-colspan="3"
+    flex-order-xs="1"
+    md-rowspan="2"
+    md-rowspan-xs="1"
+    md-colspan-xs="1">
+
+    <div layout="column" class="padding-mobile">
+
+      <h2 class="ls-heading text-center">No products matched your search.</h2>
+      <p class="ls-subheading margin-y-small text-center" ng-show="filters.search.length">Try refining your search and try again.</p>
+      <div class="text-center" ng-show="!filters.search.length && ((filters.price && filters.price !== priceFilter.max) || filters.brand)">
+        <p class="margin-y-small ls-subheading">Try adjusting your filters and try again.</p><br/>
+        <md-button ng-click="resetFilters()">Reset filters</md-button>
+        <p class="md-caption ls-caption" ng-show="filters.price && filters.price !== priceFilter.max">Price: $[[ filters.price ]]</p><br/>
+        <p class="md-caption ls-caption" ng-show="filters.brand">Brand: [[ filters.displayBrand ]]</p>
+      </div>
+    </div>
+  </md-grid-tile>
+
+  <md-grid-tile
+    md-ink-ripple
+    class="ls-product-tile"
+    ng-class="{'product-on-sale': product.on_sale }"
+    ng-repeat="product in productList | limitTo:productListLimit track by $index"
+    md-rowspan="[[ (($index + 1) % 8 <= 1) && ($index+1) !== 9 ? 2 : 1 ]]"
+    md-colspan="[[ (($index + 1) % 8 <= 1) && ($index+1) !== 9 ? 2 : 1 ]]"
+    md-rowspan-xs="1"
+    md-colspan-xs="1">
+
+    {{ open_form({'class': 'custom', 'onsubmit': 'return false'}) }}
+        <input type="hidden" name="quantity" readonly value="1" />
+        <input type="hidden" name="productId" value="[[product.id ]]"/>
+        <md-grid-tile-header>
+          <div flex layout="row" layout-align="space-between center" layout-fill>
+            <div layout="row" layout-align="center center" class="on-sale-container">
+              <h3 class="ls-subheading text-black letter-spacing-none" >
+                [[ '$' + (product.price | trailingZero ) ]]
+              </h3>
+            </div>
+            <div layout="row" layout-align="end center">
+              <md-button
+                href="#"
+                class="md-icon-button cart-button"
+                data-ajax-handler="shop:onAddToCart"
+                data-ajax-redirect="{{ site_url('cart') }}"
+                ng-click="$root.showLoadingScreen();"
+                aria-label="Add to cart">
+                <md-icon class="icon-small">shopping_cart</md-icon>
+              </md-button>
+              <md-button
+                ng-click="$root.isFavourite(product) ? $root.removeFavourite(product) : $root.addFavourite(product);"
+                class="md-icon-button no-padding fav-button"
+                md-ink-ripple="#ED3C3C"
+                aria-label="favourite">
+                <md-icon class="icon-small" ng-class="{ 'text-red': $root.isFavourite(product) }">[[ $root.isFavourite(product)  ? 'favorite' : 'favorite_border' ]]</md-icon>
+              </md-button>
+            </div>
+          </div>
+        </md-grid-tile-header>
+        <a class="no-link-style" ng-href="/product/[[product.url_name]]">
+        <img ng-src="[[ product.thumbnail ]]" alt="[[product.name]]" />
+        <md-grid-tile-footer class="text-center">
+          <h3 class="ls-subheading text-black">[[ product.name ]]</h3>
+          <p class="ls-caption md-caption" ng-show="product.manufacturer">[[ product.manufacturer ]]</p>
+        </md-grid-tile-footer>
+        </a>
+
+    {{ close_form() }}
+  </md-grid-tile>
+</md-grid-list>

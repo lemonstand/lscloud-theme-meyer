@@ -1,0 +1,128 @@
+---
+action: 'shop:products'
+template: main
+protocol: all
+published: true
+name: Meyer
+url: /
+---
+
+<script type="text/javascript">
+  var products = {
+    "products": [
+      {{ partial("partial-product", { "products": products }) }}
+    ]
+  };
+
+  var featuredProducts = {% set featuredCollection = 'featured'|collection %}
+  {% paginate featuredCollection.products by 10 %}
+    {
+      "products": [
+        {{ partial("partial-product", { "products": pagination.items }) }}
+      ]
+    }
+  {% endpaginate %}
+
+</script>
+
+
+
+<div ng-controller="HomeCtrl">
+
+  {{ partial('partial-banner') }}
+
+  {{ partial('partial-home-ribbon') }}
+
+
+  <md-content layout="column" class="padding-y-large">
+
+    <div layout="column" layout-align="center center" id="featured-categories" >
+      <div layout-fill class="content-container">
+        <md-grid-list
+          md-cols="4"
+          md-row-height="1:1"
+          md-gutter="20px"
+
+          md-cols-xs="1"
+          md-row-height-xs="2:1"
+          md-gutter-xs="10px"
+
+          md-cols-sm="2"
+          md-row-height-sm="1:1"
+          md-gutter-sm="20px">
+
+          <md-grid-tile
+            class="background-cover"
+            ng-repeat="category in categories | orderBy:'api_code' | limitTo:4 track by $index"
+            ng-style="{ 'background-image': 'url('+ category.thumbnail +')'  }"
+            md-rowspan="[[($index == 2 || $index == 3) ? 1 : 2]]"
+            md-colspan="[[ $index == 1 ? 2 : 1]]"
+            md-rowspan-xs="1"
+            md-colspan-xs="1"
+            md-rowspan-sm="1"
+            md-colspan-sm="1">
+
+            <md-grid-tile-header ng-style="{ 'padding-right' : $index === 1 ? '25px' : '0' }">
+              <h2 class="ls-heading">[[ category.name ]]</h2>
+            </md-grid-tile-header>
+            <md-grid-tile-footer>
+              <md-button ng-href="categories/[[ category.url_name ]]" class="md-lowercase md-body-1 no-margin-left">
+                View Collection
+              </md-button>
+            </md-grid-tile-footer>
+          </md-grid-tile>
+        </md-grid-list>
+      </div>
+    </div>
+
+    <div layout="column" layout-align="center center" id="featured-products">
+      <div layout-fill class="content-container padding-mobile">
+        <h1 class="ls-heading text-center padding-y-medium">Featured products</h1>
+        {{ partial('partial-product-tiles') }}
+        <div layout="row" layout-padding layout-align="center center" class="padding-y-medium">
+          <md-button class="ls-button md-button-outline " ng-click="productListLimit = productListLimit + 5" ng-hide="productListLimit === 10">View more</md-button>
+          <md-button class="ls-button md-button-outline " ng-href="/products" ng-show="productListLimit === 10">View all</md-button>
+        </div>
+      </div>
+    </div>
+  </md-content>
+
+  {% if theme.featuredAdPanel %}
+    {{ partial('partial-featured-sale') }}
+  {% endif %}
+  
+  {% if theme.blogOnHomepage %}
+  <div layout="column" layout-align="center center" id="featured-blog">
+    <div layout-fill class="content-container padding-mobile">
+      <h1 class="ls-heading text-center padding-y-large">Blog</h1>
+
+      <div layout="row" layout-align="start start" class="card-carousel">
+        <div ng-repeat="post in $theme.blog | orderBy:'-publish_date' | limitTo:blogPostLimit track by $index" class="card-carousel-card" flex>
+          {{ partial('partial-blog-card') }}
+        </div>
+      </div>
+
+      <div layout="row" layout-padding layout-align="center center" class="padding-y-medium">
+        <md-button class="ls-button md-button-outline " ng-click="blogPostLimit = blogPostLimit + 4" ng-hide="blogPostLimit === 8">View more</md-button>
+        <md-button class="ls-button md-button-outline " ng-href="/blog" ng-show="blogPostLimit === 8">View all</md-button>
+      </div>
+    </div>
+  </div>
+  {% endif %}
+
+
+  <div layout="column" layout-align="center center" class="padding-y-large padding-mobile text-white background-cover" id="sign-up" style="background-image: url('{{ theme.signUpBackground.thumbnail(1920,'auto') }}');">
+    <div layout-fill class="content-container">
+      <h2 class="ls-heading text-center">Sign up</h2>
+      <p class="md-body-1 text-center line-height-15 padding-y-medium">{{ theme.signUpText }}</p>
+      <div layout="row" layout-align="center center">
+        {{ partial('partial-mailchimp') }}
+      </div>
+    </div>
+  </div>
+
+
+
+
+
+</div>

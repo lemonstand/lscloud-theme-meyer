@@ -1,0 +1,51 @@
+
+<div layout="row" layout-xs="column">
+  <md-input-container flex class="md-input-has-placeholder hide-errors">
+    <label class="ls-subheading">First name*</label>
+    <input ng-model="profile.fname" type="text" id="signup[first_name]" name="signup[first_name]" ng-init="profile.fname = '{{ post('signup[first_name]') }}'">
+  </md-input-container>
+
+  <md-input-container flex class="md-input-has-placeholder hide-errors">
+    <label class="ls-subheading">Last name*</label>
+    <input ng-model="profile.lname" ng-disabled="!profile.fname" type="text" id="signup[last_name]" name="signup[last_name]" ng-init="profile.lname =  '{{ post('signup[last_name]') }}'">
+  </md-input-container>
+</div>
+
+<div layout="row">
+  <md-input-container flex class="md-input-has-placeholder hide-errors">
+    <label class="ls-subheading">Email address*</label>
+    <input ng-model="profile.email" type="email" id="signup[email]" name="signup[email]" ng-init=" profile.email = '{{ post('signup[email]') }}'">
+  </md-input-container>
+</div>
+
+<div layout="row" layout-xs="column">
+  <md-input-container flex class="md-input-has-placeholder hide-errors">
+    <label class="ls-subheading">Password *</label>
+    <input ng-model="profile.password" type="password" id="signup[password]" name="signup[password]">
+  </md-input-container>
+
+  <md-input-container flex class="md-input-has-placeholder hide-errors">
+    <label class="ls-subheading">Confirm password *</label>
+    <input ng-model="profile.password_confirmation" type="password" id="signup[password_confirmation]" name="signup[password_confirmation]">
+  </md-input-container>
+</div>
+
+<div layout="row" layout-align="start center">
+  <md-checkbox class="md-primary" ng-model="profile.accepts_marketing" ng-true-value="1" ng-false-value="0" aria-label="Receive notifications" >
+    <span class="md-caption">
+      Receive occasional email updates and promotions from us.
+    </span>
+  </md-checkbox>
+  <input ng-model="profile.accepts_marketing" class="input-hidden" name="accepts_marketing" readonly />
+</div>
+
+<div layout="row" layout-fill layout-align="center center" flex class="padding-y-medium border-bottom">
+  <div layout="column">
+    <md-button class="ls-button no-margin-x  ls-button-wide" type="submit" ng-click="$root.showLoadingScreen();">
+      Submit
+    </md-button>
+  </div>
+</div>
+
+<input type="hidden" name="autologin" value="1" />
+<input type="hidden" name="redirect" value="{{ site_url('registered') }}"/>

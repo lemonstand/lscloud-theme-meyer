@@ -1,0 +1,71 @@
+---
+action: 'shop:order'
+template: main
+protocol: all
+published: true
+name: Order
+url: /account/orders/:orderId
+---
+
+<script>
+  console.log({{ order | raw }});
+</script>
+
+{{ partial('partial-banner-alt', { banner: { title: 'Order receipt' }}) }}
+
+<div layout="column" layout-align="center center" class="bg-white" id="checkout-page" ng-controller="CheckoutCtrl" compile-on-change="#checkout-shippingMethod">
+  <div layout="column" class="content-container padding-y-large" layout-align="start center">
+    {% if customer %}
+    <div layout="column" class="min-width-640">
+      <div layout="row" layout-align="space-between center">
+        <h2 class="ls-heading letter-spacing-2 padding-y-medium">Order #{{ order.id }}</h2>
+        <span class="order-status" style="color: {{ order.order_status.color }}; border-color: {{ order.order_status.color }}">
+          <span class="order-status-bg" style="background-color: {{ order.order_status.color }}"></span>
+          <span class="order-status-text">
+            {{ order.order_status.name }}
+          </span>
+          <md-tooltip md-direction="bottom">
+            Created on {{ order.created_at.format('F j, Y') }}
+          </md-tooltip>
+        </span>
+      </div>
+
+      <h3 class="ls-heading letter-spacing-2 padding-y-medium">Products</h3>
+      <ul class="ls-cart" layout="column" flex>
+        <li layout="row" flex class="ls-cart-heading">
+          <h3 flex="50" class="ls-heading text-grey font-13 letter-spacing-none">Product</h3>
+          <h3 flex class="ls-heading text-grey font-13 letter-spacing-none">Quantity</h3>
+          <h3 flex class="ls-heading text-grey font-13 letter-spacing-none">Price</h3>
+        </li>
+        {% for item in order.orderItems %}
+          <li class="ls-cart-item" layout="row" layout-align="space-between center" flex>
+            <div flex="50" layout="row">
+              <span class="md-body-1 font-14">{{ item.name }} {{ item.url_name }}</span>
+            </div>
+            <div flex layout="row">
+              <span class="md-body-1 font-14">{{ item.quantity | number_format }}</span>
+            </div>
+            <div flex layout="row">
+              <span class="md-body-1 font-14 font-child">
+                {% if item.price_reduction %}
+                  {{ item.price | currency }}
+                  <span class="strikethrough">
+                    {{ item.base_price | currency }}
+                  </span>
+                {% else %}
+                  {{ item.price | currency }}
+                {% endif %}
+              </span>
+            </div>
+          </li>
+        {% endfor %}
+      </ul>
+    </div>
+    {% else %}
+      <h2 class="ls-heading">You're not logged in</h2>
+      <div layout="column">
+        <md-button class="ls-button  margin-y-medium" ng-href="{{ site_url('/account/login') }}">Log in</md-button>
+      </div>
+    {% endif %}
+  </div>
+</div>

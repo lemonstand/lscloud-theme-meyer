@@ -1,0 +1,13 @@
+---
+action: 'shop:products'
+template: json-api
+protocol: all
+published: true
+name: 'Products API'
+url: /api/products
+---
+{
+  "products": [
+    {{ partial("partial-product", { "products": products }) }}
+  ]
+}

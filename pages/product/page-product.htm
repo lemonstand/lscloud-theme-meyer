@@ -1,0 +1,349 @@
+---
+action: 'shop:product'
+template: main
+protocol: all
+published: true
+name: 'Product'
+url: '/product/:urlName'
+---
+
+<script type="text/javascript">
+
+  var $route = {
+    current: {
+      params: {
+        slug: "{{ product.url_name }}"
+      }
+    }
+  };
+  var productQty = {{ quantity|default('1') }};
+
+  var reviews = [
+    {% for attribute in product.reviews() %}
+      {{ attribute | raw }}{% if not loop.last %},{% endif %}
+    {% endfor %}
+  ];
+
+  var reviewDialog = `{{ partial('partial-review-dialog') }}`;
+</script>
+
+
+<div ng-controller="ProductCtrl">
+
+  {{ open_form({'class': 'custom', 'onsubmit': 'return false'}) }}
+
+    <div layout="row" layout-align="center center" id="product-page">
+      <div layout="column" class="content-container">
+        <div layout="row" layout-xs="column" layout-sm="column">
+          <div layout="column" flex class="padding-medium photos-column">
+
+            <div class="swiper-container gallery-top">
+                <div class="swiper-wrapper">
+                  {% for image in product.images %}
+                    <div class="swiper-slide">
+                      <img class="product-image" title="{{ product.name }} image {{ loop.index }}" alt="{{ product.name }} image {{ loop.index }}" src="{{ image.thumbnail(500,'auto') }}" />
+                    </div>
+                  {% endfor %}
+                </div>
+            </div>
+            {% if product.images|length > 1 %}
+            <div class="swiper-container gallery-thumbs">
+                <div class="swiper-wrapper">
+                  {% for image in product.images %}
+                    <div class="swiper-slide image-thumbnail" md-ink-ripple style="background-image:url('{{ image.thumbnail(120,'auto') }}')"><div class="square-spacer"></div></div>
+                  {% endfor %}
+                </div>
+            </div>
+            {% endif %}
+          </div>
+
+          <div layout="column" class="padding-medium details-column" flex>
+            <!-- column2 -->
+              <h1 class="ls-heading margin-y-small">{{ product.name }}</h1>
+              <div layout="row" layout-align="start center" class="padding-bottom-small">
+                <p class="ls-subheading ls-caption">{{ product.sku }}</p>
+                <a href="{{ site_url('/products/') ~ '?brand=' ~ product.manufacturer.url_name }}" class="ls-subheading no-link-style ls-caption ls-link margin-x-medium">By {{ product.manufacturer.name }}</a>
+                {% if product.in_stock_amount %}
+                <p class="ls-subheading ls-caption">{{ product.in_stock_amount }} in stock</p>
+                {% else %}
+                <p class="ls-subheading ls-caption text-red">Out of stock</p>
+                {% endif %}
+              </div>
+
+              {% if product.onSale %}
+                <h2 class="ls-heading-thin sale-price">
+                  [[ '$' + ({{ product.price|round(2, 'floor') }} | trailingZero) ]]
+                  <span class="strikethrough">[[ '$' + ({{ product.fullPrice|round(2, 'floor') }} | trailingZero) ]]</span>
+                </h2>
+              {% else %}
+                <h2 class="ls-heading-thin">
+                  [[ '$' + ({{ product.price|round(2, 'floor') }} | trailingZero) ]]
+                </h2>
+              {% endif %}
+
+              <p class="ls-caption md-caption margin-y-medium">
+                {{ product.short_description | unescape }}
+              </p>
+
+              <div layout="row" layout-xs="column" ng-hide="!product.options.length" class="padding-y-small"/>
+                <md-menu-bar>
+                  {% for option in product.options %}
+                  <md-menu md-position-mode="target-right target" style="margin-bottom:5px;">
+                    <md-button aria-label="Product {{option.name}}" ng-click="$mdOpenMenu($event)" class="ls-subheading">
+                      <strong>{{ option.name }}[[ viewOption['{{ option.id }}'] ? ':'  : '' ]]</strong><span class="selected-value">[[ viewOption['{{ option.id }}'] | lowercase ]]</span>
+                      <md-icon>arrow_drop_down</md-icon>
+                    </md-button>
+                    <md-menu-content width="2">
+                      {% for key, value in option.values %}
+                      <md-menu-item>
+                        <md-button
+                        {% if loop.first %}
+                          ng-init="changeOption('{{option.id}}','{{ key }}'); viewOption['{{ option.id }}'] = '{{ value }}';"
+                        {% endif %}
+                         ng-click="changeOption('{{option.id}}','{{ key }}'); viewOption['{{ option.id }}'] = '{{ value }}'; $root.showLoadingScreen();">
+                          <span>{{ value }}</span>
+                        </md-button>
+                      </md-menu-item>
+                      {% endfor %}
+                    </md-menu-content>
+                  </md-menu>
+                  {% endfor %}
+                </md-menu-bar>
+              </div>
+
+              {% if product.extras is not empty %}
+                <div layout="column" class="padding-y-medium">
+                  {% for extra in product.extras if extra.enabled == 1 %}
+                    <div layout="row">
+                      <md-checkbox
+                        class="md-primary"
+                        aria-label="Add {{ extra.name }}"
+                        ng-model="extra['{{extra.id}}']"
+                        id="{{ 'extra-'~index }}" {{ checkbox_state(postedExtras[extra.id], extra.id) }}
+                        name="extras[{{ extra.id }}]"
+                        data-ajax-handler="shop:product"
+                        ng-change="$root.showLoadingScreen();">
+                        Add {{ extra.name }} <span class="ls-caption md-caption">([[ {{ extra.base_price }} | currency ]])</span>
+                      </md-checkbox>
+                    </div>
+                  {% endfor %}
+                </div>
+              {% endif %}
+
+              <div layout="row" layout-xs="column" layout-align-xs="center center" layout-wrap>
+                <div layout="row" class="order-quantity" layout-align="center center" flex-order-xs="2">
+                  <md-button ng-click="order.quantity = order.quantity - 1 >= 1 ? order.quantity - 1 : 1"  class="md-icon-button">
+                    <md-icon>remove</md-icon>
+                  </md-button>
+                  <input type="text" min="1" name="quantity" readonly max="99" ng-model="order.quantity" />
+                  <md-button ng-click="order.quantity = order.quantity + 1 <= 99 ? order.quantity + 1 : 99" class="md-icon-button">
+                    <md-icon>add</md-icon>
+                  </md-button>
+                </div>
+
+                <input type="hidden" name="productId" value="{{ product.id }}"/>
+                <md-button
+                  ng-href="#"
+                  ng-click="$root.showLoadingScreen();"
+                  data-ajax-handler="shop:onAddToCart"
+                  data-ajax-redirect="{{ site_url('cart') }}"
+                  id="product-add"
+                  flex-order-xs="3"
+                  class="ls-button  no-margin-y margin-x-small">
+                  Add to cart
+                </md-button>
+
+                <md-button flex-order-xs="1" md-ink-ripple="#ED3C3C" ng-click="$root.isFavourite(product) ? $root.removeFavourite(product) : $root.addFavourite(product); product.favourite = !product.favourite" class="ls-subheading no-margin-left">
+                  <md-icon class="icon-small" ng-class="{ 'text-red': product.favourite }">[[ product.favourite ? 'favorite' : 'favorite_border' ]]</md-icon>
+                 [[ product.favourite ? 'Added!' : 'Add to favourites' ]]
+                </md-button>
+              </div>
+
+              <div layout="column" class="padding-y-medium">
+                <p class="ls-heading md-caption theme-heading">Share</p>
+                <ul class="social-icons" layout="row" layout-align="start start">
+                  <li md-ink-ripple>
+                    <a ng-href="http://pinterest.com/pin/create/button/?url=[[ current ]]&description={{ (product.name ~ ' on ' ~ theme.storeTitle) | url_encode }}" target="_blank" class="socicon pinterest">
+                      <i class="socicon-pinterest"></i>
+                    </a>
+                  </li>
+                  <li md-ink-ripple>
+                    <a ng-href="http://www.facebook.com/sharer.php?u=[[ current ]]&title={{ (product.name ~ ' on ' ~ theme.storeTitle) | url_encode }}" target="_blank" class="socicon facebook">
+                      <i class="socicon-facebook"></i>
+                    </a>
+                  </li>
+                  <li md-ink-ripple>
+                    <a ng-href="http://twitter.com/share?text={{ (product.name ~ ' on ' ~ theme.storeTitle) | url_encode }}&url=[[ current ]]" target="_blank" class="socicon twitter">
+                      <i class="socicon-twitter"></i>
+                    </a>
+                  </li>
+                </ul>
+              </div>
+
+              <div layout="column">
+                <div layout="row" layout-xs="column" layout-align-xs="center start" layout-align="space-between center" class="reviews-header">
+                  <h3 class="ls-subheading">Customer reviews</h3>
+
+                  <div layout="row" layout-align="center center" ng-hide="!customerReviews.length">
+                      <span class="md-caption ls-caption avg-reviews">Avg</span>
+                      <stars value="{{ product.rating.average }}"></stars>
+                      <span class="md-caption ls-caption">([[ customerReviews.length ]])</span>
+                  </div>
+                </div>
+                <md-divider class="margin-y-small"></md-divider>
+
+                <div layout="row" layout-xs="column" class="review-section" ng-show="customerReviews.length">
+                  <div layout="column" flex>
+                      <p class="md-body-1 line-height-15 font-14 review-comment" ng-bind-html="customerReviews[currentReview].comment"></p>
+                    <div layout="row" class="margin-y-small" layout-align="space-between center">
+                      <div layout="row" layout-xs="column">
+                        <p class="review-name md-body-1 line-height-15 font-14">- [[ customerReviews[currentReview].from_name ]]</p>
+                        <stars value="[[customerReviews[currentReview].item_rating]]"></stars>
+                      </div>
+
+                      <div layout="row" layout-align="end end" flex="20" ng-show="customerReviews.length > 1">
+                        <md-button class="review-next ls-caption" ng-click="currentReview = (currentReview + 1) <= (customerReviews.length-1) ? currentReview+1 : 0 ">Next</md-button>
+                      </div>
+
+                    </div>
+                  </div>
+                </div>
+
+                <div layout="column" ng-show="!customerReviews.length" class="padding-y-medium">
+                  <h2 class="ls-heading text-center">No reviews found</h2>
+                  <p class="ls-subheading margin-y-small text-center">Please check again later, or write your own!</p>
+                </div>
+              </div>
+
+              {% if customer %}
+              <div layout="row" layout-align="start center">
+                <md-button class="ls-button md-button-outline no-margin  opacity-50" ng-click="writeReview();">Write a review</md-button>
+              </div>
+              {% endif %}
+
+          </div>
+        </div>
+
+        <div layout="row" flex>
+          <md-tabs md-dynamic-height md-border-bottom flex>
+            <md-tab label="description">
+              <div layout="row" layout-xs="column" layout-fill>
+                <div layout="column" flex class="padding-y-medium padding-mobile" style="font-size:16px;">
+                  <p class="line-height-15 md-body-1">
+                    {{ product.description | striptags | raw }}
+                  </p>
+                </div>
+                <div layout="column" flex></div>
+              </div>
+            </md-tab>
+
+            <md-tab label="shipping details">
+              <div layout="row" layout-xs="column" layout-fill>
+                <div class="padding-y-medium padding-mobile" layout="column" flex>
+                  <ul class="theme-list">
+                    <li class="ls-subheading">
+                      <strong>Width:</strong>
+                      <span class="selected-value">
+                        {% if product.width is not empty %}
+                          {{ product.width }}
+                        {% else %}
+                          Not available
+                        {% endif %}
+                      </span>
+                    </li>
+
+                    <li class="ls-subheading">
+                      <strong>Height:</strong>
+                      <span class="selected-value">
+                        {% if product.height is not empty %}
+                          {{ product.height }}
+                        {% else %}
+                          Not available
+                        {% endif %}
+                      </span>
+                    </li>
+
+                    <li class="ls-subheading">
+                      <strong>Depth:</strong>
+                      <span class="selected-value">
+                        {% if product.depth is not empty %}
+                          {{ product.depth }}
+                        {% else %}
+                          Not available
+                        {% endif %}
+                      </span>
+                    </li>
+
+                    <li class="ls-subheading">
+                      <strong>Weight:</strong>
+                      <span class="selected-value">
+                        {% if product.weight is not empty %}
+                          {{ product.weight }}
+                        {% else %}
+                          Not available
+                        {% endif %}
+                      </span>
+                    </li>
+                  </ul>
+                </div>
+                <div layout="column" flex></div>
+              </div>
+            </md-tab>
+
+            <md-tab label="return policy">
+              <div layout="row" layout-xs="column" layout-fill>
+                <div class="padding-y-medium padding-mobile" layout="column" flex>
+                  <p class="md-body-1 line-height-15" >{{ theme.storeReturnPolicy | raw }}</p>
+                </div>
+                <div layout="column" flex></div>
+              </div>
+            </md-tab>
+          </md-tabs>
+        </div>
+
+        {% if product.crossSells.count %}
+        <div layout="column" layout-fill class="padding-y-medium padding-mobile">
+            <h3 class="ls-subheading padding-y-medium">Related products</h3>
+            {{ partial('partial-relatedproducts', { relatedProducts: product.crossSells }) }}
+        </div>
+        {% endif %}
+
+      </div>
+    </div>
+
+    <div class="input-hidden">
+      {% if product.options.count %}
+        {% for index, option in product.options %}
+          <label class="ls-subheading font-16" for="{{ 'option-'~index }}">{{ option.name }} [[ option['{{ option.id }}'] ]]</label>
+          <select id="{{ 'option-'~index }}" ng-model="options['{{ option.id }}']" watch-change name="options[{{ option.id }}]" data-ajax-handler="shop:product">
+            {% for key, value in option.values %}
+              <option value='{{ key }}' {{ option_state(postedOptions[option.id], key) }}>{{ value }}</option>
+            {% endfor %}
+          </select>
+        {% endfor %}
+      {% endif %}
+      {% for index, extra in product.extras %}
+        {% if extra.enabled %}
+            <input type="checkbox" ng-model="extra['{{extra.id}}']" id="{{ 'extra-'~index }}" {{ checkbox_state(postedExtras[extra.id], extra.id) }} name="extras[{{ extra.id }}]" watch-change data-ajax-handler="shop:product">
+        {% else %}
+            <input type="checkbox" disabled="disabled">
+        {% endif %}
+      {% endfor %}
+    </div>
+  {{ close_form() }}
+</div>
+
+  <script type="text/javascript">
+    setTimeout(function(){
+      var galleryTop = new Swiper('.gallery-top');
+      var galleryThumbs = new Swiper('.gallery-thumbs', {
+          spaceBetween: 10,
+          centeredSlides: true,
+          slidesPerView: 'auto',
+          touchRatio: 0.2,
+          slideToClickedSlide: true
+      });
+      galleryTop.params.control = galleryThumbs;
+      galleryThumbs.params.control = galleryTop;
+    },2000);
+  </script>

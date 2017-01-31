@@ -1,0 +1,18 @@
+<div flex="60" flex-xs="100" flex-sm="80" ng-controller="MailChimpCtrl">
+  <form ng-submit="mailchimpAdd(mailchimp)" novalidate name="mailchimp" flex layout="column" class="mailchimp-form">
+    <div layout="row" layout-xs="column" layout-align-xs="center center">
+      <input type="email" name="email_address" ng-keyup="resetForm(mailchimp)" ng-model="mailchimp_email" onfocus="this.placeholder = ''" onblur="this.placeholder='Email address'" placeholder="Email address" flex required />
+      <md-button type="submit" class="ls-button " flex="25" flex-xs="50">
+        Get
+      </md-button>
+    </div>
+    <input type="text" name="honey" ng-model="honey" placeholder="type a message" class="honey" />
+    <div layout="column" ng-messages="mailchimp.email_address.$error" ng-if="mailchimp.email_address.$touched && mailchimp.$submitted">
+      <div layout="row" ng-message="required" class="message error"><p>You must enter a valid email address.</p></div>
+      <div layout="row" ng-message="unknown" class="message error"><p>An unknown error occurred.  Please try again later.</p></div>
+      <div layout="row" ng-message="success" class="message success"><p>You've been added to the newsletter!</p></div>
+      <div layout="row" ng-message="email" class="message error"><p>You must enter a valid email address.</p></div>
+      <div layout="row" ng-message="exists" class="message warning"><p>You're already signed up for this list!</p></div>
+    </div>
+  </form>
+</div>

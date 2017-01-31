@@ -1,0 +1,101 @@
+<div layout="column" flex class="padding-x-medium no-padding-right no-padding-mobile margin-bottom-mobile" layout-align="center center" >
+  <div id="checkout-cart" class="padding-regular">
+    {% for item in cart.items %}
+    <div layout="row" class="cart-item border-divider padding-y" layout-align="space-between start">
+      <div flex class="cart-item-image-container">
+        <img class="cart-item-image" src="{{ item.product.images.first.thumbnail(136, 136) }}" alt="product-image" />
+      </div>
+      <div layout="column" flex="66">
+        <div layout="row">
+          <div layout="column" flex="50">
+            <a class="ls-heading-small ls-link no-link-style margin-bottom-xs" ng-href="{{ site_url('/product/') ~ item.product.url_name }}">{{ item.product.name }}</a>
+          </div>
+          <span class="checkout-price ls-heading-small text-center" flex>{{ item.quantity }}</span>
+          <span class="checkout-price ls-heading-small text-right" flex>{{ item.price()|currency }}</span>
+        </div>
+        <div layout="row">
+          <div layout="column">
+            {% if item.options %}
+            <ul>
+              {% for option in item.options %}
+                <li class="md-caption ls-caption">[[ '{{ option.value }}' | capitalize ]]</li>
+              {% endfor %}
+            </ul>
+            {% endif %}
+
+            {% if item.extras %}
+            <ul>
+              {% for extra in item.extras %}
+                <li class="md-caption ls-caption">+ [[ '{{ extra.name }}' | capitalize ]] ({{ extra.base_price | currency }})</li>
+              {% endfor %}
+            </ul>
+            {% endif %}
+          </div>
+
+        </div>
+      </div>
+    </div>
+    {% endfor %}
+
+    {% if totals.discountTotal %}
+    <div layout="row" layout-align="end center" class="border-divider padding-y">
+      <div flex="66" flex-xs="100" layout="row" layout-align="space-between center">
+        <h3 class="ls-heading-small">
+          Discount: <span class="weight-400 checkout-price">{{ coupon_code }}</span>
+        </h3>
+        <span class="checkout-price ls-heading-small">
+          {{ totals.discountTotal|currency }}
+        </span>
+      </div>
+    </div>
+    {% endif %}
+
+    <div layout="column" class="border-divider padding-y">
+      <div layout="row" layout-align="end center" class="margin-bottom-xs">
+        <div flex="66" flex-xs="100"  layout="row" layout-align="space-between center">
+          <h3 class="ls-heading-small">
+            Subtotal:
+          </h3>
+          <span class="checkout-price ls-heading-small">
+            {{ totals.subtotalNoTax|currency }}
+          </span>
+        </div>
+      </div>
+
+      {% if totals.totalShippingQuote %}
+        <div layout="row" layout-align="end center" class="margin-bottom-xs">
+          <div flex="66" flex-xs="100"  layout="row" layout-align="space-between center">
+            <h3 class="ls-heading-small">
+              Shipping:
+            </h3>
+            <span class="checkout-price ls-heading-small">
+              {{ totals.totalShippingQuote|currency }}
+            </span>
+          </div>
+        </div>
+      {% endif %}
+
+      <div layout="row" layout-align="end center">
+        <div flex="66" flex-xs="100"  layout="row" layout-align="space-between center">
+          <h3 class="ls-heading-small">
+            Taxes:
+          </h3>
+          <span class="checkout-price ls-heading-small">
+            {{ totals.totalTax|currency }}
+          </span>
+        </div>
+      </div>
+    </div>
+
+    <div layout="row" layout-align="end center" class="padding-y no-padding-bottom">
+      <div flex="66" flex-xs="100"  layout="row" layout-align="space-between center">
+        <h3 class="ls-heading-small">
+          Total:
+        </h3>
+        <span class="checkout-price ls-heading-small checkout-total">
+          {{ totals.total |currency }}
+        </span>
+      </div>
+    </div>
+  </div>
+</div>

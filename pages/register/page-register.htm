@@ -1,0 +1,74 @@
+---
+action: 'shop:login'
+template: main
+protocol: all
+published: true
+name: Register
+url: /account/register
+---
+
+<div layout="row" id="login" class="padding-y-xl background-cover" layout-align="center center" style="background-image: url('{{ theme.loginPageBackground.thumbnail(1280,'auto') }}');">
+  <div layout="column" class="content-container" layout-align="center center">
+
+    <md-card layout="column" class="no-padding ">
+
+      <div layout="row" layout-align="center center" flex class="padding-y-medium">
+        <h2 class="text-center ls-heading">Login</h2>
+      </div>
+      <md-divider></md-divider>
+        {{ open_form({'data-ajax-handler': 'shop:onLogin', 'data-validation-message' : ''}) }}
+        <div layout="column" class="padding-medium">
+          <div layout="row">
+            <md-input-container flex class="md-no-content hide-errors">
+              <label class="ls-subheading font-16">First name</label>
+              <input ng-model="first_name" name="signup[first_name]" id="signup[first_name]" type="text">
+            </md-input-container>
+          </div>
+
+          <div layout="row">
+            <md-input-container flex class="md-no-content hide-errors">
+              <label class="ls-subheading font-16">Last name</label>
+              <input ng-model="last_name" name="signup[last_name]" id="signup[last_name]" type="text">
+            </md-input-container>
+          </div>
+
+          <div layout="row">
+            <md-input-container flex class="md-no-content hide-errors">
+              <label class="ls-subheading font-16">Email address</label>
+              <input ng-model="email" name="signup[email]" id="signup[email]" type="email">
+            </md-input-container>
+          </div>
+
+          <div layout="row">
+            <md-input-container flex class="md-no-content hide-errors">
+              <label class="ls-subheading">Password</label>
+              <input ng-model="password" name="signup[password]" id="signup[password]" type="password">
+            </md-input-container>
+          </div>
+
+          <div layout="row">
+            <md-input-container flex class="md-no-content hide-errors">
+              <label class="ls-subheading">Confirm password</label>
+              <input ng-model="password_confirmation" name="signup[password_confirmation]" id="signup[password_confirmation]" type="password">
+            </md-input-container>
+          </div>
+
+          <md-checkbox class="md-primary" ng-model="accepts_marketing" name="accepts_marketing" id="accepts_marketing" aria-label="Receive promotional emails" flex>
+            Receive promotional emails
+          </md-checkbox>
+
+        </div>
+        <md-divider></md-divider>
+
+        <div layout="row" layout-align="start center" class="padding-medium">
+          <input type="hidden" name="autologin" value="1" />
+          <input type="hidden" name="redirect" value="{{ site_url('registered') }}"/>
+          <md-button class="ls-button ls-button-wide  no-margin" flex type="submit" value="Submit">
+            Create account
+          </md-button>
+        </div>
+
+        {{ close_form() }}
+      </md-card>
+    </div>
+  </div>

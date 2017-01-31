@@ -1,0 +1,24 @@
+
+{{ open_form({'class': 'custom', 'name': 'checkoutForm', 'data-validation-message' : ''}) }}
+<div layout="column">
+  {{ partial('shop-checkout-billing') }}
+  {{ partial('shop-checkout-shipping') }}
+
+  <div layout="row" layout-xs="column" layout-align="space-between center" layout-align-xs="center center">
+    <a md-ink-ripple flex-order-xs="2" class="md-button ls-button md-button-outline  opacity-50 no-margin margin-y-mobile" ng-href="{{ site_url('products') }}">Continue shopping</a>
+    <a class="md-button ls-button  ls-button-wide no-margin"
+      flex-order-xs="1"
+      md-ink-ripple
+      ng-href="#"
+      ng-click="$root.showLoadingScreen();"
+      data-ajax-handler="shop:checkout"
+      data-ajax-update="#checkout-progress=shop-checkout-progress,#checkout-steps=shop-checkout-steps"
+      compile-step="shipping_method"
+      compile-on-click="#checkout-page">
+      Continue
+    </a>
+  </div>
+</div>
+<input type="hidden" name="step" value="billing_info,shipping_info"/>
+<input type="hidden" name="nextStep" value="shipping_method"/>
+{{ close_form }}

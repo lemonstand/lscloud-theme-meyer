@@ -1,0 +1,58 @@
+---
+action: 'shop:login'
+template: main
+protocol: all
+published: true
+name: Checkout
+url: /checkout-start
+---
+
+{{ partial('partial-banner-alt', { banner: { title: 'Checkout' }}) }}
+
+<div layout="column" layout-align="center center" class="bg-white">
+  <div class="padding-y-xl content-container no-padding-mobile" layout="row" layout-xs="column" layout-align="center start">
+
+    <div flex class="padding-x-xl padding-mobile padding-y-mobile" id="checkout-guest" flex-order-xs="2">
+      <h3 class="ls-heading letter-spacing-2">New customers</h3>
+      <p class="md-caption ls-caption padding-y line-height-15">
+        Proceed to checkout and you will have an opportunity to create an account at the end if one does not already exist for you.
+      </p>
+      <div layout="row" layout-xs="column" layout-align="space-around center">
+        <md-button class="ls-caption md-caption md-lowercase" flex-order-xs="2" ng-click="$root.showLoadingScreen();">Create an account!</md-button>
+        <md-button class="ls-button  ls-button-wide" flex-order-xs="1" ng-href="{{ site_url('/checkout') }}" ng-click="$root.showLoadingScreen();">
+          Continue as guest
+        </md-button>
+      </div>
+    </div>
+
+    <div flex class="padding-x-xl padding-mobile padding-y-mobile" id="checkout-returning" flex-order-xs="1">
+      {{ open_form({'data-ajax-handler': 'shop:onLogin'}) }}
+        <h3 class="ls-heading letter-spacing-2">Returning customers</h3>
+        <p class="md-caption ls-caption padding-y line-height-15">
+          Sign in to speed up the checkout process and have your order history and payments saved to your account.
+        </p>
+        <div layout="column">
+          <div layout="row">
+            <md-input-container flex class="md-input-has-placeholder hide-errors">
+              <label for="login_email" class="ls-subheading font-16">Email address</label>
+              <input ng-model="login_email" name="email" id="login_email" type="email">
+            </md-input-container>
+          </div>
+          <div layout="row">
+            <md-input-container flex class="md-input-has-placeholder hide-errors">
+              <label class="ls-subheading">Password</label>
+              <input ng-model="password" name="password" id="login_password" type="password">
+              <a class="no-link-style font-12 ls-link float-right margin-y-small" href="{{ site_url('/account/login/forgot-password') }}">Forgot password?</a>
+            </md-input-container>
+          </div>
+          <div layout="row" layout-align="end center" class="padding-y">
+            <md-button class="ls-button  ls-button-wide no-margin" type="submit" ng-click="$root.showLoadingScreen();">
+              Sign in
+            </md-button>
+          </div>
+        </div>
+        <input type="hidden" name="redirect" value="{{ site_url('/checkout') }}"/>
+      {{ close_form() }}
+    </div>
+  </div>
+</div>

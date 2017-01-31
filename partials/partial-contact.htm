@@ -1,0 +1,41 @@
+<div layout="row" style="height:500px !important;" layout-fill id="gmap"></div>
+
+<div layout="column" class="min-width-640 padding-mobile">
+  <h2 class="ls-heading text-center padding-y-medium">Send us a message</h2>
+  {{ open_form({'data-ajax-handler': 'system:onSendMessage'}) }}
+
+  <div layout="row" layout-xs="column" flex>
+
+    <md-input-container flex class="md-input-has-placeholder hide-errors">
+      <label class="ls-subheading font-16">Full name*</label>
+      <input ng-model="name" ng-required name="fields[name]" id="contact_name" type="text">
+    </md-input-container>
+
+    <md-input-container flex class="md-input-has-placeholder hide-errors">
+      <label class="ls-subheading font-16">Email*</label>
+      <input ng-model="email" ng-required name="fields[email]" id="contact_email" type="email">
+    </md-input-container>
+  </div>
+
+  <div layout="row">
+    <md-input-container flex class="md-input-has-placeholder hide-errors">
+      <label class="ls-subheading font-16">Subject*</label>
+      <input ng-model="subject" ng-required name="fields[subject]" id="contact_subject" type="text">
+    </md-input-container>
+  </div>
+
+  <div layout="row">
+    <md-input-container class="md-block md-input-has-placeholder hide-errors" flex>
+      <label class="ls-subheading font-16">Message*</label>
+      <textarea ng-model="message" ng-required name="fields[message]" id="contact_message" md-maxlength="320" rows="5"></textarea>
+    </md-input-container>
+  </div>
+
+  <div layout="row" layout-align="center center">
+    <input type="text" name="hp" value="" style="display: none"/>
+    <md-button class="ls-button " type="submit">
+      Send message
+    </md-button>
+  </div>
+  {{ close_form() }}
+</div>

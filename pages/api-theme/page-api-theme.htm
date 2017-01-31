@@ -1,0 +1,87 @@
+---
+action: 'cmscontent:archive'
+template: json-api
+protocol: all
+published: true
+name: 'Theme data'
+url: /api/theme
+---
+{
+    "logo_image": "{{ theme.logoImage.thumbnail('auto', 'auto') }}",
+    "store_title": "{{ theme.storeTitle }}",
+    "banner": {
+      "image": "{{ theme.bannerImage.thumbnail('auto', 'auto') }}",
+      "title": "{{ theme.bannerTitleText }}",
+      "text": "{{ theme.bannerSentenceText }}",
+      "color": "{{ theme.bannerTextColor }}",
+      "button": {
+        "background": "{{ theme.secondaryColor }}",
+        "color": "{{ theme.bannerButtonTextColor }}"
+      }
+    },
+    "social": {
+      "facebook": "{{ theme.facebookUrl }}",
+      "twitter": "{{ theme.twitterUrl }}",
+      "pinterest": "{{ theme.pinterestUrl }}",
+      "instagram": "{{ theme.instagramUrl }}"
+    },
+    "mailchimp": {
+      "image": "{{ theme.signUpBackground.thumbnail(1920,'auto') }}",
+      "text": "{{ theme.signUpText }}",
+      "api_key": "{{ theme.mailchimpApiKey }}",
+      "list_id": "{{ theme.mailchimpListId }}"
+    },
+    "featured_sale":
+      {% set oneOnly = 'true' %}
+      {% for post in archives if post.type is same as ('page') %}
+      {% set isFeatured = 'false' %}
+      {% for category in post.categories %}
+        {% if category.slug is same as ('featured-sale') %}
+          {% set isFeatured = 'true' %}
+        {% endif %}
+      {% endfor %}
+
+      {% if isFeatured is same as ('true') and oneOnly is same as ('true') %}
+      {% set oneOnly = 'false' %}
+          {
+            "title": "{{ post.title }}",
+            "slug": "{{ post.slug }}",
+            "image": "{{ post.featured_image.thumbnail(1920, 'auto')|default('http://placehold.it/1000x365') }}",
+            "permalink": "{{ post.slug }}",
+            "categories": [
+              {% for category in post.categories %}
+                "{{ category.name }}"
+                {% if not loop.last %},{% endif %}
+              {% endfor %}
+            ],
+            "publish_date": "{{ post.published_on }}",
+            "excerpt": "{{ post.excerpt | unescape }}",
+            "body": "{{ post.body | unescape }}"
+          },
+      {% endif %}
+      {% endfor %}
+      "blog": [
+        {% for post in archives %}
+          {% if post.type is same as('blog') %}
+            {
+              "title": "{{ post.title }}",
+              "author": {
+                "name": "{{ post.author_name }}",
+                "image": "{{ profile_image.thumbnail(252, 'auto')|default('http://placehold.it/100x100') }}"
+              },
+              "thumbnail": "{{ post.featured_image.thumbnail(1000, 'auto')|default('http://placehold.it/1000x365') }}",
+              "permalink": "{{ post.slug }}",
+              "categories": [
+                {% for category in post.categories %}
+                  "{{ category.name }}"
+                  {% if not loop.last %},{% endif %}
+                {% endfor %}
+              ],
+              "publish_date": "{{ post.published_on }}",
+              "excerpt": "{{ post.excerpt | unescape }}"
+            }
+            {% if not loop.last %},{% endif %}
+          {% endif %}
+        {% endfor %}
+      ]
+}

@@ -1,0 +1,11 @@
+<div layout="row" layout-align="center center" class="padding-y-large banner-alt" style="background-color: {{ theme.primaryColor }}" >
+  <div class="content-container" layout="row" layout-align="center center">
+    {% if banner.title %}
+      <h1 class="ls-heading text-white text-center padding-mobile">{{ banner.title }}</h1>
+    {% else %}
+      <a href="{{ site_url('/') }}">
+        <img id="banner-alt-image" src="{{ theme.logoImageWhite.thumbnail(200, 'auto') }}" alt="theme-logo-white" />
+      </a>
+    {% endif %}
+  </div>
+</div>

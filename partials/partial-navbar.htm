@@ -1,0 +1,173 @@
+<div id="navbar" ng-controller="NavCtrl" flex>
+
+  <div layout="row" layout-align="center center" class="nav-container">
+    <div class="nav-content-container content-container height-100" layout-fill layout="row" layout-align-xs="start center" layout-align-sm="start center" layout-align="space-between center">
+      <md-button
+        hide-gt-sm
+        ng-click="openSideNav('left');"
+        class="md-icon-button search-button"
+        aria-label="menu">
+        <md-icon>menu</md-icon>
+      </md-button>
+
+      <a href="/" class="nav-home-href">
+        <img class="nav-home-img" alt="{{ theme.storeTitle }}_logo" src="{{ theme.logoImage.thumbnail('auto', 'auto') }}" />
+      </a>
+      <div layout="row" layout-align="space-between center" hide-xs hide-sm>
+        <md-nav-bar nav-bar-aria-label="navigation links" class="md-primary" md-selected-nav-item="currentNavItem">
+            <md-nav-item md-nav-href="/" name="home">Home</md-nav-item>
+            <md-nav-item md-nav-href="/company" name="company">Company</md-nav-item>
+            <md-nav-item md-nav-click="$root.toggleCategoryView();" name="products">Products</md-nav-item>
+            <md-nav-item md-nav-href="/blog" name="blog">Blog</md-nav-item>
+        </md-nav-bar>
+
+        <md-menu md-position-mode="target-right bottom">
+          <md-button aria-label="Search" class="md-icon-button" ng-click="$mdOpenMenu($event)">
+            <md-icon>search</md-icon>
+          </md-button>
+          <md-menu-content width="4" class="no-padding">
+
+            <md-autocomplete
+                md-no-cache="true"
+                md-search-text="searchText"
+                md-selected-item-change="selectedItemChange(item)"
+                md-items="item in querySearch(searchText)"
+                md-item-text="item.name"
+                md-min-length="0"
+                placeholder="Search products...">
+              <md-item-template>
+                <md-list-item class="md-2-line" ng-href="/product/[[ item.url_name ]]">
+                  <div class="md-avatar background-cover" ng-style="{ 'background-image': 'url(' + item.thumbnail + ')' }"></div>
+                  <div class="md-list-item-text">
+                    <h3 md-highlight-text="searchText" md-highlight-flags="^i">[[item.name]]</h3>
+                    <p>[[ item.price | currency ]]</p>
+                  </div>
+                </md-list-item>
+              </md-item-template>
+              <md-not-found>
+                No products matching "[[searchText]]" were found.
+              </md-not-found>
+            </md-autocomplete>
+          </md-menu-content>
+        </md-menu>
+
+        <md-button aria-label="Login" class="md-icon-button" ng-href="{% if customer %}/account{% else %}/account/login{% endif %}">
+          {% if customer %}
+            <md-icon class="text-dark-blue">person</md-icon>
+          {% else %}
+            <md-icon>person_outline</md-icon>
+          {% endif %}
+        </md-button>
+
+        <md-menu md-position-mode="target-right bottom">
+          <md-button aria-label="Open favourites" class="md-icon-button" ng-click="$mdOpenMenu($event)">
+            <md-icon ng-class="{ 'text-red': favourites.length }">[[ favourites.length ? 'favorite' : 'favorite_border' ]]</md-icon>
+          </md-button>
+          <md-menu-content class="no-padding" width="5">
+            <div id="favs-list" layout="column">
+              <div layout="row" md-ink-ripple layout-align="start center" class="relative padding-regular" ng-repeat="fav in favourites track by $index" ng-class="{ 'border-divider' : !$last }">
+                <div layout="row" flex>
+                  <img class="cart-item-image" ng-src="[[ fav.thumbnail ]]" alt="product-image" />
+                </div>
+                <div layout="column" flex="50">
+                  <a layout="row" class="no-link-style ls-subheading margin-bottom-small" ng-href="/product/[[ fav.url_name ]]">[[ fav.name ]]</a>
+                  <p class="md-caption">
+                    [[ '$' + (fav.price | trailingZero) ]]
+                  </p>
+                </div>
+                <div layout="column" layout-align="center center">
+                  <md-button class="md-secondary md-icon-button" ng-click="$root.removeFavourite(fav)" aria-label="Remove favourite">
+                    <md-icon>cancel</md-icon>
+                  </md-button>
+                </div>
+              </div>
+              <p ng-show="!favourites.length" class="ls-subheading text-center padding-y-medium">No favourites to show.</p>
+            </div>
+          </md-menu-content>
+        </md-menu>
+
+        <md-menu md-position-mode="target-right bottom">
+          <md-button aria-label="Open cart" class="md-icon-button" ng-click="$mdOpenMenu($event)">
+            <md-icon {% if cart.items.count %} class="text-blue" {% endif %}>shopping_cart</md-icon>
+          </md-button>
+          <md-menu-content class="no-padding" width="5" >
+            <div id="mini-cart" layout="column">
+
+            {% if cart.items.count %}
+              {% for item in cart.items %}
+                <div layout="row" md-ink-ripple layout-align="start center" class="relative padding-regular border-divider">
+                  <div layout="row" flex>
+                    <img class="cart-item-image" src="{{ item.product.images.first.thumbnail(80, 'auto') }}" alt="product-image" />
+                  </div>
+                  <div layout="column" flex="50">
+                    <a layout="row" class="no-link-style ls-subheading margin-bottom-small" ng-href="{{ site_url('/product/') ~ item.product.url_name }}">{{ item.product.name }}</a>
+                    <p class="md-caption">
+                      <span class="ls-caption">{{ item.quantity }} &times;</span>
+                      [[ '$' + ({{ item.price }} | trailingZero) ]]
+                    </p>
+                  </div>
+                  <div layout="column" layout-align="center center">
+                    <md-button aria-label="Remove from cart" class="md-icon-button" ng-href="#" data-ajax-handler="shop:cart" data-ajax-extra-fields="delete_item='{{ item.key }}'" reload-after-ajax>
+                      <md-icon>cancel</md-icon>
+                    </md-button>
+                  </div>
+                </div>
+              {% endfor %}
+              <a layout="row" layout-align="center center" class="ls-button md-button no-margin padding-y text-white no-link-style" ng-href="{{ site_url('cart') }}" md-ink-ripple>
+                <span class="ls-subheading">Checkout</span>
+              </a>
+            {% else %}
+              <p class="ls-subheading text-center padding-y-medium">Your cart is empty.</p>
+            {% endif %}
+            </div>
+          </md-menu-content>
+        </md-menu>
+      </div>
+    </div>
+  </div>
+
+  <div>
+    <div layout="row" layout-align="center center" id="category-menu" ng-click="$root.categoryViewActive = false;" ng-class="{ 'category-menu-active': $root.categoryViewActive }">
+      <div layout="row" layout-fill class="content-container">
+        <div layout="column" class="padding-y-medium padding-x-medium" flex ng-repeat="column in categories track by $index">
+          <div class="row theme-column" ng-repeat="row in column track by $index">
+            <a ng-href="/categories/[[row.url_name]]" class="ls-heading md-caption theme-heading no-link-style">[[row.name]]</a>
+            <ul class="theme-list">
+              <li class="md-caption" ng-repeat="category in row.children track by $index">
+                <a ng-href="/categories/[[row.url_name]]?category=[[ category.url_name ]]">[[ category.name ]]</a>
+              </li>
+            </ul>
+          </div>
+        </div>
+        <div layout="column" flex="33" class="featured-ad background-cover padding-medium text-left text-white" style="background-image: url({{ theme.megaMenuAdTileImage.thumbnail(400, 'auto') }});">
+
+          <h2 class="ls-heading">{{ theme.megaMenuAdTileTitle }}</h2>
+          <div layout="row" layout-align="start center">
+            <md-button href="{{ theme.megaMenuAdTileLink }}" class="md-lowercase md-body-1 no-margin-left">
+              {{ theme.megaMenuAdTileLinkText }}
+            </md-button>
+          </div>
+
+        </div>
+      </div>
+    </div>
+
+    <md-backdrop ng-show="$root.categoryViewActive" ng-click="$root.categoryViewActive = false;"></md-backdrop>
+  </div>
+
+  <div layout="row" layout-align="center center" class="padding-y-small" id="flash-container" md-colors="::{ backgroundColor: 'warn'}" ng-show="$root.showFlash">
+    <div layout="row" flex layout-fill>
+      <div flex></div>
+      <div flex="50" layout="column" layout-align="center center">
+        <div ng-bind-html="$root.flashMessage" id="flash-message"></div>
+      </div>
+      <div flex layout="row" layout-align="end center">
+        <md-button class="md-icon-button" aria-label="Close flash" ng-click="$root.hideFlash(0);">
+          <md-icon>cancel</md-icon>
+        </md-button>
+      </div>
+    </div>
+
+  </div>
+
+</div>

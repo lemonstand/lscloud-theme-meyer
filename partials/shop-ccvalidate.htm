@@ -1,0 +1,132 @@
+<div ng-controller="CreditCardCtrl" layout="row" layout-xs="column" class="padding-y-medium">
+    <div layout="column" flex="66" flex-xs="100">
+
+      <div layout="row" layout-xs="column" class="padding-y">
+        <md-input-container flex class="md-input-has-placeholder hide-errors">
+          <label class="ls-subheading">Cardholder first name *</label>
+          <input ng-model="ccinfo.fname" type="text" id="firstName" name="firstName">
+        </md-input-container>
+
+        <md-input-container flex class="md-input-has-placeholder hide-errors">
+          <label class="ls-subheading">Cardholder last name *</label>
+          <input ng-model="ccinfo.lname" type="text" id="lastName" name="lastName">
+        </md-input-container>
+      </div>
+
+      <div layout="column" id="card-preview" class="padding-x max-width-500" ng-class="{'card-active': (ccinfo.type).length}">
+
+        <div layout="row" id="card-type-row" layout-align="end center" class="padding-y-small no-padding-bottom">
+          <img alt="mastercard-icon" class="card-type" ng-show="ccinfo.type === 'MASTERCARD'" src="{{ 'images/icons/mastercard.png' | theme_resource }}" />
+          <img alt="visa-icon" class="card-type" ng-show="ccinfo.type === 'VISA'" src="{{ 'images/icons/visa.png' | theme_resource }}" />
+        </div>
+
+        <div layout="row">
+          <md-input-container flex class="md-input-has-placeholder">
+            <label class="ls-subheading">Card number</label>
+            <input
+              type="text"
+              name="cardNumber"
+              ng-model="ccinfo.number"
+              required
+              credit-card-type
+              ng-pattern="/^[0-9]+$/"
+              ng-minlength="15"
+              maxlength="19"
+              placeholder="&times;&times;&times;&times; &times;&times;&times;&times; &times;&times;&times;&times; &times;&times;&times;&times;" >
+              <ul ng-messages="paymentForm.cardNumber.$error" ng-show="paymentForm.submitAttempt && !paymentForm.$valid">
+                <li ng-message="minlength">Credit card must be 15-19 digits</li>
+                <li ng-message="pattern">Credit card must consist of only numbers</li>
+                <li ng-message="invalid">Credit card must be a valid Amex, Visa, or Mastercard</li>
+                <li ng-message="required">Credit card required</li>
+              </ul>
+          </md-input-container>
+        </div>
+
+        <div layout="row" layout-xs="column" class="padding-y-small no-padding-top">
+          <div layout="row" flex id="expiry" class="padding-x no-padding-left no-padding-mobile">
+            <md-input-container flex class="md-input-has-placeholder">
+              <label class="ls-subheading font-16">Exp date</label>
+              <select ng-model="ccinfo.month" name="expiryMonth" card-expiration required>
+                <option ng-repeat="month in months" value="[[$index+1]]">[[$index+1]]</option>
+              </select>
+              <ul ng-messages="paymentForm.expiryMonth.$error" ng-show="paymentForm.submitAttempt && !paymentForm.$valid">
+                <li ng-message="required">Expiration month required</li>
+              </ul>
+            </md-input-container>
+
+            <span layout="row" layout-align="center start" class="padding-x card-expiry-divider" ng-class="{'text-white': (ccinfo.type).length}">
+              /
+            </span>
+
+            <md-input-container flex class="md-input-has-placeholder">
+              <label class="ls-subheading font-16"></label>
+              <select ng-model="ccinfo.year" name="expiryYear" required>
+                <option ng-repeat="year in [] | range:currentYear:currentYear+13">[[year]]</option>
+              </select>
+              <ul ng-messages="paymentForm.expiryYear.$error" ng-show="paymentForm.submitAttempt && !paymentForm.$valid">
+                <li ng-message="required">Expiration year required</li>
+                <li ng-message="invalid">Provided expiration date is invalid</li>
+              </ul>
+            </md-input-container>
+          </div>
+
+          <div layout="row" flex id="cvv" class="padding-x no-padding-right no-padding-mobile">
+            <md-input-container flex class="md-input-has-placeholder">
+              <label class="ls-subheading">CVC Code</label>
+              <input
+                type="text"
+                name="securityCode"
+                ng-model="ccinfo.securityCode"
+                placeholder="&times;&times;&times;"
+                required
+                ng-pattern="/^[0-9]+$/"
+                ng-minlength="3"
+                maxlength="4">
+
+                <ul ng-messages="paymentForm.securityCode.$error" ng-show="paymentForm.submitAttempt && !paymentForm.$valid">
+                  <li ng-message="pattern">Security code must contain only numbers</li>
+                  <li ng-message="minlength">Security code must be 3-4 digits</li>
+                  <li ng-message="required">Security code required</li>
+                </ul>
+            </md-input-container>
+          </div>
+        </div>
+      </div>
+
+    </div>
+
+    <div layout="column" flex id="card-steps" class="padding-y padding-x-medium no-padding-right no-padding-x-mobile padding-y-mobile">
+      <p class="ls-heading letter-spacing-none">Payment info</p>
+      <ul class="card-steps-list">
+        <li class="card-step md-caption" layout="row" layout-align="start center" ng-class="{'ls-caption': !paymentForm.cardNumber.$valid}">
+          <div class="step-icon" layout="row" layout-align="center center">
+            <span class="icon" ng-hide="paymentForm.cardNumber.$valid">
+              &bull;
+            </span>
+            <md-icon aria-label="Card number - done"  class="font-16 text-yellow" ng-show="paymentForm.cardNumber.$valid">done</md-icon>
+          </div>
+          Card number
+        </li>
+        <li class="card-step md-caption"  layout="row" layout-align="start center" ng-class="{'ls-caption': !paymentForm.expiryMonth.$valid || !paymentForm.expiryYear.$valid}">
+          <div class="step-icon" layout="row" layout-align="center center">
+            <span class="icon" ng-hide="paymentForm.expiryMonth.$valid && paymentForm.expiryYear.$valid">
+              &bull;
+            </span>
+            <md-icon aria-label="Expiry - done" class="font-16 text-yellow" ng-show="paymentForm.expiryMonth.$valid && paymentForm.expiryYear.$valid">done</md-icon>
+          </div>
+          Expiry date
+        </li>
+        <li class="card-step md-caption" layout="row" layout-align="start center" ng-class="{'ls-caption': !paymentForm.securityCode.$valid}">
+          <div class="step-icon" layout="row" layout-align="center center">
+            <span class="icon" ng-hide="paymentForm.securityCode.$valid">
+              &bull;
+            </span>
+            <md-icon aria-label="CVC - done" class="font-16 text-yellow" ng-show="paymentForm.securityCode.$valid">
+              done
+            </md-icon>
+          </div>
+          CVC code
+        </li>
+      </ul>
+    </div>
+</div>

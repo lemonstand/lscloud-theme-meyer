@@ -1,0 +1,29 @@
+{
+  "name": "poet-ls-meyer",
+  "description": "The Meyer theme for LemonStand, made by POET",
+  "main": "/templates/main.htm",
+  "authors": [
+    "Matt Neill"
+  ],
+  "license": "MIT",
+  "keywords": [
+    "lemonstand",
+    "poet",
+    "ecommerce"
+  ],
+  "homepage": "https://github.com/matt-neill/lemonstand-meyer",
+  "private": true,
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "resources/bower_components",
+    "test",
+    "tests"
+  ],
+  "appPath": "resources",
+  "moduleName": "lemonstand",
+  "dependencies": {
+    "angular": "^1.5.8"
+  }
+}
