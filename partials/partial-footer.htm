@@ -16,12 +16,10 @@
       </div>
 
       <div layout="column" class="theme-column" flex flex-xs="100" flex-sm="50">
-        <p class="ls-heading md-caption theme-heading">Product</p>
+        <p class="ls-heading md-caption theme-heading">Categories</p>
         <ul class="theme-list" layout-xs="row" layout-wrap>
           {% for category in categories %}
-            {% if category.children is not empty %}
-              <li class="md-caption" flex-xs="50"><a href="{{ site_url('/categories/') ~ category.url_name }}">{{ category.name }}</a></li>
-            {% endif %}
+            <li class="md-caption" flex-xs="50"><a href="{{ site_url('/categories/') ~ category.url_name }}">{{ category.name }}</a></li>
           {% endfor %}
         </ul>
       </div>

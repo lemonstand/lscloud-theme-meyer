@@ -1,4 +1,6 @@
-# Bones - A barebones LemonStand theme
+# Meyer - A LemonStand theme
+
+The Meyer theme, made by the POET team in Waterloo.
 
 ## Running Gulp
 

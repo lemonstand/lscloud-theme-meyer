@@ -31,7 +31,7 @@ url: /api/theme
       "api_key": "{{ theme.mailchimpApiKey }}",
       "list_id": "{{ theme.mailchimpListId }}"
     },
-    "featured_sale":
+    "featured_sale": {
       {% set oneOnly = 'true' %}
       {% for post in archives if post.type is same as ('page') %}
       {% set isFeatured = 'false' %}
@@ -43,7 +43,6 @@ url: /api/theme
 
       {% if isFeatured is same as ('true') and oneOnly is same as ('true') %}
       {% set oneOnly = 'false' %}
-          {
             "title": "{{ post.title }}",
             "slug": "{{ post.slug }}",
             "image": "{{ post.featured_image.thumbnail(1920, 'auto')|default('http://placehold.it/1000x365') }}",
@@ -57,9 +56,9 @@ url: /api/theme
             "publish_date": "{{ post.published_on }}",
             "excerpt": "{{ post.excerpt | unescape }}",
             "body": "{{ post.body | unescape }}"
-          },
       {% endif %}
       {% endfor %}
+      },
       "blog": [
         {% for post in archives %}
           {% if post.type is same as('blog') %}
