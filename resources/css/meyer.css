@@ -79,7 +79,7 @@
   md-tab-item span,
   input.ls-search,
   md-menu-content.md-menu-bar-menu.md-dense .md-button span,
-  .ls-subheading { letter-spacing: 1.5px; text-transform: uppercase !important; font-size: 0.8125em !important; font-weight: 500 !important; }
+  .ls-subheading { letter-spacing: 1.5px; text-transform: uppercase !important; font-size: 0.8125em !important; font-weight: 500 !important; padding-left: 5px; }
 
   md-tab-item.md-active span { color:#171717; }
   md-tabs md-ink-bar { color:#171717; background: #171717;}
