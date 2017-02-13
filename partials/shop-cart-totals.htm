@@ -1,7 +1,7 @@
-<div layout="column" flex layout-align="center end">
+<div layout="column" layout-align="center end">
   <div layout="row" layout-align="end center">
-    <p class="ls-heading letter-spacing-none text-right" flex>Total:</p>
-    <p class="ls-caption md-caption font-16" flex>
+    <p class="ls-heading letter-spacing-none text-right">Total:</p>
+    <p class="ls-caption md-caption font-16">
       <span class="padding-x-medium">
         {{ totals.total | currency }}
       </span>
@@ -9,8 +9,8 @@
   </div>
   {% if totals.discountTotal > 0 %}
   <div layout="row" layout-align="end center" class="margin-top-small">
-    <p class="ls-heading letter-spacing-none text-right" flex>Total savings:</p>
-    <p class="ls-caption md-caption text-blue" flex>
+    <p class="ls-heading letter-spacing-none text-right">Total savings:</p>
+    <p class="ls-caption md-caption text-blue font-16" >
       <span class="padding-x-medium">
         {{ totals.discountTotal | currency }}
       </span>
