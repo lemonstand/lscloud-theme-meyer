@@ -3,6 +3,11 @@
 
     <div class="content-container" layout-fill layout="column">
       <md-divider layout="row"></md-divider>
+      <div layout="row" layout-align="space-around center" flex>
+        <a class="ls-heading font-13 md-caption theme-heading no-link-style ls-link" href="{{ site_url('/company') }}">Company</a>
+        <a class="ls-heading font-13 md-caption theme-heading no-link-style ls-link" href="{{ site_url('/products') }}">Product</a>
+        <a class="ls-heading font-13 md-caption theme-heading no-link-style ls-link" href="{{ site_url('/contact') }}">Contact</a>
+      </div>
       <div layout="row" class="padding-y-medium" layout-align="space-between center">
         <div layout="row" layout-align="center center" flex>
           <a href="/" class="footer-nav-link">
@@ -12,15 +17,7 @@
             [[ $root.date | date: 'yyyy' ]] {{ theme.storeTitle }}
           </p>
         </div>
-
-        <div layout="row" layout-align="space-around center" flex>
-          <a class="ls-heading font-13 md-caption theme-heading no-link-style ls-link" href="{{ site_url('/company') }}">Company</a>
-          <a class="ls-heading font-13 md-caption theme-heading no-link-style ls-link" href="{{ site_url('/products') }}">Product</a>
-          <a class="ls-heading font-13 md-caption theme-heading no-link-style ls-link" href="{{ site_url('/contact') }}">Contact</a>
-        </div>
-
         <div flex></div>
-
       </div>
     </div>
   </div>
