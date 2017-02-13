@@ -300,6 +300,28 @@ url: '/product/:urlName'
                 <div layout="column" flex></div>
               </div>
             </md-tab>
+
+            {% if product.priceTiers|length > 0 %}
+            <md-tab label="volumetric pricing">
+              <div layout="row" layout-xs="column">
+                <div class="padding-y-medium padding-mobile" layout="column" flex>
+                  <ul class="theme-list">
+                    {% for priceTiers in product.priceTiers %}
+                    <li class="ls-subheading">
+                      <div layout="row" layout-align="space-between">
+                        <strong>Quantity: </strong>
+                        <span class="selected-value">{{ priceTiers.quantity }}</span>
+                        <strong>Price: </strong>
+                        <span class="selected-value">{{ priceTiers.price|currency }}</span>
+                      </div>
+                      <md-divider layout="row"></md-divider>
+                    </li>
+                    {% endfor %}
+                  </ul>
+                </div>
+              </div>
+            </md-tab>
+            {% endif %}
           </md-tabs>
         </div>
 
