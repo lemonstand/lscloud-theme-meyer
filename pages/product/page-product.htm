@@ -301,6 +301,7 @@ url: '/product/:urlName'
               </div>
             </md-tab>
 
+            {% if product.priceTiers|length > 0 %}
             <md-tab label="volumetric pricing">
               <div layout="row" layout-xs="column">
                 <div class="padding-y-medium padding-mobile" layout="column" flex>
@@ -320,6 +321,7 @@ url: '/product/:urlName'
                 </div>
               </div>
             </md-tab>
+            {% endif %}
           </md-tabs>
         </div>
 
