@@ -62,10 +62,12 @@ url: '/product/:urlName'
               <h1 class="ls-heading margin-y-small">{{ product.name }}</h1>
               <div layout="row" layout-align="start center" class="padding-bottom-small">
                 <p class="ls-subheading ls-caption">{{ product.sku }}</p>
-                <a href="{{ site_url('/products/') ~ '?brand=' ~ product.manufacturer.url_name }}" class="ls-subheading no-link-style ls-caption ls-link margin-x-medium">By {{ product.manufacturer.name }}</a>
-                {% if product.in_stock_amount %}
+                {% if product.manufacturer %}
+                  <a href="{{ site_url('/products/') ~ '?brand=' ~ product.manufacturer.url_name }}" class="ls-subheading no-link-style ls-caption ls-link margin-x-medium">By {{ product.manufacturer.name }}</a>
+                {% endif %}
+                {% if product.in_stock_amount > 0 %}
                 <p class="ls-subheading ls-caption">{{ product.in_stock_amount }} in stock</p>
-                {% else %}
+                {% elseif product.track_inventory %}
                 <p class="ls-subheading ls-caption text-red">Out of stock</p>
                 {% endif %}
               </div>
