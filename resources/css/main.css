@@ -639,7 +639,7 @@
   md-list-item.large-padding { padding: 0 60px; }
   /*.md-avatar { background-color: #ddd; }*/
   md-sidenav,
-  md-backdrop { position: fixed; }
+  md-backdrop { position: absolute; }
 
 
   md-slider[md-discrete] { margin-top:10px; }
