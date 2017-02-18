@@ -96,11 +96,13 @@
                 </md-menu-content>
               </md-menu>
             </md-menu-bar>
+            <md-menu-bar layout-xs="column" >
             <div layout-align="center center">
                 <md-checkbox ng-model="showSaleItems" ng-change="toggleSaleItems();" id="toggle_onsale" aria-label="Show sale items" layout-padding>
                  On Sale
                 </md-checkbox>
             </div>
+            </md-menu-bar>
           </div>
           <div ng-hide="productsLoading" class="padding-y-medium padding-mobile">
             {{ partial('partial-product-tiles') }}
