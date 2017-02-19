@@ -1,4 +1,4 @@
-  <li layout="row" flex class="ls-cart-heading" hide-xs>
+<li layout="row" flex class="ls-cart-heading" hide-xs>
     <h3 flex="50" class="ls-heading text-grey font-13 letter-spacing-none">Product</h3>
     <h3 flex="35" class="ls-heading text-grey font-13 letter-spacing-none">QTY</h3>
     <h3 flex class="ls-heading text-grey font-13 letter-spacing-none">Price</h3>
@@ -44,11 +44,11 @@
       </div>
       <div class="cart-item-qty" layout="row" flex="35" flex-xs="100" layout-align="space-between center">
         <div layout="row" ng-init="items['{{ item.key }}'] = { qty: {{ item.quantity }}, initialQty: {{ item.quantity }}}; " class="order-quantity" layout-align="center center" flex-order-xs="2">
-          <a ng-href="#" ng-click="items['{{ item.key }}'].qty = items['{{ item.key }}'].qty - 1 >= 1 ? items['{{ item.key }}'].qty - 1 : 1; $root.showLoadingScreen();" md-ink-ripple class="md-button md-icon-button" compile-on-click="#cart-total">
+          <a ng-href="#" ng-click="items['{{ item.key }}'].qty = items['{{ item.key }}'].qty - 1 >= 1 ? items['{{ item.key }}'].qty - 1 : 1; $root.showLoadingScreen();" md-ink-ripple class="md-button md-icon-button" compile-on-click="#cart-total, #cart-items">
             <md-icon>remove</md-icon>
           </a>
-          <input type="text" min="1" readonly max="99" ng-model="items['{{ item.key }}'].qty" value="{{ item.quantity }}" name="item_quantity[{{ item.key }}]" data-ajax-handler="shop:cart" watch-change data-ajax-update="#cart-total=shop-cart-totals" />
-          <a ng-href="#" ng-click="items['{{ item.key }}'].qty = items['{{ item.key }}'].qty + 1 <= 99 ? items['{{ item.key }}'].qty + 1 : 99; $root.showLoadingScreen();" md-ink-ripple class="md-button md-icon-button" compile-on-click="#cart-total">
+          <input type="text" min="1" readonly max="99" ng-model="items['{{ item.key }}'].qty" value="{{ item.quantity }}" name="item_quantity[{{ item.key }}]" data-ajax-handler="shop:cart" watch-change data-ajax-update="#cart-total=shop-cart-totals, #cart-items=shop-cart-items" />
+          <a ng-href="#" ng-click="items['{{ item.key }}'].qty = items['{{ item.key }}'].qty + 1 <= 99 ? items['{{ item.key }}'].qty + 1 : 99; $root.showLoadingScreen();" md-ink-ripple class="md-button md-icon-button" compile-on-click="#cart-total, #cart-items">
             <md-icon>add</md-icon>
           </a>
         </div>
