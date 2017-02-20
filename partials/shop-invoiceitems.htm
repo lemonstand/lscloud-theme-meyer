@@ -17,19 +17,19 @@
         </div>
         
        <div flex="20" flex-xs="100">
-        <strong show-xs>qty:</strong><i>{{ item.quantity|number_format(0) }}</i>
+        <strong hide show-xs>qty:</strong><i>{{ item.quantity|number_format(0) }}</i>
        </div>
        
        <div flex="20" flex-xs="100">
-       <strong show-xs>unit price:</strong><i>{{ item.pivot.price|currency }}</i>
+       <strong hide show-xs>unit price:</strong><i>{{ item.pivot.price|currency }}</i>
        </div>
        
        <div flex="20" flex-xs="100">
-        <strong show-xs>discount:</strong> <i>{{ 0|currency }}</i>
+        <strong hide show-xs>discount:</strong> <i>{{ 0|currency }}</i>
        </div>
        
        <div flex="20" flex-xs="100">
-        <strong show-xs>total:</strong><i>{{ (item.quantity *item.pivot.price)|currency }}</i>
+        <strong hide show-xs>total:</strong><i>{{ (item.quantity *item.pivot.price)|currency }}</i>
        </div>
    </div>
 
