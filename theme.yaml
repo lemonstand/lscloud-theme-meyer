@@ -9,6 +9,7 @@ customFields:
     blogOnHomepage: { type: checkbox, title: 'Show recent blog posts on the home page', default: '1' }
     megaMenuAdTile: { type: checkbox, title: 'Show featured ad tile in products dropdown menu', default:'1' }
     featuredAdPanel: { type: checkbox, title: 'Show featured ad panel on the home page', default: '1' }
+    showUpsellCrossSell: { type: checkbox, title: 'Show upsell or Cross sell Items in the cart', default: '1' }
 
     faviconImage: { type: image, title: 'Favicon Image', default: '', comment: 'Upload your favicon! Recommended dimmensions of 16px by 16px. You must use a .png file.' }
     logoImage: { type: image, title: 'Logo Image', default: '@images/meyer-logo.png', comment: 'Upload your logo! Recommended height of 80px.' }
