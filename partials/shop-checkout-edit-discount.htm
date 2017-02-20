@@ -1,0 +1,22 @@
+<div layout="column" layout-xs="column" flex ng-show="$scope.isUpdateCoupon">
+    <div layout="row">
+        <h3 class="ls-heading letter-spacing-2 padding-y-medium">Discount Code</h3>
+    </div>
+    <div layout="row">
+        <md-input-container md-no-float flex class="hide-errors no-margin-left no-margin-mobile">
+          <label class="ls-subheading font-16">Discount Code</label>
+          <input name="coupon" id="coupon" placeholder="Enter discount code" type="text" value="{{coupon_code}}">
+               <md-button
+          class="ls-button ls-button-wide  no-margin-left"
+          id="discount-button"
+          ng-href="#"
+          ng-click="$root.showLoadingScreen(); $scope.isUpdateCoupon = !$scope.isUpdateCoupon;"
+          data-ajax-handler="shop:cart"
+          data-ajax-update="#checkout-minicart=shop-checkout-cart"
+          compile-on-click="#checkout-minicart"
+          value="Update code">
+          Apply
+        </md-button>
+        </md-input-container>
+    </div>
+</div>
