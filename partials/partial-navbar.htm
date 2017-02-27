@@ -19,6 +19,11 @@
             <md-nav-item md-nav-href="/company" name="company">Company</md-nav-item>
             <md-nav-item md-nav-click="$root.toggleCategoryView();" name="products">Products</md-nav-item>
             <md-nav-item md-nav-href="/blog" name="blog">Blog</md-nav-item>
+            {% if customer %}
+              {{ open_form({'data-ajax-handler': 'shop:logout', 'data-validation-message' : ''}) }}
+                <md-button type="submit" value="Log Out" class="md-logout-mobile">Log Out</md-button>
+              {{ close_form()}}
+            {% endif %}
         </md-nav-bar>
 
         <md-menu md-position-mode="target-right bottom">

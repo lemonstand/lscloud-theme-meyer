@@ -23,6 +23,13 @@
       <md-list-item ng-click="closeSidenav('left')" ng-href="{{ site_url('/cart') }}">
         <p class="ls-heading letter-spacing-2">Cart</p>
       </md-list-item>
+        {% if customer %}
+          {{ open_form({'data-ajax-handler': 'shop:logout', 'id': 'logoutForm'}) }}
+            <md-list-item onClick="angular.element('#logoutForm').submit();" ng-href="{{ site_url('/') }}">
+              <p class="ls-heading letter-spacing-2">Log Out</p>
+            </md-list-item>
+          {{ close_form() }}
+        {% endif %}
     </md-list>
   </div>
 
