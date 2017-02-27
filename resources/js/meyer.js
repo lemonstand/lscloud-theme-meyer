@@ -987,6 +987,8 @@ angular.module('lsAngularApp')
         },
       });
     });
+    
+    $scope.isUpdateCoupon = false;
 
     $scope.nextStep = function(){
       $(window).on('onAfterAjaxUpdate', function(e){
