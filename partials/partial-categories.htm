@@ -1,5 +1,4 @@
-
-    {% tree categories %}
+{% tree categories %}
 
     {% set parentCategories = 0 %}{# Sets variable #}
     {% for category in tree.items %}
@@ -31,7 +30,27 @@
                 "meta_keywords": "{{ child.meta_keywords | raw }}",
                 "products_count": {{ child.products_count }},
                 "is_visible": {{ child.is_visible is same as(1) ? "true" : "false" }},
-                "thumbnail": "{{ category.images.first.thumbnail(800, 'auto')|default('http://placehold.it/460x300') }}"
+                "thumbnail": "{{ category.images.first.thumbnail(800, 'auto')|default('http://placehold.it/460x300') }}",
+                "children": [
+                    {% if child.children | length %}
+                        {% for grandChild in child.children%}
+                        {
+                            "id": {{ grandChild.id }},
+                            "name": "{{ grandChild.name | raw }}",
+                            "url_name": "{{ grandChild.url_name | raw }}",
+                            "parent_name": "{{ grandChild.parent.name | raw }}",
+                            "parent_id": "{{ grandChild.parent.id }}",
+                            "api_code": "{{ grandChild.api_code }}",
+                            "meta_keywords": "{{ grandChild.meta_keywords | raw }}",
+                            "products_count": {{ grandChild.products_count }},
+                            "is_visible": {{ grandChild.is_visible is same as(1) ? "true" : "false" }},
+                            "thumbnail": "{{ category.images.first.thumbnail(800, 'auto')|default('http://placehold.it/460x300') }}",    
+                        }
+                        
+                        {% endfor %}
+                    {% endif %}
+                    
+                ]
               }
               {% if not loop.last %},{% endif %}
               {% endfor %}
