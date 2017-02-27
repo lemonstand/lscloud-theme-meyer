@@ -939,15 +939,16 @@ angular.module('lsAngularApp')
         $scope.blog = results.data.blog;
         $scope.categories = [];
         $scope.months = [];
-        var dates = [];
+        let dates = [];
 
         angular.forEach($scope.blog, function(post, index){
           // group the posts by date (for the archive panel)
-            var d = Date.parse(post.publish_date);
+            let d = Date.parse(post.publish_date);
             d = new Date(d);
-            var month = d.getMonth();
-            var year = d.getFullYear();
-            var date = month+'/01/'+year;
+            let month = d.getMonth() + 1;
+            let year = d.getFullYear();
+            let date = month +'/01/'+year;
+           
             if (dates.indexOf(date) === -1){
               dates.push(date);
               $scope.months.push(new Date(date));
@@ -956,6 +957,7 @@ angular.module('lsAngularApp')
               //pass to front-end archive list
               if ( $scope.categories.indexOf(category) === -1 ){
                 $scope.categories.push(category);
+               
               }
             })
         });
