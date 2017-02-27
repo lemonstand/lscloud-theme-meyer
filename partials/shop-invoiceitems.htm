@@ -1,0 +1,37 @@
+{% for shipment in invoice.shipments %}
+   <div layout="row" layout-align="space-between center" style="background-color: {{ theme.primaryColor }}; color: #FFF" layout-padding hide-xs>
+        <div flex="20">Item</div>
+        <div flex="20">Quantity</div>
+        <div flex="20">Unit Price</div>
+        <div flex="20">Discount</div>
+        <div flex="20">Total</div>
+    </div>
+
+    {% for item in shipment.shipmentItems %}
+    
+    <div layout="row" layout-xs="column" layout-align="space-between center" layout-align-xs="center start" layout-padding class="no-padding-left">
+
+        <div flex="20" flex-xs="100">
+            <h3 class="ls-heading letter-spacing-2 padding-y-medium">{{ item.product.name }}</h3>
+            <img src="{{ item.product.images.first.thumbnail(80, 80) }}"/>
+        </div>
+        
+       <div flex="20" flex-xs="100">
+        <strong hide show-xs>qty:</strong><i>{{ item.quantity|number_format(0) }}</i>
+       </div>
+       
+       <div flex="20" flex-xs="100">
+       <strong hide show-xs>unit price:</strong><i>{{ item.pivot.price|currency }}</i>
+       </div>
+       
+       <div flex="20" flex-xs="100">
+        <strong hide show-xs>discount:</strong> <i>{{ 0|currency }}</i>
+       </div>
+       
+       <div flex="20" flex-xs="100">
+        <strong hide show-xs>total:</strong><i>{{ (item.quantity *item.pivot.price)|currency }}</i>
+       </div>
+   </div>
+
+    {% endfor %}
+  {% endfor %}

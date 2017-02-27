@@ -20,6 +20,26 @@ url: '/receipt/:paymenthash'
             You will be sent a confirmation email shortly with your receipt.
           </p>
         </div>
+        
+           {% if invoice %}
+            <div layout="row">
+                <h3 class="ls-heading letter-spacing-2 padding-y-medium">Your Order</h3>
+            </div>
+             <div layout="column">
+               {{ partial('shop-invoiceitems') }}
+             </div>
+            {% if invoice.isPaid() %}
+           <div layout="column">
+                   {{ partial('shop-invoicetotals') }}
+           </div>
+            {% else %}
+              <p><a class="button" href="{{ site_url('review/'~order.order_hash) }}">Pay the order</a></p>
+            {% endif %}
+           {% else %}
+              <p class="flash error">Invoice not found.</p>
+           {% endif %}
+      
+        
         <div layout="row">
           <md-button class="ls-button md-button-outline  opacity-50 no-margin" ng-href="{{ site_url('products') }}">Continue shopping</md-button>
         </div>
