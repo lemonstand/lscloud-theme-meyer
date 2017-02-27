@@ -593,20 +593,22 @@ angular.module('lsAngularApp')
       limit: $scope.productListLimit
     };
 
-    $scope.resetFilters = function(){
+   $scope.resetFilters = function(){
       $scope.filters.price = null;
       $scope.filters.brand = null;
       $scope.displayBrand = null;
       $scope.filters.search = null;
       $scope.filters.sale = false;
     }
-
-    $scope.saleItemsOnly = function(){
+    
+    $scope.showSaleItems = false;
+    
+    $scope.toggleSaleItems =()=> {
       $scope.filters.price = null;
       $scope.filters.brand = null;
       $scope.filters.search = null;
-      $scope.filters.sale = true;
-    };
+      $scope.filters.sale = $scope.showSaleItems ? true : false;
+    }
 
     var setProducts = function(results){
       if (results.data.products.length){
@@ -985,6 +987,8 @@ angular.module('lsAngularApp')
         },
       });
     });
+    
+    $scope.isUpdateCoupon = false;
 
     $scope.nextStep = function(){
       $(window).on('onAfterAjaxUpdate', function(e){

@@ -1,8 +1,8 @@
 <div layout="column" flex="66" id="checkout-paymentMethod">
   <div layout="column">
-    <h3 class="ls-heading letter-spacing-2 padding-y-medium">Payment method</h3>
     {{ open_form({'class': 'custom'}) }}
-
+    {{ partial('shop-checkout-edit-discount') }}
+    <h3 class="ls-heading letter-spacing-2 padding-y-medium">Payment method</h3>
     <div layout="row">
       <md-input-container flex="50" flex-xs="100" class="md-input-has-placeholder hide-errors">
         <label class="ls-subheading font-16">Payment method</label>
@@ -19,6 +19,5 @@
     <div id="payment_form">
      {{ partial('partial-paymentform') }}
     </div>
-
   </div>
 </div>

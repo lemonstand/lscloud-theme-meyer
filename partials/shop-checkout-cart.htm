@@ -36,10 +36,10 @@
       </div>
     </div>
     {% endfor %}
-
+   
     {% if totals.discountTotal %}
-    <div layout="row" layout-align="end center" class="border-divider padding-y">
-      <div flex="66" flex-xs="100" layout="row" layout-align="space-between center">
+    <div layout="row" layout-align="end center" class="border-divider padding-y" id="cart-disc">
+      <div layout="row" layout-align="start center" layout-margin>
         <h3 class="ls-heading-small">
           Discount: <span class="weight-400 checkout-price">{{ coupon_code }}</span>
         </h3>
@@ -47,7 +47,16 @@
           {{ totals.discountTotal|currency }}
         </span>
       </div>
+       <div layout="row">
+        <a flex-order-xs="2" md-ink-ripple class="md-button ls-button md-button-outline  opacity-50 no-margin" href="javascript:;" ng-click="$scope.isUpdateCoupon = !$scope.isUpdateCoupon;">Edit</a>
+       </div>
     </div>
+        {% else %}
+         <div layout="row" layout-align="end center" class="border-divider padding-y" id="cart-disc">
+             <div flex="100" flex-xs="100" layout="row" layout-align="end center">
+                <a flex-order-xs="2" md-ink-ripple class="md-button ls-button md-button-outline  opacity-50 no-margin" href="#" ng-click="$scope.isUpdateCoupon = !$scope.isUpdateCoupon;">Add Discount Code</a>
+            </div>
+        </div>
     {% endif %}
 
     <div layout="column" class="border-divider padding-y">
