@@ -62,7 +62,7 @@
     </div>
   {% endif %}
 
-  {% if upsells.isEmpty() == false %}
+  {% if (upsells.isEmpty() == false) and (theme.showUpsellCrossSell) %}
   <div layout="column" layout-fill class="padding-y-medium">
     <h3 class="ls-subheading padding-y-medium">You might also like...</h3>
     {{ partial('partial-relatedproducts', { relatedProducts: upsells }) }}
