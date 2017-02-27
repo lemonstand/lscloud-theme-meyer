@@ -13,9 +13,12 @@ url: /
       {{ partial("partial-product", { "products": products }) }}
     ]
   };
-
-  var featuredProducts = {% set featuredCollection = 'featured'|collection %}
-  {% paginate featuredCollection.products by 10 %}
+  var featuredProducts = 
+  {% set featuredCollection = 'featured'|collection.products %}
+  {% if not featuredCollection %}
+    {% set featuredCollection = products %}
+  {% endif %}
+  {% paginate featuredCollection by 10 %}
     {
       "products": [
         {{ partial("partial-product", { "products": pagination.items }) }}
