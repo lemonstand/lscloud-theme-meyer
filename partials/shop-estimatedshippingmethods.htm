@@ -1,0 +1,30 @@
+---
+description: 'Shipping method list'
+---
+<h4 class="ls-heading letter-spacing-2 padding-y-medium">Available shipping methods</h4>
+{% if shippingOptions %}
+  <table class="compact full-width striped">
+    {% for index, option in shippingOptions %}
+      <tr>
+        {% if not option.error_hint %}
+          <td>
+            {% if option.shippingServiceName %}<strong>{{ option.shippingServiceName }}</strong> - {% endif %}
+            {{ option.shippingMethodName }}
+          </td>
+          <td class="narrow">
+                {% if not option.error_hint  %}
+                  {{ option.quote ? option.quote|currency : 'free' }}
+                {% endif %}
+            </td>
+        {% else %}
+          <td colspan="2">
+            <strong>{{ option.shippingMethodName }}</strong>
+            <p class="error-hint">{{ option.error_hint }}</p>
+          </td>
+        {% endif %}
+      </tr>
+    {% endfor %}
+  </table>
+{% else %}
+  <p>We are sorry, there are no shipping options available for your location.</p>
+{% endif %}
