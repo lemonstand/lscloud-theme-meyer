@@ -3,10 +3,10 @@
     <div layout="column" class="layout-column">
       <h3 class="ls-heading letter-spacing-2 padding-y-medium">Shipping method</h3>
       <input type="text" class="input-hidden" readonly ng-model="shipping.shippingMethod" watch-change name="shippingMethod"  />
-      <md-radio-group ng-model="shipping.shippingMethod" ng-init="$scope.onRadioInit();">
+      <md-radio-group ng-model="shipping.shippingMethod">
         {% for index, option in shippingOptions %}
         
-          <md-radio-button value="{{ index }}" aria-label="Shipping - {{ option.shippingMethodName }}" ng-init="$scope.onRadioInit();">
+          <md-radio-button value="{{ index }}" aria-label="Shipping - {{ option.shippingMethodName }}">
             {{ option.shippingMethodName }}{% if option.shippingServiceName %}: {{ option.shippingServiceName }}{% endif %}
             test: {{ index }}
             <span class="ls-caption md-caption">({{ not option.is_free ? option.quote|currency : 'Free' }})</span>
