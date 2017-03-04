@@ -990,6 +990,17 @@ angular.module('lsAngularApp')
       });
     });
     
+    $scope.autoApplyShipping = function(shipping){
+
+        $timeout(function(){
+            let test = angular.element('#shipping_method_list');
+            $scope.$apply();
+            angular.element(test).children()[0].click();
+            angular.element('#select_shipping_continue').click();
+        },250);
+    };
+  
+    
     $scope.isUpdateCoupon = false;
 
     $scope.nextStep = function(){
