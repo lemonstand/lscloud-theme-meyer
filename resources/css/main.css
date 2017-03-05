@@ -123,7 +123,8 @@
   .opacity-70 { opacity: 0.7; }
   .opacity-50 { opacity: 0.5; }
   .opacity-30 { opacity: 0.3; }
-
+  .validation-row { padding-bottom: 15px; color: rgb(197,17,98); }
+  
   ul, li { list-style: none; }
   select {
     width:100%;
