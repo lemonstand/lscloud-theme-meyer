@@ -1,11 +1,10 @@
-{% if states %}
-	<option selected value=""> Select a State</option>
-	{% for state in states %}
-    	<option value="{{ state.id }}" {{ option_state(selected, state.id) }} >
-        	{{ state.name }}
-    	</option>
-	{% endfor %}
+{%if states | length %}
+    <option selected value="" disabled>- select state -</option>
+    {% for state in states %}
+        <option value="{{ state.id }}" {{ option_state(selected, state.id) }} >
+            {{ state.name }}
+        </option>
+    {% endfor %}
 {% else %}
-    <option selected value="">- no states -</option>
+  <option selected value="">- no states -</option>
 {% endif %}
-

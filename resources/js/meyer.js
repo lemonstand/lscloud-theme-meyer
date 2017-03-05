@@ -1009,21 +1009,47 @@ angular.module('lsAngularApp')
     $scope.getValue = function(model,elem){
       $scope[model+'_name'] = $(elem+ ' option:selected').text().trim();
     };
-
-    $scope.copyBillingInfo = function(){
-      $scope.infoCopied = !$scope.infoCopied;
-      if ($scope.infoCopied){
-        $timeout(function(){
-          var copied = angular.copy($scope.billing);
-          $scope.shippingIsBilling = true;
-          $scope.shipping = copied;
-        });
-      }
-      else {
-        $scope.shipping = {};
-        $scope.shippingIsBilling = false;
-      }
+    
+    $scope.onCountryChange =() =>{
+        $timeout(() =>{
+            $scope.billing.state = "";
+            if(angular.element('#billing_state').children().length === 1){
+                $scope.billing.state = "";
+            }else{
+                $scope.billing.state = "";
+            } 
+            $scope.onStateChange();
+            $scope.$apply();
+        }, 500)
+    };
+    
+    $scope.stateTextValue = "";
+    
+    $scope.onStateChange = function(){
+      $timeout(() => {
+          $scope.stateTextValue = angular.element('#billing_state option:selected').text().trim();
+          $scope.$apply();
+      });
+    };
+    
+    $scope.initBillingIsShipping = ()=>{
+        $timeout(() =>{
+            $scope.shippingIsBilling =  $scope.billing.street === $scope.shipping.street;
+            $scope.$apply();
+            $scope.shipping = $scope.billing;
+        }, 1000);
     }
+    
+    $scope.$watch('shippingIsBilling', (newval, oldval) =>{
+        
+        $scope.onStateChange();
+        
+        if(newval){
+             $scope.shipping = $scope.billing;
+        }else{
+             $scope.shipping = {};
+        }
+    })
   });
 
 
