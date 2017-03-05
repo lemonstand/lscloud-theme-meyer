@@ -851,7 +851,12 @@ angular.module('lsAngularApp')
       $mdDialog.cancel();
     };
     $scope.submit = function(review) {
-      $mdDialog.hide(review);
+        if(review && review.email && review.email.length){
+            $rootScope.showLoadingScreen();
+            $mdDialog.hide(review);
+        }else{
+              return false;
+        }
     };
   };
 
