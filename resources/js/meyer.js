@@ -985,7 +985,6 @@ angular.module('lsAngularApp')
       $(this).sendRequest('shop:onUpdatePaymentMethod', {
         update: {'#payment_form' : 'partial-paymentform'},
         onAfterUpdate: function(e){
-          $('#payment_form input[type=submit]').addClass('md-button ls-button ls-button-wide no-margin md-ink-ripple').val('Complete order');
         },
       });
     });
