@@ -1,22 +1,24 @@
 <div layout="column" class="min-width-640 padding-mobile" ng-controller="CheckoutCtrl">
 {{ open_form({'data-ajax-handler': 'shop:onUpdateCustomerProfile', 'class': 'custom', 'data-validation-message' : ''}) }}
+
+    {{ flash() }}
   <input type="hidden" name="billing[id]" value="{{ billing.id }}" />
   <h3 class="ls-heading letter-spacing-2 padding-y-medium">Personal information</h3>
   <div layout="row">
     <md-input-container flex class="md-input-has-placeholder hide-errors">
       <label class="ls-subheading">First name</label>
-      <input ng-init="billing.fname = '{{ billing.first_name }}'" ng-model="billing.fname"  name="billing[first_name]" id="billing_firstName" type="text">
+      <input ng-init="billing.fname = '{{ billing.first_name }}'" ng-model="billing.fname"  name="billing[first_name]" id="billing_firstName" type="text" required>
     </md-input-container>
     <md-input-container flex class="md-input-has-placeholder hide-errors">
       <label class="ls-subheading">Last name</label>
-      <input ng-model="billing.lname" ng-init="billing.lname = '{{ billing.last_name }}'" name="billing[last_name]" id="billing_lastName" type="text">
+      <input ng-model="billing.lname" ng-init="billing.lname = '{{ billing.last_name }}'" name="billing[last_name]" id="billing_lastName" type="text" required>
     </md-input-container>
   </div>
 
   <div layout="row" layout-xs="column" layout-align-xs="center center" layout-align="space-between center">
     <md-input-container flex class="md-input-has-placeholder hide-errors mobile-100">
       <label class="ls-subheading">Email address</label>
-      <input ng-model="billing.email" ng-init="billing.email = '{{ customer.email }}'" name="billing[email]" id="billing_email" type="email">
+      <input ng-model="billing.email" ng-init="billing.email = '{{ customer.email }}'" name="billing[email]" id="billing_email" type="email" required>
     </md-input-container>
     <div flex layout="row" layout-align="center center">
       <md-button class="md-primary" ng-href="{{ site_url('/account/change-password') }}" target="_blank">Change password</md-button>
@@ -27,19 +29,26 @@
   <div layout="row" layout-xs="column">
     <md-input-container flex="66" flex-xs="100" class="md-input-has-placeholder hide-errors">
       <label class="ls-subheading font-16">Street address</label>
-      <input ng-model="billing.street" ng-init="billing.street = '{{ billing.street_address }}'" name="billing[street_address]" id="billing_address" type="text">
+      <input ng-model="billing.street" ng-init="billing.street = '{{ billing.street_address }}'" name="billing[street_address]" id="billing_address" type="text" required>
     </md-input-container>
     <md-input-container flex class="md-input-has-placeholder hide-errors">
       <label class="ls-subheading font-16">City</label>
-      <input ng-model="billing.city" ng-init="billing.city = '{{ billing.city }}'" name="billing[city]" id="billing_city" type="text">
+      <input ng-model="billing.city" ng-init="billing.city = '{{ billing.city }}'" name="billing[city]" id="billing_city" type="text" required>
     </md-input-container>
   </div>
-
+  
   <div layout="row" layout-xs="column">
     <md-input-container flex class="md-input-has-placeholder hide-errors">
       <label for="billing_country" class="ls-subheading font-16">Country</label>
-      <select id="billing_country" name="billing[shop_country_id]" ng-model="billing.country" ng-init="billing.country = '{{ billing.country.id }}'" ng-change="$root.showLoadingScreen();" ng-disabled="!billing.street.length" data-state-selector="#billing_state" data-current-state="{{ billing.country.id }}">
-        {% for country in countries %}
+      <select id="billing_country" name="billing[shop_country_id]" 
+      ng-model="billing.country" ng-init="billing.country = '{{ billing.country.id }}'" 
+      ng-change="$root.showLoadingScreen();" 
+      ng-disabled="!billing.street.length" 
+      data-state-selector="#billing_state" 
+      data-current-state="{{ billing.country.id }}"
+      >
+      
+    {% for country in countries %}
           <option {{ option_state(billing.country.id, country.id) }} value="{{ country.id }}">{{ country.name }}</option>
         {% endfor %}
       </select>
@@ -57,7 +66,12 @@
       <input ng-model="billing.postcode" ng-init="billing.postcode = '{{ billing.postal_code }}'" name="billing[postal_code]" id="billing_postal_code" type="text">
     </md-input-container>
   </div>
-
+  
+  <div class="validation-row">
+    <input name="billing[shop_country_id]" ng-model="billing.country" class="input-hidden"  ng-init="billing.country = '{{ billing.country.id }}'" type="text">
+    <span class="error"></span>
+ </div>
+     
   <div layout="row" layout-align="start center" class="margin-bottom-small" ng-init="shippingIsBilling = '{{ billing.street_address }}' === '{{ shipping.street_address }}' ? true : false">
     <md-checkbox class="md-primary" ng-model="shippingIsBilling" aria-label="Same as billing" ng-change="copyBillingInfo()" >
       <span class="md-caption">
@@ -70,14 +84,14 @@
     <div layout="row" layout-xs="column">
       <md-input-container flex="66" flex-xs="100" class="md-input-has-placeholder hide-errors">
         <label class="ls-subheading font-16">Street address</label>
-        <input ng-model="shipping.street" ng-readonly="shippingIsBilling" ng-init="shipping.street = '{{ shipping.street_address }}'" name="shipping[street_address]" id="shipping_address" type="text">
+        <input ng-model="shipping.street" ng-readonly="shippingIsBilling" ng-init="shipping.street = '{{ shipping.street_address }}'" name="shipping[street_address]" id="shipping_address" type="text" required>
       </md-input-container>
       <md-input-container flex class="md-input-has-placeholder hide-errors">
         <label class="ls-subheading font-16">City</label>
-        <input ng-model="shipping.city" ng-readonly="shippingIsBilling" ng-init="shipping.city = '{{ shipping.city }}'" name="shipping[city]" id="shipping_city" type="text">
+        <input ng-model="shipping.city" ng-readonly="shippingIsBilling" ng-init="shipping.city = '{{ shipping.city }}'" name="shipping[city]" id="shipping_city" type="text" required>
       </md-input-container>
     </div>
-
+    
     <div layout="row" layout-xs="column">
       <md-input-container flex class="md-input-has-placeholder hide-errors">
         <label for="shipping_country" class="ls-subheading font-16">Country</label>
@@ -100,6 +114,11 @@
         <input ng-model="shipping.postcode" ng-readonly="shippingIsBilling" ng-init="shipping.postcode = '{{ shipping.postal_code }}'" name="shipping[postal_code]" id="shipping_postal_code" type="text">
       </md-input-container>
     </div>
+    
+      <div class="validation-row">
+        <input name="shipping[shop_country_id]" ng-model="shipping.country" class="input-hidden"   ng-init="shipping.country = '{{ shipping.country.id }}'" type="text">
+        <span class="error"></span>
+     </div>
   </div>
 
   <h3 class="ls-heading letter-spacing-2 padding-y-medium margin-top-medium">Notification settings</h3>
@@ -115,11 +134,10 @@
   <div layout="row" layout-xs="column" layout-fill layout-align="space-between start" layout-align-xs="center center" flex class="padding-y-medium border-bottom">
       <md-button flex-order-xs="2" class="ls-button no-margin-x md-button-outline  opacity-50" ng-href="{{ site_url('/account/orders') }}">Order history</md-button>
 
-      <md-button flex-order-xs="1" class="ls-button no-margin-x  ls-button-wide" type="submit" ng-click="$root.showLoadingScreen();">
+      <md-button flex-order-xs="1" class="ls-button no-margin-x  ls-button-wide" type="submit">
         Save
       </md-button>
   </div>
   <input type="hidden" name="redirect" value="{{ site_url('/products') }}"/>
-
   {{ close_form() }}
 </div>
