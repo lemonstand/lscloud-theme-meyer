@@ -19,7 +19,7 @@
           md-ink-ripple
           class="md-button ls-button  ls-button-wide no-margin"
           ng-href="#"
-          ng-click="$root.showLoadingScreen();"
+          ng-click="$root.showLoadingScreen();isAutoUpdatedPayment=false;"
           style="background-color: {{ theme.secondaryColor }}; color: {{ theme.bannerButtonTextColor }}"
           data-ajax-handler="shop:checkout"
           data-ajax-update="#checkout-steps=shop-checkout-steps,#checkout-progress=shop-checkout-progress,#checkout-minicart=shop-checkout-cart">
