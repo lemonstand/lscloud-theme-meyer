@@ -1,0 +1,17 @@
+{{ open_form({'class': 'custom'}) }}
+{% if step == 'pay' %}
+ <!-- step 1 -->
+  <a href="#" layout="row" class="no-link-style checkout-step step-active layout-align-start-center layout-row" layout-align="start center"
+    ng-click="$root.showLoadingScreen();"
+    data-ajax-handler="payPalExpress:checkout" 
+      data-ajax-update="#checkout-page=shop-paypal-checkout"
+    data-ajax-extra-fields="nextStep=billing_info">
+    <span class="step-number ls-checkout-progress ls-heading-small layout-align-center-center layout-row" layout="row" layout-align="center center">1</span>
+    <p class="step-name ls-checkout-progress ls-heading-small">Billing and Shipping</p>
+  </a>
+
+<h2 class="left">PayPal Express Checkout - Pay</h2>
+{% else %}
+<h2 class="left">PayPal Express Checkout</h2>
+{% endif %}
+{{ close_form }}

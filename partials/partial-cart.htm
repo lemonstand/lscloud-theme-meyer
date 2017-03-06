@@ -60,6 +60,13 @@
         {% endif %}
       </div>
     </div>
+     <div layout="row" layout-xs="column" layout-fill layout-align="end center" layout-align-xs="center center" flex class="padding-y-medium border-bottom">
+       <div layout="column" flex-order-xs="1" class="margin-bottom-mobile" layout-padding>
+           {% if payPalExpressCheckoutButton %}
+            {{ payPalExpressCheckoutButton }}
+            {% endif %}
+       </div>
+     </div>
   {% endif %}
 
   {% if (upsells.isEmpty() == false) and (theme.showUpsellCrossSell) %}
