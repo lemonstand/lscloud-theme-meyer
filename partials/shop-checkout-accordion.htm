@@ -1,0 +1,404 @@
+{% if step == 'billing_info' %} {% set inputs %}
+<input type="hidden" name="step" value="billing_info,shipping_info">
+<input type="hidden" name="nextStep" value="shipping_method" /> {% endset %} {% elseif step == 'shipping_method' %} {% set
+inputs %}
+<input type="hidden" name="step" value="shipping_method">
+<input type="hidden" name="nextStep" value="pay" /> {% endset %} {% elseif step == 'pay' %}
+<input type="hidden" name="step" value="pay"> {% endif %}
+
+<div layout="row" layout-align="flex-start center" layout-xs="column" id="checkout-progress" class="margin-bottom-small">
+    {% if step == 'billing_info' %}
+    <!-- step 1 -->
+    <div layout="row" class="no-link-style checkout-step step-active" layout-align="start center">
+        <span class="step-number ls-checkout-progress ls-heading-small" layout="row" layout-align="center center">1</span>
+        <p class="step-name ls-checkout-progress ls-heading-small">Info</p>
+    </div>
+
+    <!-- step 2 -->
+    <div layout="row" class="no-link-style checkout-step margin-y-mobile" layout-align="start center">
+        <span class="step-number ls-checkout-progress ls-heading-small" layout="row" layout-align="center center">2</span>
+        <p class="step-name ls-checkout-progress ls-heading-small">Shipping</p>
+    </div>
+
+    <!-- step 3 -->
+    <div layout="row" class="no-link-style checkout-step" layout-align="start center">
+        <span class="step-number ls-checkout-progress ls-heading-small" layout="row" layout-align="center center">3</span>
+        <p class="step-name ls-checkout-progress ls-heading-small">Payment</p>
+    </div>
+
+    {% elseif step == 'shipping_method' %}
+    <!-- step 1 -->
+    <a href="#" layout="row" class="no-link-style checkout-step" layout-align="start center" ng-click="$root.showLoadingScreen();"
+        data-ajax-handler="shop:checkout" data-ajax-update="#checkout-progress=shop-checkout-progress,#checkout-steps=shop-checkout-steps"
+        data-ajax-extra-fields="nextStep=billing_info">
+        <span class="step-number ls-checkout-progress ls-heading-small" layout="row" layout-align="center center">1</span>
+        <p class="step-name ls-checkout-progress ls-heading-small">Info</p>
+    </a>
+
+    <!-- step 2 -->
+    <div layout="row" class="no-link-style checkout-step step-active margin-y-mobile" layout-align="start center">
+        <span class="step-number ls-checkout-progress ls-heading-small" layout="row" layout-align="center center">2</span>
+        <p class="step-name ls-checkout-progress ls-heading-small">Shipping</p>
+    </div>
+
+    <!-- step 3 -->
+    <div layout="row" class="no-link-style checkout-step" layout-align="start center">
+        <span class="step-number ls-checkout-progress ls-heading-small" layout="row" layout-align="center center">3</span>
+        <p class="step-name ls-checkout-progress ls-heading-small">Payment</p>
+    </div>
+
+    {% elseif step == 'pay' %}
+    <!-- step 1 -->
+    <a href="#" layout="row" class="no-link-style checkout-step" layout-align="start center" ng-click="$root.showLoadingScreen();"
+        data-ajax-handler="shop:checkout" data-ajax-update="#checkout-progress=shop-checkout-progress,#checkout-steps=shop-checkout-steps"
+        data-ajax-extra-fields="nextStep=billing_info">
+        <span class="step-number ls-checkout-progress ls-heading-small" layout="row" layout-align="center center">1</span>
+        <p class="step-name ls-checkout-progress ls-heading-small">Info</p>
+    </a>
+
+    <!-- step 2 -->
+    <a href="#" layout="row" class="no-link-style checkout-step margin-y-mobile" layout-align="start center" ng-click="$root.showLoadingScreen();"
+        data-ajax-handler="shop:checkout" data-ajax-update="#checkout-progress=shop-checkout-progress,#checkout-steps=shop-checkout-steps"
+        data-ajax-extra-fields="nextStep=shipping_method">
+        <span class="step-number ls-checkout-progress ls-heading-small" layout="row" layout-align="center center">2</span>
+        <p class="step-name ls-checkout-progress ls-heading-small">Shipping</p>
+    </a>
+
+    <!-- step 3 -->
+    <div layout="row" class="no-link-style checkout-step step-active" layout-align="start center">
+        <span class="step-number ls-checkout-progress ls-heading-small" layout="row" layout-align="center center">3</span>
+        <p class="step-name ls-checkout-progress ls-heading-small">Payment</p>
+    </div>
+    {% endif %}
+</div>
+
+<!-- Begin Checkout Content -->
+<div layout="row" layout-xs="column" class="max-width-1024 padding-mobile" layout-fill>
+
+    <div layout="column" flex="66" flex-xs="100" flex-order-xs="2" id="checkout-steps">
+        <!-- Begin Billing/Shipping Checkout Tab -->
+        <div id="shop-address" class="{% if step == 'billing_info' %}checkout-tab active{% elseif step == 'shipping_method' %}checkout-tab{% elseif step == 'pay' %}checkout-tab{% endif %}">
+
+            <div class="checkout-tab-content">
+                {{ open_form({'class': 'custom', 'data-validation-message' : ''}) }} {% if step == 'billing_info' %}
+                <div layout="row">
+                    <h3 class="ls-heading letter-spacing-2 padding-y-medium">Customer information</h3>
+                </div>
+
+                <div layout="column">
+
+
+                    <div layout="row">
+                        <md-input-container flex class="md-input-has-placeholder hide-errors">
+                            <label class="ls-subheading">First name</label>
+                            <input ng-model="billing.fname" name="billingInfo[firstName]" id="billing_firstName" type="text" required>
+                        </md-input-container>
+                        <md-input-container flex class="md-input-has-placeholder hide-errors">
+                            <label class="ls-subheading">Last name</label>
+                            <input ng-model="billing.lname" name="billingInfo[lastName]" id="billing_lastName" type="text" required>
+                        </md-input-container>
+                    </div>
+
+                    <div class="validation-row" layout="row">
+                        <input flex name="billingInfo[firstName]" ng-model="billing.fname" class="input-hidden" type="text">
+                        <span flex class="error"></span>
+                        <input flex name="billingInfo[lastName]" ng-model="billing.lname" class="input-hidden" type="text">
+                        <span flex class="error"></span>
+                    </div>
+
+                    <div layout="row">
+                        <md-input-container flex class="md-input-has-placeholder hide-errors">
+                            <label class="ls-subheading font-16">Email address</label>
+                            <input ng-model="billing.email" name="billingInfo[email]" id="billing_email" type="email" required>
+                        </md-input-container>
+                    </div>
+
+                    <div class="validation-row" layout="row">
+                        <input flex name="billingInfo[email]" ng-model="billing.email" class="input-hidden" type="text">
+                        <span flex class="error"></span>
+                    </div>
+
+                    <div layout="row">
+                        <md-input-container flex class="md-input-has-placeholder hide-errors">
+                            <label class="ls-subheading font-16">Street address</label>
+                            <input ng-model="billing.street" name="billingInfo[streetAddressLine1]" id="billing_address" type="text" required>
+                        </md-input-container>
+                    </div>
+
+                    <div class="validation-row" layout="row">
+                        <input flex name="billingInfo[streetAddressLine1]" ng-model="billing.street" class="input-hidden" type="text">
+                        <span flex class="error"></span>
+                    </div>
+
+                    <div layout="row">
+                        <md-input-container flex class="md-input-has-placeholder hide-errors">
+                            <label for="billing_country" class="ls-subheading font-16">Country</label>
+                            <select id="billing_country" name="billingInfo[countryId]" ng-model="billing.country" required ng-change="getValue('country', '#billing_country'); $root.showLoadingScreen(); onCountryChange();"
+                                ng-disabled="!billing.street.length" data-state-selector="#billing_state" data-current-state="{{ billingInfo.stateId }}">
+                                      {% for country in countries %}
+                                        <option {{ option_state(billingInfo.countryId, country.id) }} value="{{ country.id }}">{{ country.name }}</option>
+                                      {% endfor %}
+                                    </select>
+                        </md-input-container>
+
+                        <md-input-container flex class="md-input-has-placeholder hide-errors">
+                            <label for="billing_state" class="ls-subheading font-16">State/Province</label>
+                            <select id="billing_state" name="billingInfo[stateId]" ng-model="billing.state" ng-change="getValue('state', '#billing_state'); onStateChange();"
+                                ng-disabled="!billing.street.length" data-ajax-refresh required>
+                                      {{ partial('shop-stateoptions', {'states': billingStates, 'selected': billingInfo.stateId}) }}
+                                    </select>
+                        </md-input-container>
+                    </div>
+
+                    <div class="validation-row">
+                        <input id="billing_country" name="billingInfo[countryId]" ng-model="billing.country" class="input-hidden" type="text">
+                        <span class="error"></span>
+                    </div>
+
+                    <div layout="row">
+                        <md-input-container flex class="md-input-has-placeholder hide-errors">
+                            <label class="ls-subheading font-16">City</label>
+                            <input ng-disabled="!billing.street.length" ng-model="billing.city" name="billingInfo[city]" id="billing_city" type="text"
+                                required>
+                        </md-input-container>
+                        <md-input-container flex class="md-input-has-placeholder hide-errors">
+                            <label class="ls-subheading font-16">Postcode</label>
+                            <input ng-model="billing.postcode" name="billingInfo[postalCode]" id="billing_postalCode" type="text">
+                        </md-input-container>
+                    </div>
+
+                    <div class="validation-row" layout="row">
+                        <input flex name="billingInfo[city]" ng-model="billing.city" class="input-hidden" type="text">
+                        <span flex class="error"></span>
+                        <input flex name="billingInfo[postalCode]" ng-model="billing.postcode" class="input-hidden" type="text">
+                        <span flex class="error"></span>
+                    </div>
+
+                </div>
+
+                <div layout="column">
+
+                    <div layout="row" layout-xs="column" layout-align="space-between center" layout-align-xs="center start" class="margin-y-mobile">
+                        <h3 class="ls-heading letter-spacing-2 padding-y-medium no-padding-mobile">Shipping address</h3>
+                        <md-checkbox class="md-primary" ng-model="shippingIsBilling" aria-label="Same as billing" ng-change="$scope.shippingIsBilling = !$scope.shippingIsBilling"
+                            ng-init="initBillingIsShipping();">
+                            <span class="md-caption">
+                                  Copy information
+                                </span>
+                        </md-checkbox>
+
+                    </div>
+                    <div layout="row">
+                        <md-input-container flex class="md-input-has-placeholder hide-errors">
+                            <label class="ls-subheading">First name</label>
+                            <input ng-model="shipping.fname" ng-readonly="infoCopied" name="shippingInfo[firstName]" id="shipping_firstName" type="text"
+                                required ng-disabled="shippingIsBilling;">
+                        </md-input-container>
+                        <md-input-container flex class="md-input-has-placeholder hide-errors">
+                            <label class="ls-subheading">Last name</label>
+                            <input ng-model="shipping.lname" ng-readonly="infoCopied" name="shippingInfo[lastName]" id="shipping_lastName" type="text"
+                                required ng-disabled="shippingIsBilling;">
+                        </md-input-container>
+                    </div>
+
+                    <div class="validation-row" layout="row">
+                        <input flex name="shippingInfo[firstName]" ng-model="shipping.fname" class="input-hidden" type="text">
+                        <span flex class="error"></span>
+                        <input flex name="shippingInfo[lastName]" ng-model="shipping.lname" class="input-hidden" type="text">
+                        <span flex class="error"></span>
+                    </div>
+
+                    <div layout="row">
+                        <md-input-container flex class="md-input-has-placeholder hide-errors">
+                            <label class="ls-subheading font-16">Street address</label>
+                            <input ng-model="shipping.street" ng-readonly="infoCopied" name="shippingInfo[streetAddressLine1]" id="shipping_address"
+                                type="text" required ng-disabled="shippingIsBilling;">
+                        </md-input-container>
+                    </div>
+
+                    <div class="validation-row" layout="row">
+                        <input flex name="shippingInfo[streetAddressLine1]" ng-model="shipping.street" class="input-hidden" type="text">
+                        <span flex class="error"></span>
+                    </div>
+
+                    <div layout="row">
+                        <md-input-container flex class="md-input-has-placeholder hide-errors">
+                            <label for="shipping_country" class="ls-subheading font-16">Country</label>
+                            <select ng-if="!shippingIsBilling" id="shipping_country" name="shippingInfo[countryId]" required ng-change="$root.showLoadingScreen()"
+                                ng-model="shipping.country" ng-disabled="shippingIsBilling;" data-state-selector="#shipping_state"
+                                data-current-state="{{ shippingInfo.stateId }}">
+                                      {% for country in countries %}
+                                      <option {{ option_state(shippingInfo.countryId, country.id) }} value="{{ country.id }}">{{ country.name }}</option>
+                                      {% endfor %}
+                                    </select>
+                            <input ng-if="shippingIsBilling" ng-model="country_name" ng-disabled="shippingIsBilling" id="shipping_countryName" type="text"
+                                required>
+                        </md-input-container>
+
+                        <md-input-container flex class="md-input-has-placeholder hide-errors" ng-show="!shippingIsBilling;" required>
+                            <label for="shipping_state" class="ls-subheading font-16">State/Province</label>
+                            <select ng-if="!shippingIsBilling" id="shipping_state" name="shippingInfo[stateId]" ng-model="shipping.state" ng-disabled="!shipping.street.length || shippingIsBilling "
+                                data-ajax-refresh>
+                                      {{ partial('shop-stateoptions', {'states': shippingStates, 'selected': shippingInfo.stateId}) }}
+                                    </select>
+                            <input ng-if="shippingIsBilling" ng-model="state_name" ng-disabled="shippingIsBilling" id="shipping_stateName" type="text">
+                        </md-input-container>
+
+                        <md-input-container flex class="md-input-has-placeholder hide-errors" ng-show="shippingIsBilling">
+                            <label class="ls-subheading font-16">State/Province</label>
+                            <input ng-model="stateTextValue" type="text" ng-disabled="true" ng-disabled="shippingIsBilling;">
+                        </md-input-container>
+                    </div>
+
+                    <div class="validation-row">
+                        <input name="shippingInfo[countryId]" ng-model="shipping.country" class="input-hidden" type="text" ng-disabled="shippingIsBilling;">
+                        <span class="error"></span>
+                    </div>
+
+                    <div layout="row">
+                        <md-input-container flex class="md-input-has-placeholder hide-errors">
+                            <label class="ls-subheading font-16">City</label>
+                            <input ng-readonly="!shipping.street.length || infoCopied" ng-model="shipping.city" name="shippingInfo[city]" id="shipping_city"
+                                type="text" required ng-disabled="shippingIsBilling;">
+                        </md-input-container>
+                        <md-input-container flex class="md-input-has-placeholder hide-errors">
+                            <label class="ls-subheading font-16">Postcode</label>
+                            <input ng-model="shipping.postcode" ng-readonly="infoCopied" name="shippingInfo[postalCode]" id="shipping_postalCode" type="text"
+                                ng-disabled="shippingIsBilling;">
+                        </md-input-container>
+                    </div>
+
+                    <div class="validation-row" layout="row">
+                        <input flex name="shippingInfo[city]" ng-model="shipping.city" class="input-hidden" type="text">
+                        <span flex class="error"></span>
+                        <input flex name="shippingInfo[postalCode]" ng-model="shipping.postcode" class="input-hidden" type="text">
+                        <span flex class="error"></span>
+                    </div>
+
+                    <input ng-if="shippingIsBilling" class="input-hidden" id="shipping_country" ng-model="shipping.country" name="shippingInfo[countryId]"
+                        type="text">
+                    <input ng-if="shippingIsBilling" class="input-hidden" id="shipping_state" ng-model="shipping.state" name="shippingInfo[stateId]"
+                        type="text">
+
+                </div>
+
+
+                <div layout="row" layout-align="end center">
+
+                    <a class="md-button ls-button  ls-button-wide no-margin" flex-order-xs="1" data-hash="step-2" md-ink-ripple ng-href="#" ng-click="$root.showLoadingScreen();"
+                        data-ajax-handler="shop:checkout" data-ajax-update="#checkout-page=shop-checkout-accordion, #checkout-minicart=shop-checkout-cart"
+                        compile-step="shop-checkout-shippingmethod" compile-on-click="#checkout-page">
+                              Continue
+                            </a>
+                </div>
+
+                {% else %} {% endif %} {{ inputs }} {{ close_form() }}
+            </div>
+        </div>
+        <!-- End Billing/Shipping Checkout Tab -->
+
+        <!-- Begin Shipping Method Checkout Tab -->
+        <div id="shop-ship" class="{% if step == 'billing_info' %}checkout-tab{% elseif step == 'shipping_method' %}checkout-tab active{% elseif step == 'pay' %}checkout-tab{% endif %}">
+
+            <div class="checkout-tab-content">
+                {{ open_form({'class': 'custom'}) }} {% if step == 'shipping_method' %}
+
+                <div layout="row">
+                    <h3>Choose a Shipping Method</h3>
+                </div>
+
+                <div layout="column">
+                    {% if shippingOptions %}
+
+                    <div layout="column" flex="66" id="checkout-shippingMethod">
+                        <div layout="column">
+                            <h3 class="ls-heading letter-spacing-2 padding-y-medium">Shipping method</h3>
+                            <input type="text" class="input-hidden" readonly ng-model="shipping.shippingMethod" watch-change name="shippingMethod" />                            {% if shippingOptions | length == 1 %}
+                            <span class="input-hidden" ng-init="autoApplyShipping(shippingMethod);"></span> {% endif %}
+
+                            <md-radio-group ng-model="shipping.shippingMethod" id="shipping_method_list">
+
+                                {% for index, option in shippingOptions %}
+
+                                <md-radio-button value="{{ index }}" aria-label="Shipping - {{ option.shippingMethodName }}">
+                                    {{ option.shippingMethodName }}{% if option.shippingServiceName %}: {{ option.shippingServiceName }}{% endif %} test: {{
+                                    index }}
+                                    <span class="ls-caption md-caption">({{ not option.is_free ? option.quote|currency : 'Free' }})</span>
+                                </md-radio-button>
+                                {% endfor %}
+                            </md-radio-group>
+
+                        </div>
+                    </div>
+
+                    {% else %}
+                    <p>We are sorry, there are no shipping options available for your location.</p>
+                    {% endif %}
+                </div>
+
+
+                {% if shippingOptions %}
+
+                <div layout="row" layout-xs="column" layout-align="space-between center" class="padding-y-medium" layout-align-xs="center center">
+                    {#<a flex-order-xs="2" md-ink-ripple class="md-button ls-button md-button-outline  opacity-50 no-margin"
+                        ng-href="{{ site_url('products') }}">Continue shopping</a>#}
+                    <a flex-order-xs="2" md-ink-ripple class="md-button ls-button md-button-outline  opacity-50 no-margin" href="#" data-ajax-handler="shop:checkout"
+                        data-ajax-update="#checkout-page=shop-checkout-accordion" data-ajax-extra-fields="nextStep=billing_info"
+                        data-hash="step-1">Previous Step</a>
+                    <a id="select_shipping_continue" flex-order-xs="1" md-ink-ripple class="md-button ls-button  ls-button-wide no-margin" ng-href="#"
+                        ng-click="$root.showLoadingScreen();isAutoUpdatedPayment=false;" style="background-color: {{ theme.secondaryColor }}; color: {{ theme.bannerButtonTextColor }}"
+                        data-ajax-handler="shop:checkout" data-ajax-update="#checkout-page=shop-checkout-accordion,#checkout-minicart=shop-checkout-cart">
+                          Continue
+                        </a> {{ inputs }}
+                </div>
+
+                {% endif %} {% endif %} {{ close_form() }}
+
+            </div>
+            <!-- End Shipping Method Checkout Tab -->
+
+            <!-- Begin Payment Method Checkout Tab -->
+            <div id="shop-pay" class="{% if step == 'billing_info' %}checkout-tab{% elseif step == 'shipping_method' %}checkout-tab{% elseif step == 'pay' %}checkout-tab active{% endif %}">
+
+                <div class="checkout-tab-content">
+                    {% if step == 'pay' %}
+                    <div layout="row">
+                        <h3>Select a Payment Method</h3>
+                    </div>
+                    {% if cart %}
+                    <div layout="column">
+
+                        {% if order.payment_processed %}
+                        <p class="flash info"><strong>Thank you!</strong> The payment is already processed for this order.</p>
+                        {% else %}
+                        <div id="payment_method_wrapper" layout="column">
+
+                            <label for="payment_method">Payment method</label>
+                            <!-- The payment form below (id="payment_form") automatically updates when the payment method is changed. See main.js for the implementation details. -->
+                            {{ open_form({'class': 'custom'}) }}
+                            <select name="paymentMethodId" id="payment_method" class="form-control">
+                                        <option value=''> - </option>
+                                        {% for method in paymentMethods %}
+                                        <option value="{{ method.id }}">{{ method.name }}</option>
+                                        {% endfor %}
+                                    </select> {{ close_form() }}
+                        </div>
+
+                        <div layout="row">
+                            <div id="payment_form">
+                            </div>
+                        </div>
+                        {% endif %}
+                    </div>
+                    {% else %}
+                    <p class="flash error">Order not found.</p>
+                    {% endif %} {% endif %}
+                </div>
+            </div>
+            <!-- End Payment Method Checkout Tab -->
+        </div>
+    </div>
+
+    <div id="checkout-minicart" flex-order-xs="1">
+        {{ partial('shop-checkout-cart') }}
+    </div>

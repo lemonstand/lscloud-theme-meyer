@@ -9,7 +9,6 @@ customFields:
     blogOnHomepage: { type: checkbox, title: 'Show recent blog posts on the home page', default: '1' }
     megaMenuAdTile: { type: checkbox, title: 'Show featured ad tile in products dropdown menu', default: '1' }
     featuredAdPanel: { type: checkbox, title: 'Show featured ad panel on the home page', default: '1' }
-    showUpsellCrossSell: { type: checkbox, title: 'Show upsell or Cross sell Items in the cart', default: '1' }
     faviconImage: { type: image, title: 'Favicon Image', default: '', comment: 'Upload your favicon! Recommended dimmensions of 16px by 16px. You must use a .png file.' }
     logoImage: { type: image, title: 'Logo Image', default: '@images/meyer-logo.png', comment: 'Upload your logo! Recommended height of 80px.' }
     logoImageWhite: { type: image, title: 'Logo Image - white version', default: '@images/meyer-logo-white.png', comment: 'Upload your logo, but in white! Recommended height of 80px.' }
@@ -43,6 +42,8 @@ customFields:
     mailchimpApiKey: { type: text, title: 'MailChimp API KEY', default: 12345678901234567890123456789012-xx1 }
     mailchimpListId: { type: text, title: 'MailChimp List ID', default: a1234b5c67 }
     showShippingEstimator: { type: checkbox, title: 'Show Shipping Rate Estimator', default: '1' }
+    showUpsellCrossSell: { type: checkbox, title: 'Show upsell or Cross sell Items in the cart', default: '1' }
+    onePageCheckout: { type: checkbox, title: 'Enable One Page Checkout', default: '1' }
     headingFont: { type: dropdown, title: 'Heading font', comment: 'Used for headings.', default: 'Montserrat, sans-serif', options: { 'Montserrat, sans-serif': Montserrat, 'Roboto, sans-serif': Roboto, 'Open Sans, sans-serif': 'Open Sans', 'PT Serif, serif': 'PT Serif', 'Alex Brush, cursive': 'Alex Brush', 'Merriweather, serif': Merriweather, 'Oswald, sans-serif': Oswald, 'Lato, sans-serif': Lato, 'Droid Sans, sans-serif': 'Droid Sans', 'Source Sans Pro, sans-serif': 'Source Sans Pro', 'Arvo, serif': Arvo, 'Arial, sans-serif': Arial, 'Georgia, serif': Georgia } }
     bodyFont: { type: dropdown, title: 'Body font', comment: 'Used for all other text.', default: 'Roboto, sans-serif', options: { 'Montserrat, sans-serif': Montserrat, 'Roboto, sans-serif': Roboto, 'Open Sans, sans-serif': 'Open Sans', 'PT Serif, serif': 'PT Serif', 'Alex Brush, cursive': 'Alex Brush', 'Merriweather, serif': Merriweather, 'Oswald, sans-serif': Oswald, 'Lato, sans-serif': Lato, 'Droid Sans, sans-serif': 'Droid Sans', 'Source Sans Pro, sans-serif': 'Source Sans Pro', 'Arvo, serif': Arvo, 'Arial, sans-serif': Arial, 'Georgia, serif': Georgia } }
     buttonShape: { type: dropdown, title: 'Button shape', comment: 'The default button shape.', default: 0px, options: { 0px: Sharp, 3px: 'Slightly rounded', 25px: Pill } }
