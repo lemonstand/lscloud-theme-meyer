@@ -9,27 +9,33 @@ url: /checkout
 
 {{ partial('partial-banner-alt') }}
 
-<div layout="column" layout-align="center center" class="bg-white" id="checkout-page" ng-controller="CheckoutCtrl" transclude>
-  <div layout="column" class="content-container padding-y-large" layout-align="start center" >
+<div layout="column" layout-align="center center" class="bg-white" >
+  <div layout="column" class="content-container padding-y-large" layout-align="start center" id="checkout-page" ng-controller="CheckoutCtrl" transclude>
     {% if not items.count %}
     <h2 class="ls-heading">Your cart is empty</h2>
     <div layout="column">
       <md-button class="ls-button  margin-y-medium" ng-href="{{ site_url('products') }}">Continue shopping</md-button>
     </div>
     {% else %}
-    <div layout="row" layout-xs="column" class="max-width-1024 padding-mobile" layout-fill>
-      <div layout="column" flex="66" flex-xs="100" flex-order-xs="2">
-        <div layout="row" layout-xs="column" id="checkout-progress" class="margin-bottom-small">
-          {{ partial('shop-checkout-progress') }}
-        </div>
-        <div id="checkout-steps">
-          {{ partial('shop-checkout-steps') }}
-        </div>
-      </div>
-      <div id="checkout-minicart" flex-order-xs="1">
-        {{ partial('shop-checkout-cart') }}
-      </div>
-    </div>
+             {% if theme.onePageCheckout %}
+                {{ partial('shop-checkout-accordion') }}
+             {% else %}
+                <div layout="row" layout-xs="column" class="max-width-1024 padding-mobile" layout-fill>
+                  <div layout="column" flex="66" flex-xs="100" flex-order-xs="2">
+                    <div layout="row" layout-xs="column" id="checkout-progress" class="margin-bottom-small">
+                      {{ partial('shop-checkout-progress') }}
+                    </div>
+                    <div id="checkout-steps">
+                      {{ partial('shop-checkout-steps') }}
+                    </div>
+                  </div>
+                   
+                  <div id="checkout-minicart" flex-order-xs="1">
+                    {{ partial('shop-checkout-cart') }}
+                  </div>
+                </div>
+            {% endif %}
     {% endif %}
   </div>
 </div>
+
