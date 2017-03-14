@@ -1,0 +1,35 @@
+{{ open_form({'class': 'custom'}) }}
+  <div layout="column" flex="66" id="checkout-shippingMethod" class="layout-column">
+    <div layout="column" class="layout-column">
+      <h3 class="ls-heading letter-spacing-2 padding-y-medium">Shipping method</h3>
+      <input type="text" class="input-hidden" readonly ng-model="shipping.shippingMethod" watch-change name="shippingMethod"  />
+      <md-radio-group ng-model="shipping.shippingMethod">
+        {% for index, option in shippingOptions %}
+        
+          <md-radio-button value="{{ index }}" aria-label="Shipping - {{ option.shippingMethodName }}">
+            {{ option.shippingMethodName }}{% if option.shippingServiceName %}: {{ option.shippingServiceName }}{% endif %}
+            test: {{ index }}
+            <span class="ls-caption md-caption">({{ not option.is_free ? option.quote|currency : 'Free' }})</span>
+          </md-radio-button>
+        {% endfor %}
+      </md-radio-group>
+      <div layout="row" layout-xs="column" layout-align="space-between center" class="padding-y-medium" layout-align-xs="center center">
+        <a
+          flex-order-xs="1"
+          md-ink-ripple
+          class="md-button ls-button  ls-button-wide no-margin"
+          ng-href="#"
+          ng-click="$root.showLoadingScreen();"
+          compile-step="shop-amazon-checkout-pay"
+          compile-on-click="#checkout-page"
+          style="background-color: {{ theme.secondaryColor }}; color: {{ theme.bannerButtonTextColor }}"
+          data-ajax-handler="amazonPayments:checkout" data-ajax-update="#checkout-page=shop-amazon-checkout, #breadcrumbs-area=partial-amazon-checkout-progress">
+          Continue
+        </a>
+      </div>
+    </div>
+  </div>
+
+  <input type="hidden" name="step" value="shipping_method,review" />
+  <input type="hidden" name="nextStep" value="pay" />
+{{ close_form() }}
