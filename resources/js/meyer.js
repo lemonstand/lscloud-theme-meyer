@@ -994,6 +994,20 @@ angular.module('lsAngularApp')
       });
     });
     
+    $scope.isAutoUpdatedPayment = false;
+    
+    $scope.autoUpdateSinglePaymentMethod = () =>{
+        if(!$scope.isAutoUpdatedPayment){
+            $timeout(() =>{
+                let select = angular.element('#payment_method');
+                let selectedVal = select.children()[1].value;
+                select.val(selectedVal);
+                select.change();
+                $scope.isAutoUpdatedPayment = true;
+            }, 500);
+        }
+    }
+    
     $scope.isUpdateCoupon = false;
 
     $scope.nextStep = function(){
