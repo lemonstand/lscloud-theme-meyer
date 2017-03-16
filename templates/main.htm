@@ -1,6 +1,3 @@
----
-description: 'Default Template'
----
 <!DOCTYPE html>
 <html>
   <head>
@@ -22,7 +19,10 @@ description: 'Default Template'
       <meta name="twitter:image:src" content="https:{{ product.images.first.thumbnail(280, 'auto') }}" />
       {% endif %}
     {% endif %}
-
+    
+    {% if amazonWidgetsJs %}
+        {{ amazonWidgetsJs }}
+    {% endif %}
 
     <link href="https://file.myfontastic.com/n6vo44Re5QaWo8oCKShBs7/icons.css" rel="stylesheet">
     <link rel="icon" type="image/png" href="{{ theme.faviconImage.thumbnail('16', '16') }}"/>

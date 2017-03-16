@@ -1,0 +1,21 @@
+{{ open_form({'class': 'custom', 'data-validation-message' : ''}) }}
+
+    <div layout="row" layout-padding>
+        {{ amazonAddressBookWidget }}
+    </div>
+     <div layout="row" layout-padding>
+        {{ amazonWalletWidget }}
+    </div>
+
+      <div layout="row" layout-align="end-center" layout-padding>
+        <md-button class="ls-button ls-button-wide" href="#" 
+        ng-click="$root.showLoadingScreen();"
+        data-ajax-handler="amazonPayments:checkout" 
+        data-ajax-update="#checkout-page=shop-amazon-checkout, #checkout-progress=partial-amazon-checkout-progress"
+        compile-step="shop-amazon-checkout-shippingmethod"
+        compile-on-click="#checkout-page"
+        >Continue</a>
+      </div>
+
+  <input type="hidden" name="step" value="billing_info,shipping_info">
+{{ close_form }}

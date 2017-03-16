@@ -1,6 +1,6 @@
 <div layout="row" layout-xs="column" layout-align="space-between center" layout-align-xs="center start" class="margin-y-mobile">
   <h3 class="ls-heading letter-spacing-2 padding-y-medium no-padding-mobile">Shipping address</h3>
-  <md-checkbox  class="md-primary" ng-model="shippingIsBilling" aria-label="Same as billing" ng-change="copyBillingInfo()" >
+  <md-checkbox  class="md-primary" ng-model="shippingIsBilling" aria-label="Same as billing" ng-change="$scope.shippingIsBilling = !$scope.shippingIsBilling"  ng-init="initBillingIsShipping();" >
     <span class="md-caption">
       Copy information
     </span>
@@ -10,11 +10,12 @@
 <div layout="row">
   <md-input-container flex class="md-input-has-placeholder hide-errors">
     <label class="ls-subheading">First name</label>
-    <input ng-model="shipping.fname" ng-readonly="infoCopied" name="shippingInfo[firstName]" id="shipping_firstName" type="text" required>
+    <input ng-model="shipping.fname" ng-readonly="infoCopied" name="shippingInfo[firstName]" id="shipping_firstName" type="text" required   required>
   </md-input-container>
   <md-input-container flex class="md-input-has-placeholder hide-errors">
     <label class="ls-subheading">Last name</label>
-    <input ng-model="shipping.lname" ng-readonly="infoCopied" name="shippingInfo[lastName]" id="shipping_lastName" type="text" required>
+    <input ng-model="shipping.lname" ng-readonly="infoCopied" name="shippingInfo[lastName]" id="shipping_lastName" type="text" required  required>
+
   </md-input-container>
 </div>
 
@@ -40,7 +41,7 @@
 <div layout="row" >
   <md-input-container flex class="md-input-has-placeholder hide-errors">
     <label for="shipping_country" class="ls-subheading font-16">Country</label>
-    <select ng-if="!shippingIsBilling" id="shipping_country" name="shippingInfo[countryId]" ng-change="$root.showLoadingScreen()" ng-model="shipping.country" ng-disabled="!shipping.street.length || infoCopied" data-state-selector="#shipping_state" data-current-state="{{ shippingInfo.stateId }}">
+    <select ng-if="!shippingIsBilling" id="shipping_country" name="shippingInfo[countryId]" ng-change="$root.showLoadingScreen()" ng-model="shipping.country" ng-disabled="shippingIsBilling;" data-state-selector="#shipping_state" data-current-state="{{ shippingInfo.stateId }}">
       {% for country in countries %}
       <option {{ option_state(shippingInfo.countryId, country.id) }} value="{{ country.id }}">{{ country.name }}</option>
       {% endfor %}
@@ -48,12 +49,17 @@
     <input ng-if="shippingIsBilling" ng-model="country_name" ng-disabled="shippingIsBilling" id="shipping_countryName" type="text" required>
   </md-input-container>
 
-  <md-input-container flex class="md-input-has-placeholder hide-errors">
+  <md-input-container flex class="md-input-has-placeholder hide-errors" ng-show="!shippingIsBilling;">
     <label for="shipping_state" class="ls-subheading font-16">State/Province</label>
-    <select ng-if="!shippingIsBilling" id="shipping_state" name="shippingInfo[stateId]" ng-model="shipping.state" ng-disabled="!shipping.street.length || infoCopied" data-ajax-refresh >
+    <select ng-if="!shippingIsBilling" id="shipping_state" name="shippingInfo[stateId]" ng-model="shipping.state" ng-disabled="!shipping.street.length || shippingIsBilling " data-ajax-refresh >
       {{ partial('shop-stateoptions', {'states': shippingStates, 'selected': shippingInfo.stateId}) }}
     </select>
     <input ng-if="shippingIsBilling" ng-model="state_name" ng-disabled="shippingIsBilling" id="shipping_stateName" type="text">
+  </md-input-container>
+  
+    <md-input-container flex class="md-input-has-placeholder hide-errors" ng-show="shippingIsBilling" >
+    <label class="ls-subheading font-16">State/Province</label>
+    <input ng-model="stateTextValue"  type="text" ng-disabled="true"  ng-disabled="shippingIsBilling;">
   </md-input-container>
 </div>
 
@@ -69,7 +75,7 @@
   </md-input-container>
   <md-input-container flex class="md-input-has-placeholder hide-errors">
     <label class="ls-subheading font-16">Postcode</label>
-    <input  ng-model="shipping.postcode" ng-readonly="infoCopied" name="shippingInfo[postalCode]" id="shipping_postalCode" type="text">
+    <input  ng-model="shipping.postcode" ng-readonly="infoCopied" name="shippingInfo[postalCode]" id="shipping_postalCode" type="text"  ng-disabled="shippingIsBilling;">
   </md-input-container>
 </div>
 

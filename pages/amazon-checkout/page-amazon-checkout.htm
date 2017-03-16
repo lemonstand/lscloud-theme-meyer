@@ -1,0 +1,37 @@
+---
+action: 'amazonPayments:checkout'
+template: main
+protocol: all
+published: true
+name: 'Amazon Checkout'
+url: /amazon-checkout
+---
+{{ partial('partial-banner-alt') }}
+
+<div layout="column" layout-align="center center" class="bg-white">
+  <div layout="column" class="content-container padding-y-large" layout-align="start center" >
+    {% if not items.count %}
+    <h2 class="ls-heading">Your cart is empty</h2>
+    <div layout="column">
+      <md-button class="ls-button  margin-y-medium" ng-href="{{ site_url('products') }}">Continue shopping</md-button>
+    </div>
+    {% else %}
+
+    <div layout="row" layout-xs="column" class="max-width-1024 padding-mobile layout-fill layout-xs-column layout-row" layout-fill="">
+
+        <div flex="66" flex-xs="100" flex-order-xs="2">
+            <div layout="row" layout-xs="column" id="checkout-progress" class="margin-bottom-small layout-xs-column layout-row">
+              {{ partial('partial-amazon-checkout-progress') }}
+            </div>
+            <div layout="row" layout-xs="column" class="margin-bottom-small" id="checkout-page" ng-controller="CheckoutCtrl" transclude>
+              {{ partial('shop-amazon-checkout') }}
+            </div>
+        </div>
+       <div id="checkout-minicart" flex="33" flex-order-xs="1">
+        {{ partial('shop-checkout-cart') }}
+      </div>
+  </div>
+
+    {% endif %}
+  </div>
+</div>

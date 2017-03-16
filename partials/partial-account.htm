@@ -40,13 +40,12 @@
       <label for="billing_country" class="ls-subheading font-16">Country</label>
       <select id="billing_country" name="billing[shop_country_id]" 
       ng-model="billing.country" ng-init="billing.country = '{{ billing.country.id }}'" 
-      ng-change="$root.showLoadingScreen();" 
+      ng-change="$root.showLoadingScreen();onCountryChange();" 
       ng-disabled="!billing.street.length" 
       data-state-selector="#billing_state" 
       data-current-state="{{ billing.country.id }}"
       >
-      
-    {% for country in countries %}
+        {% for country in countries %}
           <option {{ option_state(billing.country.id, country.id) }} value="{{ country.id }}">{{ country.name }}</option>
         {% endfor %}
       </select>
@@ -54,7 +53,7 @@
 
     <md-input-container flex class="md-input-has-placeholder hide-errors">
       <label for="billing_state" class="ls-subheading font-16">State/Province</label>
-      <select id="billing_state" name="billing[shop_state_id]" ng-model="billing.state" ng-init="billing.state = '{{ billing.state.id }}'" ng-disabled="!billing.street.length" data-ajax-refresh >
+      <select id="billing_state"  ng-click="onStateChange();" name="billing[shop_state_id]" ng-model="billing.state" ng-init="billing.state = '{{ billing.state.id }}'" ng-disabled="!billing.street.length" data-ajax-refresh>
         {{ partial('shop-stateoptions', {'states': billingStates, 'selected': billing.state.id}) }}
       </select>
     </md-input-container>
@@ -64,14 +63,14 @@
       <input ng-model="billing.postcode" ng-init="billing.postcode = '{{ billing.postal_code }}'" name="billing[postal_code]" id="billing_postal_code" type="text">
     </md-input-container>
   </div>
+
   
   <div class="validation-row">
     <input name="billing[shop_country_id]" ng-model="billing.country" class="input-hidden"  ng-init="billing.country = '{{ billing.country.id }}'" type="text">
     <span class="error"></span>
  </div>
-     
-  <div layout="row" layout-align="start center" class="margin-bottom-small" ng-init="shippingIsBilling = '{{ billing.street_address }}' === '{{ shipping.street_address }}' ? true : false">
-    <md-checkbox class="md-primary" ng-model="shippingIsBilling" aria-label="Same as billing" ng-change="copyBillingInfo()" >
+  <div layout="row" layout-align="start center" class="margin-bottom-small" ng-init="initBillingIsShipping();">
+    <md-checkbox class="md-primary" ng-model="shippingIsBilling" aria-label="Same as billing" ng-change="$scope.shippingIsBilling = !$scope.shippingIsBilling" >
       <span class="md-caption">
         Use billing address for shipping address
       </span>
@@ -93,18 +92,31 @@
     <div layout="row" layout-xs="column">
       <md-input-container flex class="md-input-has-placeholder hide-errors">
         <label for="shipping_country" class="ls-subheading font-16">Country</label>
-        <select id="shipping_country" ng-readonly="shippingIsBilling" name="shipping[shop_country_id]" ng-model="shipping.country" ng-init="shipping.country = '{{ shipping.country.id }}'" ng-change="$root.showLoadingScreen();" data-state-selector="#shipping_state" data-current-state="{{ shipping.country.id }}">
+        <select id="shipping_country" ng-readonly="shippingIsBilling" 
+        name="shipping[shop_country_id]" 
+        ng-model="shipping.country"
+        ng-init="shipping.country = '{{ shipping.country.id }}'" 
+        ng-change="$root.showLoadingScreen();"
+        data-state-selector="#shipping_state" 
+        data-current-state="{{ shipping.country.id }}"
+        ng-disabled="shippingIsBilling;"
+        >
           {% for country in countries %}
             <option {{ option_state(shipping.country.id, country.id) }} value="{{ country.id }}">{{ country.name }}</option>
           {% endfor %}
         </select>
       </md-input-container>
 
-      <md-input-container flex class="md-input-has-placeholder hide-errors">
+      <md-input-container flex class="md-input-has-placeholder hide-errors" ng-show="!shippingIsBilling;">
         <label for="shipping_state" class="ls-subheading font-16">State/Province</label>
-        <select id="shipping_state" ng-readonly="shippingIsBilling" name="shipping[shop_state_id]" ng-model="shipping.state" ng-init="shipping.state = '{{ shipping.state.id }}'" data-ajax-refresh >
+        <select id="shipping_state"  name="shipping[shop_state_id]" ng-model="shipping.state" ng-init="shipping.state = '{{ shipping.state.id }}'" data-ajax-refresh  >
           {{ partial('shop-stateoptions', {'states': shippingStates, 'selected': shipping.state.id}) }}
         </select>
+      </md-input-container>
+      
+      <md-input-container flex class="md-input-has-placeholder hide-errors" ng-show="shippingIsBilling" >
+        <label class="ls-subheading font-16">State/Province</label>
+        <input ng-model="stateTextValue"  type="text" ng-disabled="true">
       </md-input-container>
 
       <md-input-container flex class="md-input-has-placeholder hide-errors">
