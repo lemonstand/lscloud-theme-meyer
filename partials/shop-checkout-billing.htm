@@ -9,6 +9,14 @@
     <input ng-model="billing.lname" name="billingInfo[lastName]" id="billing_lastName" type="text" required>
   </md-input-container>
 </div>
+
+<div class="validation-row" layout="row">
+    <input flex name="billingInfo[firstName]" ng-model="billing.fname" class="input-hidden"  type="text">
+    <span flex class="error"></span>
+    <input flex name="billingInfo[lastName]" ng-model="billing.lname" class="input-hidden"  type="text">
+    <span flex class="error"></span>
+</div>
+
 <div layout="row">
   <md-input-container flex class="md-input-has-placeholder hide-errors">
     <label class="ls-subheading font-16">Email address</label>
@@ -16,11 +24,21 @@
   </md-input-container>
 </div>
 
+<div class="validation-row" layout="row">
+    <input flex name="billingInfo[email]" ng-model="billing.email" class="input-hidden"  type="text">
+    <span flex class="error"></span>
+</div>
+
 <div layout="row">
   <md-input-container flex class="md-input-has-placeholder hide-errors">
     <label class="ls-subheading font-16">Street address</label>
     <input ng-model="billing.street" name="billingInfo[streetAddressLine1]" id="billing_address" type="text" required>
   </md-input-container>
+</div>
+
+<div class="validation-row" layout="row">
+    <input flex name="billingInfo[streetAddressLine1]" ng-model="billing.street" class="input-hidden"  type="text">
+    <span flex class="error"></span>
 </div>
 
 <div layout="row">
@@ -41,6 +59,11 @@
   </md-input-container>
 </div>
 
+<div class="validation-row">
+    <input name="billingInfo[countryId]" ng-model="billing.country" class="input-hidden"  type="text">
+    <span class="error"></span>
+</div>
+
 <div layout="row">
   <md-input-container flex class="md-input-has-placeholder hide-errors">
     <label class="ls-subheading font-16">City</label>
@@ -50,4 +73,11 @@
     <label class="ls-subheading font-16">Postcode</label>
     <input  ng-model="billing.postcode" name="billingInfo[postalCode]" id="billing_postalCode" type="text">
   </md-input-container>
+</div>
+
+<div class="validation-row" layout="row">
+    <input flex name="billingInfo[city]" ng-model="billing.city" class="input-hidden"  type="text">
+    <span flex class="error"></span>
+    <input flex name="billingInfo[postalCode]" ng-model="billing.postcode" class="input-hidden"  type="text">
+    <span flex class="error"></span>
 </div>

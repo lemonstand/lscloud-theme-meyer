@@ -10,19 +10,32 @@
 <div layout="row">
   <md-input-container flex class="md-input-has-placeholder hide-errors">
     <label class="ls-subheading">First name</label>
-    <input ng-model="shipping.fname" ng-readonly="infoCopied" name="shippingInfo[firstName]" id="shipping_firstName" type="text" required  ng-disabled="shippingIsBilling;">
+    <input ng-model="shipping.fname" ng-readonly="infoCopied" name="shippingInfo[firstName]" id="shipping_firstName" type="text" required   required>
   </md-input-container>
   <md-input-container flex class="md-input-has-placeholder hide-errors">
     <label class="ls-subheading">Last name</label>
-    <input ng-model="shipping.lname" ng-readonly="infoCopied" name="shippingInfo[lastName]" id="shipping_lastName" type="text" required  ng-disabled="shippingIsBilling;">
+    <input ng-model="shipping.lname" ng-readonly="infoCopied" name="shippingInfo[lastName]" id="shipping_lastName" type="text" required  required>
+
   </md-input-container>
+</div>
+
+<div class="validation-row" layout="row">
+    <input flex name="shippingInfo[firstName]" ng-model="shipping.fname" class="input-hidden"  type="text">
+    <span flex class="error"></span>
+    <input flex name="shippingInfo[lastName]" ng-model="shipping.lname" class="input-hidden"  type="text">
+    <span flex class="error"></span>
 </div>
 
 <div layout="row">
   <md-input-container flex class="md-input-has-placeholder hide-errors">
     <label class="ls-subheading font-16">Street address</label>
-    <input ng-model="shipping.street" ng-readonly="infoCopied" name="shippingInfo[streetAddressLine1]" id="shipping_address" type="text" required  ng-disabled="shippingIsBilling;">
+    <input ng-model="shipping.street" ng-readonly="infoCopied" name="shippingInfo[streetAddressLine1]" id="shipping_address" type="text" required>
   </md-input-container>
+</div>
+
+<div class="validation-row" layout="row">
+    <input flex name="shippingInfo[streetAddressLine1]" ng-model="shipping.street" class="input-hidden"  type="text">
+    <span flex class="error"></span>
 </div>
 
 <div layout="row" >
@@ -50,15 +63,27 @@
   </md-input-container>
 </div>
 
+<div class="validation-row">
+    <input name="shippingInfo[countryId]" ng-model="shipping.country" class="input-hidden" type="text">
+    <span class="error"></span>
+</div>
+
 <div layout="row">
   <md-input-container flex class="md-input-has-placeholder hide-errors">
     <label class="ls-subheading font-16">City</label>
-    <input ng-readonly="!shipping.street.length || infoCopied" ng-model="shipping.city" name="shippingInfo[city]" id="shipping_city" type="text" required  ng-disabled="shippingIsBilling;">
+    <input ng-readonly="!shipping.street.length || infoCopied" ng-model="shipping.city" name="shippingInfo[city]" id="shipping_city" type="text" required>
   </md-input-container>
   <md-input-container flex class="md-input-has-placeholder hide-errors">
     <label class="ls-subheading font-16">Postcode</label>
     <input  ng-model="shipping.postcode" ng-readonly="infoCopied" name="shippingInfo[postalCode]" id="shipping_postalCode" type="text"  ng-disabled="shippingIsBilling;">
   </md-input-container>
+</div>
+
+<div class="validation-row" layout="row">
+    <input flex name="shippingInfo[city]" ng-model="shipping.city" class="input-hidden"  type="text">
+    <span flex class="error"></span>
+    <input flex name="shippingInfo[postalCode]" ng-model="shipping.postcode" class="input-hidden"  type="text">
+    <span flex class="error"></span>
 </div>
 
 <input ng-if="shippingIsBilling" class="input-hidden" id="shipping_country" ng-model="shipping.country" name="shippingInfo[countryId]" type="text">

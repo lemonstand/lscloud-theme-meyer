@@ -5,18 +5,18 @@
   <div layout="row">
     <md-input-container flex class="md-input-has-placeholder hide-errors">
       <label class="ls-subheading">First name</label>
-      <input ng-init="billing.fname = '{{ billing.first_name }}'" ng-model="billing.fname"  name="billing[first_name]" id="billing_firstName" type="text">
+      <input ng-init="billing.fname = '{{ billing.first_name }}'" ng-model="billing.fname"  name="billing[first_name]" id="billing_firstName" type="text" required>
     </md-input-container>
     <md-input-container flex class="md-input-has-placeholder hide-errors">
       <label class="ls-subheading">Last name</label>
-      <input ng-model="billing.lname" ng-init="billing.lname = '{{ billing.last_name }}'" name="billing[last_name]" id="billing_lastName" type="text">
+      <input ng-model="billing.lname" ng-init="billing.lname = '{{ billing.last_name }}'" name="billing[last_name]" id="billing_lastName" type="text" required>
     </md-input-container>
   </div>
 
   <div layout="row" layout-xs="column" layout-align-xs="center center" layout-align="space-between center">
     <md-input-container flex class="md-input-has-placeholder hide-errors mobile-100">
       <label class="ls-subheading">Email address</label>
-      <input ng-model="billing.email" ng-init="billing.email = '{{ customer.email }}'" name="billing[email]" id="billing_email" type="email">
+      <input ng-model="billing.email" ng-init="billing.email = '{{ customer.email }}'" name="billing[email]" id="billing_email" type="email" required>
     </md-input-container>
     <div flex layout="row" layout-align="center center">
       <md-button class="md-primary" ng-href="{{ site_url('/account/change-password') }}" target="_blank">Change password</md-button>
@@ -27,11 +27,11 @@
   <div layout="row" layout-xs="column">
     <md-input-container flex="66" flex-xs="100" class="md-input-has-placeholder hide-errors">
       <label class="ls-subheading font-16">Street address</label>
-      <input ng-model="billing.street" ng-init="billing.street = '{{ billing.street_address }}'" name="billing[street_address]" id="billing_address" type="text">
+      <input ng-model="billing.street" ng-init="billing.street = '{{ billing.street_address }}'" name="billing[street_address]" id="billing_address" type="text" required>
     </md-input-container>
     <md-input-container flex class="md-input-has-placeholder hide-errors">
       <label class="ls-subheading font-16">City</label>
-      <input ng-model="billing.city" ng-init="billing.city = '{{ billing.city }}'" name="billing[city]" id="billing_city" type="text">
+      <input ng-model="billing.city" ng-init="billing.city = '{{ billing.city }}'" name="billing[city]" id="billing_city" type="text" required>
     </md-input-container>
   </div>
   
@@ -64,6 +64,11 @@
     </md-input-container>
   </div>
 
+  
+  <div class="validation-row">
+    <input name="billing[shop_country_id]" ng-model="billing.country" class="input-hidden"  ng-init="billing.country = '{{ billing.country.id }}'" type="text">
+    <span class="error"></span>
+ </div>
   <div layout="row" layout-align="start center" class="margin-bottom-small" ng-init="initBillingIsShipping();">
     <md-checkbox class="md-primary" ng-model="shippingIsBilling" aria-label="Same as billing" ng-change="$scope.shippingIsBilling = !$scope.shippingIsBilling" >
       <span class="md-caption">
@@ -76,11 +81,11 @@
     <div layout="row" layout-xs="column">
       <md-input-container flex="66" flex-xs="100" class="md-input-has-placeholder hide-errors">
         <label class="ls-subheading font-16">Street address</label>
-        <input ng-model="shipping.street" ng-readonly="shippingIsBilling" ng-init="shipping.street = '{{ shipping.street_address }}'" name="shipping[street_address]" id="shipping_address" type="text">
+        <input ng-model="shipping.street" ng-readonly="shippingIsBilling" ng-init="shipping.street = '{{ shipping.street_address }}'" name="shipping[street_address]" id="shipping_address" type="text" required>
       </md-input-container>
       <md-input-container flex class="md-input-has-placeholder hide-errors">
         <label class="ls-subheading font-16">City</label>
-        <input ng-model="shipping.city" ng-readonly="shippingIsBilling" ng-init="shipping.city = '{{ shipping.city }}'" name="shipping[city]" id="shipping_city" type="text">
+        <input ng-model="shipping.city" ng-readonly="shippingIsBilling" ng-init="shipping.city = '{{ shipping.city }}'" name="shipping[city]" id="shipping_city" type="text" required>
       </md-input-container>
     </div>
     
@@ -119,6 +124,11 @@
         <input ng-model="shipping.postcode" ng-readonly="shippingIsBilling" ng-init="shipping.postcode = '{{ shipping.postal_code }}'" name="shipping[postal_code]" id="shipping_postal_code" type="text">
       </md-input-container>
     </div>
+    
+      <div class="validation-row">
+        <input name="shipping[shop_country_id]" ng-model="shipping.country" class="input-hidden"   ng-init="shipping.country = '{{ shipping.country.id }}'" type="text">
+        <span class="error"></span>
+     </div>
   </div>
 
   <h3 class="ls-heading letter-spacing-2 padding-y-medium margin-top-medium">Notification settings</h3>
