@@ -1,0 +1,11 @@
+{% if cart %}
+    {% if order.payment_processed %}
+      <p class="flash info"><strong>Thank you!</strong> The payment is already processed for this order.</p>
+    {% else %}
+       <div id="payment_form" class="layout-column" layout="column">
+           {{ partial('partial-paymentform') }}
+         </div>
+     {% endif %}
+{% else %}
+  <p class="flash error">Order not found.</p>
+{% endif %}

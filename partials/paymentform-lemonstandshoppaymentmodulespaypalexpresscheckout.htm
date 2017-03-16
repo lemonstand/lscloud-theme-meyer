@@ -1,0 +1,49 @@
+---
+description: 'Payment form partial for PayPal Express Checkout payment method'
+---
+<form method="post" action="" data-ajax-handler="shop:onPay">
+    <input type="hidden" value="{{ paymentMethod.id }}" name="payment_method_id">
+    <md-input-container>
+    <md-button type="submit" id="paypal_button" value="Pay With PayPal" class="md-button ls-button ls-button-wide no-margin md-ink-ripple">Pay With PayPal</md-button>
+    </md-input-container>
+</form>
+
+{% if not paymentMethod.getPaymentModuleObj().hasActiveExpressCheckout() %}
+    <script>
+        window.paypalCheckoutReady = function() {
+            paypal.checkout.setup("{{ paymentMethod.getConfigSetting('merchantId') }}" , {
+                {% if paymentMethod.getConfigSetting('testMode') %}
+                environment: 'sandbox',
+                {% else %}
+                environment: 'production',
+                {% endif %}
+                click: function(event) {
+                    event.preventDefault();
+                    paypal.checkout.initXO();
+                    var form = $(event.target).closest("form")[0];
+                    var action = $.post('/ls_paypal_express_checkout/set_express_checkout_mark?payment_method_id={{ paymentMethod.id }}');
+
+                    action.done(function (data) {
+                        paypal.checkout.startFlow(data.token);
+                    });
+
+                    action.fail(function () {
+                      paypal.checkout.closeFlow();
+                    });
+                },
+                condition: function() {
+                    return true;
+                },
+                button: 'confirmBtn'
+            });
+        }
+    </script>
+    <script>
+        if (!('paypal' in window)) {
+            $.getScript("//www.paypalobjects.com/api/checkout.js");
+        } else {
+            delete window.paypal;
+            $.getScript("//www.paypalobjects.com/api/checkout.js");
+        }
+    </script>
+{% endif %}

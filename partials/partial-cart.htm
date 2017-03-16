@@ -61,9 +61,14 @@
       </div>
     </div>
      <div layout="row" layout-xs="column" layout-fill layout-align="end center" layout-align-xs="center center" flex class="padding-y-medium border-bottom">
-      {% if amazonPayButton %}
-        {{ amazonPayButton }}
-      {% endif %}
+       <div layout="column" flex-order-xs="1" class="margin-bottom-mobile" layout-padding>
+           {% if payPalExpressCheckoutButton %}
+            {{ payPalExpressCheckoutButton }}
+            {% endif %}
+          {% if amazonPayButton %}
+            {{ amazonPayButton }}
+          {% endif %}
+       </div>
      </div>
   {% endif %}
 
