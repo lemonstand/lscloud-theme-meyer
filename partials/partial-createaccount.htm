@@ -1,34 +1,43 @@
-
 <div layout="row" layout-xs="column">
   <md-input-container flex class="md-input-has-placeholder hide-errors">
-    <label class="ls-subheading">First name*</label>
-    <input ng-model="profile.fname" type="text" id="signup[first_name]" name="signup[first_name]" ng-init="profile.fname = '{{ post('signup[first_name]') }}'">
+    <label class="ls-subheading">First name</label>
+    <input ng-model="profile.fname" type="text" id="signup[first_name]" name="signup[first_name]" ng-init="profile.fname = '{{ post('signup[first_name]') }}'" required>
   </md-input-container>
 
   <md-input-container flex class="md-input-has-placeholder hide-errors">
-    <label class="ls-subheading">Last name*</label>
-    <input ng-model="profile.lname" ng-disabled="!profile.fname" type="text" id="signup[last_name]" name="signup[last_name]" ng-init="profile.lname =  '{{ post('signup[last_name]') }}'">
+    <label class="ls-subheading">Last name</label>
+    <input ng-model="profile.lname" ng-disabled="!profile.fname" type="text" id="signup[last_name]" name="signup[last_name]" ng-init="profile.lname =  '{{ post('signup[last_name]') }}'" required>
   </md-input-container>
 </div>
 
 <div layout="row">
-  <md-input-container flex class="md-input-has-placeholder hide-errors">
-    <label class="ls-subheading">Email address*</label>
-    <input ng-model="profile.email" type="email" id="signup[email]" name="signup[email]" ng-init=" profile.email = '{{ post('signup[email]') }}'">
-  </md-input-container>
+    <md-input-container flex class="md-input-has-placeholder hide-errors">
+    <label class="ls-subheading error">Email</label>
+    <input ng-model="profile.email" type="email" id="signup[email]" name="signup[email]" ng-init=" profile.email = '{{ post('signup[email]') }}'"  required>
+    </md-input-container>
+</div>
+<div layout="row" class="validation-row">
+    <input ng-model="profile.email" class="input-hidden" type="email" id="signup[email]" name="signup[email]" ng-init=" profile.email = '{{ post('signup[email]') }}'">
+    <span class="error small text-danger"></span>
 </div>
 
 <div layout="row" layout-xs="column">
   <md-input-container flex class="md-input-has-placeholder hide-errors">
-    <label class="ls-subheading">Password *</label>
-    <input ng-model="profile.password" type="password" id="signup[password]" name="signup[password]">
+    <label class="ls-subheading">Password</label>
+    <input ng-model="profile.password" type="password" id="signup[password]" name="signup[password]" required>
   </md-input-container>
 
   <md-input-container flex class="md-input-has-placeholder hide-errors">
-    <label class="ls-subheading">Confirm password *</label>
-    <input ng-model="profile.password_confirmation" type="password" id="signup[password_confirmation]" name="signup[password_confirmation]">
+    <label class="ls-subheading">Confirm password</label>
+    <input ng-model="profile.password_confirmation" type="password" id="signup[password_confirmation]" name="signup[password_confirmation]" required>
   </md-input-container>
 </div>
+
+<div layout="row" class="validation-row">
+    <input ng-model="profile.password_confirmation" class="input-hidden" type="password" id="signup[password_confirmation]" name="signup[password_confirmation]">
+    <span class="error small text-danger"></span>
+</div>
+
 
 <div layout="row" layout-align="start center">
   <md-checkbox class="md-primary" ng-model="profile.accepts_marketing" ng-true-value="1" ng-false-value="0" aria-label="Receive notifications" >
@@ -41,7 +50,7 @@
 
 <div layout="row" layout-fill layout-align="center center" flex class="padding-y-medium border-bottom">
   <div layout="column">
-    <md-button class="ls-button no-margin-x  ls-button-wide" type="submit" ng-click="$root.showLoadingScreen();">
+    <md-button class="ls-button no-margin-x  ls-button-wide" type="submit">
       Submit
     </md-button>
   </div>

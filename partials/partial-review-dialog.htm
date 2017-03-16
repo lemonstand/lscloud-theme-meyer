@@ -1,5 +1,5 @@
 <md-dialog aria-label="Submit review" class=" min-width-640">
-  {{ open_form({'data-ajax-handler': 'system:onSendMessage', 'data-test': 'true'}) }}
+  {{ open_form({'data-ajax-handler': 'system:onSendMessage', 'data-test': 'true', 'data-validation-message' : 'please fill out all form fields'}) }}
     <md-dialog-content>
       <div class="md-dialog-content" layout="column">
 
@@ -61,7 +61,7 @@
 
       <md-button
         type="submit"
-        ng-click="submit(review); $root.showLoadingScreen();"
+        ng-click="submit(review);"
         class="ls-button  no-margin-y margin-x-small">
         Submit review
       </md-button>

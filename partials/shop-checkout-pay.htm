@@ -2,20 +2,22 @@
   <div layout="column">
     {{ open_form({'class': 'custom'}) }}
     {{ partial('shop-checkout-edit-discount') }}
+     {% if paymentMethods | length == 1 %}
+         <span class="input-hidden" ng-init="autoUpdateSinglePaymentMethod();"></span>
+     {% endif %}
     <h3 class="ls-heading letter-spacing-2 padding-y-medium">Payment method</h3>
     <div layout="row">
       <md-input-container flex="50" flex-xs="100" class="md-input-has-placeholder hide-errors">
         <label class="ls-subheading font-16">Payment method</label>
-        <select name="paymentMethodId" id="payment_method">
-          <option disabled selected value=''> - Select a payment method - </option>
-          {% for method in paymentMethods %}
-              <option value="{{ method.id }}">{{ method.name }}</option>
-          {% endfor %}
-        </select>
+           <select name="paymentMethodId" id="payment_method">
+              <option disabled selected value=''> - Select a payment method - </option>
+              {% for method in paymentMethods %}
+                  <option value="{{ method.id }}">{{ method.name }}</option>
+              {% endfor %}
+          </select>
       </md-input-container>
     </div>
     {{ close_form() }}
-
     <div id="payment_form">
      {{ partial('partial-paymentform') }}
     </div>

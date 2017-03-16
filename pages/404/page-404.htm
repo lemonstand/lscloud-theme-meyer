@@ -7,8 +7,17 @@ title: 'Page not found'
 name: 'Page not found'
 url: /404
 ---
-<section>
-	<h1>{{ page.title }}</h1>
-	<h2>Uh Oh! The page was not found!</h2>
-	<p>Try heading back to the <a class="blue" href="/">homepage</a> to see if you can find what you are looking for from there.</p>
-</section>
+{{ partial('partial-banner-alt', { banner: { title: '404' }}) }}
+
+<div layout="column" layout-align="center center" class="bg-white">
+    
+    <div layout="row">
+	    <h1>{{ page.title }}</h1>
+	</div>
+	 <div layout="row">
+	    <h2>Uh Oh! The page was not found!</h2>
+	</div>
+	<div layout="row">
+	    <p>Try heading back to the <a class="blue" href="/">homepage</a> to see if you can find what you are looking for from there.</p>
+    </div>
+</div>
