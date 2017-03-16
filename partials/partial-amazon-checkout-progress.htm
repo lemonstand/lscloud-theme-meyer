@@ -1,0 +1,66 @@
+{% if step == 'billing_info' %}
+  <!-- step 1 -->
+  <div layout="row" class="no-link-style checkout-step step-active layout-align-start-center layout-row" layout-align="start center">
+    <span class="step-number ls-checkout-progress ls-heading-small layout-align-center-center layout-row" layout="row" layout-align="center center">1</span>
+    <p class="step-name ls-checkout-progress ls-heading-small">Billing and Shipping</p>
+  </div>
+
+  <!-- step 2 -->
+  <div layout="row" class="no-link-style checkout-step margin-y-mobile layout-align-start-center layout-row" layout-align="start center">
+    <span class="step-number ls-checkout-progress ls-heading-small layout-align-center-center layout-row" layout="row" layout-align="center center">2</span>
+    <p class="step-name ls-checkout-progress ls-heading-small">Shipping Method</p>
+  </div>
+
+  <!-- step 3 -->
+  <div layout="row" class="no-link-style checkout-step layout-align-start-center layout-row" layout-align="start center">
+    <span class="step-number ls-checkout-progress ls-heading-small layout-align-center-center layout-row" layout="row" layout-align="center center">3</span>
+    <p class="step-name ls-checkout-progress ls-heading-small">Review and Pay</p>
+  </div>
+
+{% elseif step == 'pay' %}
+  <!-- step 1 -->
+  <a href="#" layout="row" class="no-link-style checkout-step step-active layout-align-start-center layout-row" layout-align="start center"
+    ng-click="$root.showLoadingScreen();"
+    data-ajax-handler="amazonPayments:checkout" data-ajax-update="#checkout-page=-shop-amazon-checkout"
+    data-ajax-extra-fields="nextStep=billing_info">
+    <span class="step-number ls-checkout-progress ls-heading-small layout-align-center-center layout-row" layout="row" layout-align="center center">1</span>
+    <p class="step-name ls-checkout-progress ls-heading-small">Billing and Shipping</p>
+  </a>
+
+  <!-- step 2 -->
+  <a href="#" layout="row" class="no-link-style checkout-step margin-y-mobile layout-align-start-center layout-row" layout-align="start center"
+    ng-click="$root.showLoadingScreen();"
+   data-ajax-handler="amazonPayments:checkout" data-ajax-update="#checkout-page=shop-amazon-checkout, #checkout-progress=partial-amazon-checkout-progress" data-ajax-extra-fields="nextStep=shipping_method">
+    <span class="step-number ls-checkout-progress ls-heading-small layout-align-center-center layout-row" layout="row" layout-align="center center">2</span>
+    <p class="step-name ls-checkout-progress ls-heading-small">Shipping Method</p>
+  </a>
+
+  <!-- step 3 -->
+  <div layout="row" class="no-link-style checkout-step step-active layout-align-start-center layout-row" layout-align="start center">
+    <span class="step-number ls-checkout-progress ls-heading-small layout-align-center-center layout-row" layout="row" layout-align="center center">3</span>
+    <p class="step-name ls-checkout-progress ls-heading-small">Review and Pay</p>
+  </div>
+  
+ {% else %} 
+ 
+  <!-- step 1 -->
+  <a href="#" layout="row" class="no-link-style checkout-step layout-align-start-center layout-row" layout-align="start center"
+    ng-click="$root.showLoadingScreen();"
+   data-ajax-handler="amazonPayments:checkout"  data-ajax-update="#checkout-page=shop-amazon-checkout, #checkout-progress=partial-amazon-checkout-progress" data-ajax-extra-fields="nextStep=billing_info">
+    <span class="step-number ls-checkout-progress ls-heading-small layout-align-center-center layout-row" layout="row" layout-align="center center">1</span>
+    <p class="step-name ls-checkout-progress ls-heading-small">Billing and Shipping</p>
+  </a>
+
+  <!-- step 2 -->
+  <div layout="row" class="no-link-style checkout-step step-active layout-align-start-center layout-row" layout-align="start center">
+    <span class="step-number ls-checkout-progress ls-heading-small layout-align-center-center layout-row" layout="row" layout-align="center center">3</span>
+    <p class="step-name ls-checkout-progress ls-heading-small">Shipping Method</p>
+  </div>
+
+  <!-- step 3 -->
+ <div layout="row" class="no-link-style checkout-step step-active layout-align-start-center layout-row" layout-align="start center">
+    <span class="step-number ls-checkout-progress ls-heading-small layout-align-center-center layout-row" layout="row" layout-align="center center">3</span>
+    <p class="step-name ls-checkout-progress ls-heading-small">Review and Pay</p>
+  </div>
+ 
+{% endif %}
