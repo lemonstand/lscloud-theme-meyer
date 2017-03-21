@@ -31,6 +31,9 @@
       </div>
     </div>
   </div>
+ {% if theme.showShippingEstimator %}
+    {{ partial('shop-shipping-estimator') }}
+ {% endif %}
   <input type="hidden" name="step" value="shipping_method,review" />
   <input type="hidden" name="nextStep" value="pay" />
 {{ close_form() }}
