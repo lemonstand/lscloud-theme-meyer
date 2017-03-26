@@ -558,6 +558,7 @@
   .margin-y-mobile { margin-top: 16px !important; margin-bottom: 16px !important; }
   .margin-bottom-mobile { margin-bottom: 16px !important; }
   .no-margin-tablet { margin: 0 !important; }
+  .page-checkout .padding-x-xl { padding-left: 50px; padding-right: 50px; }
 }
 
 @media only screen and (min-width:1120px) {
