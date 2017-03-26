@@ -17,7 +17,7 @@ url: /checkout-start
       <p class="md-caption ls-caption padding-y line-height-15">
         Proceed to checkout and you will have an opportunity to create an account at the end if one does not already exist for you.
       </p>
-      <div layout="row" layout-xs="column" layout-align="space-around center">
+      <div layout="column" layout-gt-md="row" layout-align="space-around center">
         <md-button class="ls-caption md-caption md-lowercase" flex-order-xs="2" ng-click="$root.showLoadingScreen();" href="{{ site_url('/account/create')}}">Create an account!</md-button>
         <md-button class="ls-button  ls-button-wide" flex-order-xs="1" ng-href="{{ site_url('/checkout') }}" ng-click="$root.showLoadingScreen();">
           Continue as guest
