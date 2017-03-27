@@ -8,26 +8,26 @@
           <div layout="row">
             <md-input-container flex class="md-input-has-placeholder hide-errors">
               <label class="ls-subheading">Your name</label>
-              <input ng-model="review.name" name="fields[name]" id="contact_name" type="text">
+              <input ng-model="review.name" name="fields[name]" id="contact_name" type="text" required>
             </md-input-container>
 
             <md-input-container flex class="md-input-has-placeholder hide-errors">
               <label class="ls-subheading">Email address</label>
-              <input ng-model="review.email" name="fields[email]" id="contact_email" type="email">
+              <input ng-model="review.email" name="fields[email]" id="contact_email" type="email" required>
             </md-input-container>
           </div>
 
           <div layout="row">
             <md-input-container flex class="md-input-has-placeholder hide-errors">
               <label class="ls-subheading">Subject</label>
-              <input ng-model="review.subject" name="fields[subject]" id="contact_subject" type="text">
+              <input ng-model="review.title" name="fields[title]" id="contact_subject" type="text" required>
             </md-input-container>
           </div>
 
           <div layout="row">
             <md-input-container flex class="md-input-has-placeholder hide-errors">
               <label class="ls-subheading">Message</label>
-              <textarea ng-model="review.message" name="fields[message]" id="contact_message" md-maxlength="500" rows="5"></textarea>
+              <textarea ng-model="review.message" name="fields[message]" id="contact_message" md-maxlength="500" rows="5" required></textarea>
             </md-input-container>
           </div>
 
