@@ -843,7 +843,7 @@ angular.module('lsAngularApp')
  * # ReviewDialogController
  * Controller of the lsAngularApp
  */
-  function ReviewDialogController($scope, $mdDialog) {
+  function ReviewDialogController($scope, $mdDialog, $rootScope) {
     $scope.hide = function() {
       $mdDialog.hide();
     };
@@ -851,7 +851,7 @@ angular.module('lsAngularApp')
       $mdDialog.cancel();
     };
     $scope.submit = function(review) {
-        if(review && review.email && review.email.length){
+        if(review && review.email && review.email.length && review.title && review.message){
             $rootScope.showLoadingScreen();
             $mdDialog.hide(review);
         }else{
