@@ -321,8 +321,7 @@ inputs %}
                                 {% for index, option in shippingOptions %}
 
                                 <md-radio-button value="{{ index }}" aria-label="Shipping - {{ option.shippingMethodName }}">
-                                    {{ option.shippingMethodName }}{% if option.shippingServiceName %}: {{ option.shippingServiceName }}{% endif %} test: {{
-                                    index }}
+                                    {{ option.shippingMethodName }}{% if option.shippingServiceName %}: {{ option.shippingServiceName }}{% endif %}
                                     <span class="ls-caption md-caption">({{ not option.is_free ? option.quote|currency : 'Free' }})</span>
                                 </md-radio-button>
                                 {% endfor %}
