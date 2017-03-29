@@ -74,8 +74,8 @@
     <input ng-readonly="!shipping.street.length || infoCopied" ng-model="shipping.city" name="shippingInfo[city]" id="shipping_city" type="text" required>
   </md-input-container>
   <md-input-container flex class="md-input-has-placeholder hide-errors">
-    <label class="ls-subheading font-16">Postcode</label>
-    <input  ng-model="shipping.postcode" ng-readonly="infoCopied" name="shippingInfo[postalCode]" id="shipping_postalCode" type="text"  ng-disabled="shippingIsBilling;">
+    <label class="ls-subheading font-16">Postal/Zip Code</label>
+    <input  ng-model="shipping.postcode" ng-readonly="infoCopied" name="shippingInfo[postalCode]" id="shipping_postalCode" type="text"  ng-disabled="shippingIsBilling;" required>
   </md-input-container>
 </div>
 

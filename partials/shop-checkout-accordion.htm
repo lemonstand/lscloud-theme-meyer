@@ -162,8 +162,8 @@ inputs %}
                                 required>
                         </md-input-container>
                         <md-input-container flex class="md-input-has-placeholder hide-errors">
-                            <label class="ls-subheading font-16">Postcode</label>
-                            <input ng-model="billing.postcode" name="billingInfo[postalCode]" id="billing_postalCode" type="text">
+                            <label class="ls-subheading font-16">Postal/Zip Code</label>
+                            <input ng-model="billing.postcode" name="billingInfo[postalCode]" id="billing_postalCode" type="text" required>
                         </md-input-container>
                     </div>
 
@@ -262,9 +262,9 @@ inputs %}
                                 type="text" required ng-disabled="shippingIsBilling;">
                         </md-input-container>
                         <md-input-container flex class="md-input-has-placeholder hide-errors">
-                            <label class="ls-subheading font-16">Postcode</label>
+                            <label class="ls-subheading font-16">Postal/Zip Code</label>
                             <input ng-model="shipping.postcode" ng-readonly="infoCopied" name="shippingInfo[postalCode]" id="shipping_postalCode" type="text"
-                                ng-disabled="shippingIsBilling;">
+                                ng-disabled="shippingIsBilling;" required>
                         </md-input-container>
                     </div>
 
