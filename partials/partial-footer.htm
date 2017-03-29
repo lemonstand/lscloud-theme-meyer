@@ -6,12 +6,11 @@
       <div layout="column" class="theme-column" flex flex-xs="100" flex-sm="50">
         <p class="ls-heading md-caption theme-heading">Company</p>
         <ul class="theme-list" layout-xs="row" layout-wrap>
-          <li class="md-caption" flex-xs="50"><a href="{{ site_url('/company') }}">About us</a></li>
-          <li class="md-caption" flex-xs="50"><a href="#">History</a></li>
+          <li class="md-caption" flex-xs="50"><a href="/about-us">About us</a></li>
+          {% if customer %}<li class="md-caption" flex-xs="50"><a href="/account/orders">Orders</a></li> {% endif %}
           <li class="md-caption" flex-xs="50"><a href="#">Return Policy</a></li>
           <li class="md-caption" flex-xs="50"><a href="{{ site_url('/blog') }}">Blog</a></li>
-          <li class="md-caption" flex-xs="50"><a href="{{ site_url('/contact') }}">Contact us</a></li>
-          <li class="md-caption" flex-xs="50"><a href="{{ site_url('/products/brands') }}">Brands</a></li>
+          <li class="md-caption" flex-xs="50"><a href="/contact-us">Contact us</a></li>
         </ul>
       </div>
 

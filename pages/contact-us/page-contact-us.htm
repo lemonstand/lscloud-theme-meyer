@@ -1,0 +1,56 @@
+---
+template: static
+protocol: all
+published: true
+name: 'Contact Us'
+url: /contact-us
+---
+{{ partial('partial-banner', {
+  'banner': {
+    'button': false,
+    'title': 'Contact Us',
+    'subheading': 'Get in touch!',
+    'backgroundImage': 'images/living-room-tile.jpg' | theme_resource
+  }}) }}
+
+
+<div layout="column" class="content-container" layout-align="center center">
+
+    <md-card layout="column" class="padding-small">
+    {{ open_form({'data-ajax-handler': 'system:onSendMessage', 'data-validation-message' : 'please fill out all form fields'}) }}
+        <div layout="row" layout-align="center center" flex class="padding-y-medium">
+            <h3 class="ls-heading letter-spacing-2 padding-y-medium no-padding-top">Send us a message</h3>
+        </div>
+        <md-divider></md-divider>
+        
+        <div layout="column" class="padding-medium">
+            <div layout="row">
+                <md-input-container flex class="md-input-has-placeholder">
+                    <label class="ls-subheading font-16">Your email</label>
+                    <input ng-model="contact.email" name="fields[email]" type="email" id="contact_email" required />
+                </md-input-container>
+            </div>
+
+            <div layout="column">
+                <md-input-container flex class="md-input-has-placeholder">
+                    <label class="ls-subheading">Your name</label>
+                    <input ng-model="contact.name" type="text" name="fields[name]" id="contact_name" required />
+                </md-input-container>
+            </div>
+
+            <div layout="column">
+                <md-input-container flex class="md-input-has-placeholder">
+                    <label class="ls-subheading">Your message</label>
+                    <textarea ng-model="contact.message" name="fields[message]" id="contact_message" md-maxlength="500" rows="5" required></textarea>
+                </md-input-container>
+            </div>
+
+            <div layout="row" layout-align="start center">
+                <md-button class="ls-button ls-button-wide  no-margin" type="submit" value="submit">
+                    Submit
+                </md-button> 
+            </div>
+        </div>
+    {{ close_form() }}
+    </md-card>
+</div>
