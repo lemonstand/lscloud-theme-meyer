@@ -83,9 +83,22 @@ url: '/product/:urlName'
                 </h2>
               {% endif %}
 
-              <p class="ls-caption md-caption margin-y-medium">
+              <p class="ls-caption md-caption margin-y-small">
                 {{ product.short_description | unescape }}
               </p>
+
+              {% if product.productAttributes %}
+              <div layout="row" layout-xs="column" class="padding-y-small"/>
+                <table>
+                  {% for attr in product.productAttributes %}
+                  <tr>
+                    <td class="ls-caption float-right">{{ attr.name }}:</td>
+                    <td class="ls-caption md-caption padding-x-small">{{ attr.value }}</td>
+                  </tr>
+                  {% endfor %}
+                </table>
+              </div>
+              {% endif %}
 
               <div layout="row" layout-xs="column" ng-hide="!product.options.length" class="padding-y-small"/>
                 <md-menu-bar>
