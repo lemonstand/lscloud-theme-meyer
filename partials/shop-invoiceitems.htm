@@ -12,8 +12,8 @@
     <div layout="row" layout-xs="column" layout-align="space-between center" layout-align-xs="center start" layout-padding class="no-padding-left">
 
         <div flex="20" flex-xs="100">
-            <h3 class="ls-heading letter-spacing-2 padding-y-medium">{{ item.product.name }}</h3>
-            <img src="{{ item.product.images.first.thumbnail(80, 80) }}"/>
+            <h3 class="ls-heading letter-spacing-2 padding-y-medium"><a class="no-link-style" href="/product/{{ item.product.url_name }}">{{ item.product.name }}</a></h3>
+            <a href="/product/{{ item.product.url_name }}"><img src="{{ item.product.images.first.thumbnail(80, 80) }}"/></a>
         </div>
         
        <div flex="20" flex-xs="100">
