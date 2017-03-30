@@ -144,16 +144,17 @@
             </ul>
           </div>
         </div>
-        <div layout="column" flex="33" class="featured-ad background-cover padding-medium text-left text-white" style="background-image: url({{ theme.megaMenuAdTileImage.thumbnail(400, 'auto') }});">
-
-          <h2 class="ls-heading">{{ theme.megaMenuAdTileTitle }}</h2>
-          <div layout="row" layout-align="start center">
-            <md-button href="{{ theme.megaMenuAdTileLink }}" class="md-lowercase md-body-1 no-margin-left">
-              {{ theme.megaMenuAdTileLinkText }}
-            </md-button>
+        {% if theme.megaMenuAdTile %}
+          <div layout="column" flex="33" class="featured-ad background-cover padding-medium text-left text-white" style="background-image: url({{ theme.megaMenuAdTileImage.thumbnail(400, 'auto') }});">
+          
+            <h2 class="ls-heading">{{ theme.megaMenuAdTileTitle }}</h2>
+            <div layout="row" layout-align="start center">
+              <md-button href="{{ theme.megaMenuAdTileLink }}" class="md-lowercase md-body-1 no-margin-left">
+                {{ theme.megaMenuAdTileLinkText }}
+              </md-button>
+            </div>
           </div>
-
-        </div>
+        {% endif %}
       </div>
     </div>
 
