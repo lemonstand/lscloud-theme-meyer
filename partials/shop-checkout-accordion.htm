@@ -81,6 +81,7 @@ inputs %}
 
             <div class="checkout-tab-content">
                 {{ open_form({'class': 'custom', 'data-validation-message' : ''}) }} {% if step == 'billing_info' %}
+                {{ partial('shop-checkout-edit-discount') }}
                 <div layout="row">
                     <h3 class="ls-heading letter-spacing-2 padding-y-medium">Customer information</h3>
                 </div>
@@ -302,7 +303,7 @@ inputs %}
 
             <div class="checkout-tab-content">
                 {{ open_form({'class': 'custom'}) }} {% if step == 'shipping_method' %}
-
+                {{ partial('shop-checkout-edit-discount') }}
                 <div layout="row">
                     <h3>Choose a Shipping Method</h3>
                 </div>
@@ -371,16 +372,18 @@ inputs %}
                         <p class="flash info"><strong>Thank you!</strong> The payment is already processed for this order.</p>
                         {% else %}
                         <div id="payment_method_wrapper" layout="column">
-
+                            {{ open_form({'class': 'custom'}) }}
+                            {{ partial('shop-checkout-edit-discount') }}
                             <label for="payment_method">Payment method</label>
                             <!-- The payment form below (id="payment_form") automatically updates when the payment method is changed. See main.js for the implementation details. -->
-                            {{ open_form({'class': 'custom'}) }}
                             <select name="paymentMethodId" id="payment_method" class="form-control">
                                         <option value=''> - </option>
                                         {% for method in paymentMethods %}
                                         <option value="{{ method.id }}">{{ method.name }}</option>
                                         {% endfor %}
-                                    </select> {{ close_form() }}
+                                    </select> 
+                            
+                            {{ close_form() }}
                         </div>
 
                         <div layout="row">
