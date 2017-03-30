@@ -31,8 +31,9 @@ url: /
 
 
 <div ng-controller="HomeCtrl">
-
-  {{ partial('partial-banner') }}
+  {% if theme.homeRibbon %}
+    {{ partial('partial-banner') }}
+  {% endif %}
 
   {{ partial('partial-home-ribbon') }}
 
