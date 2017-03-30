@@ -31,12 +31,12 @@ url: /
 
 
 <div ng-controller="HomeCtrl">
-  {% if theme.homeRibbon %}
+  
     {{ partial('partial-banner') }}
+
+  {% if theme.homeRibbon %}
+    {{ partial('partial-home-ribbon') }}
   {% endif %}
-
-  {{ partial('partial-home-ribbon') }}
-
 
   <md-content layout="column" class="padding-y-large">
 
