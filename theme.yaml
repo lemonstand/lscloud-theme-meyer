@@ -36,10 +36,10 @@ customFields:
     featuredAdPanelTitle: { type: text, title: 'Title for the featured ad panel on the home page', default: 'Summer sale', comment: 'What are you trying to advertise?' }
     featuredAdPanelText: { type: text, title: 'Title for the featured ad panel on the home page', default: 'Check out this awesome sale!', comment: 'Let people know why they would want to click the link.' }
     storeLatLng: { type: text, title: 'Google Maps Latitude and Longitude', default: '49.2838684,-123.1146013' }
-    pinterestUrl: { type: text, title: 'Pinterest URL', default: 'http://pinterest.com/lemonstand' }
-    facebookUrl: { type: text, title: 'Facebook URL', default: 'http://facebook.com/lemonstand' }
-    twitterUrl: { type: text, title: 'Twitter username (without @)', default: lemonstand }
-    instagramUrl: { type: text, title: 'Instagram URL', default: 'http://instagram.com/lemonstand' }
+    pinterestUrl: { type: text, title: 'Pinterest URL', default: 'http://pinterest.com/lemonstand', comment: 'If you don''t have Pinterest enter "none"'  }
+    facebookUrl: { type: text, title: 'Facebook URL', default: 'http://facebook.com/lemonstand', comment: 'If you don''t have Facebook enter "none"' }
+    twitterUrl: { type: text, title: 'Twitter username (without @)', default: lemonstand, comment: 'If you don''t have Twitter enter "none"' }
+    instagramUrl: { type: text, title: 'Instagram URL', default: 'http://instagram.com/lemonstand', comment: 'If you don''t have Instagram enter "none"' }
     mailchimpApiKey: { type: text, title: 'MailChimp API KEY', default: 12345678901234567890123456789012-xx1 }
     mailchimpListId: { type: text, title: 'MailChimp List ID', default: a1234b5c67 }
     showShippingEstimator: { type: checkbox, title: 'Show Shipping Rate Estimator', default: '1' }

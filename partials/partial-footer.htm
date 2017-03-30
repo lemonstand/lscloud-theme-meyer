@@ -33,7 +33,7 @@
         <p class="ls-heading md-caption theme-heading" >Social</p>
         <ul class="social-icons" layout="row" layout-wrap layout-align="space-between start" layout-align-xs="start start" layout-align-sm="start start">
 
-          {% if theme.pinterestUrl %}
+          {% if theme.pinterestUrl != "none" %}
             <li md-ink-ripple>
                 <a href="{{ theme.pinterestUrl }}" target="_blank" class="socicon pinterest">
                   <i class="socicon-pinterest"></i>
@@ -41,7 +41,7 @@
             </li>
           {% endif %}
 
-          {% if theme.facebookUrl %}
+          {% if theme.facebookUrl != "none" %}
             <li md-ink-ripple>
                 <a href="{{ theme.facebookUrl }}" target="_blank" class="socicon facebook">
                   <i class="socicon-facebook"></i>
@@ -49,7 +49,7 @@
             </li>
           {% endif %}
 
-          {% if theme.twitterUrl %}
+          {% if theme.twitterUrl != "none" %}
             <li md-ink-ripple>
                 <a href="https://twitter.com/{{ theme.twitterUrl }}" target="_blank" class="socicon twitter">
                   <i class="socicon-twitter"></i>
@@ -57,7 +57,7 @@
             </li>
           {% endif %}
 
-          {% if theme.instagramUrl %}
+          {% if theme.instagramUrl != "none" %}
             <li md-ink-ripple>
                 <a href="{{ theme.instagramUrl }}" target="_blank" class="socicon instagram">
                   <i class="socicon-instagram"></i>
