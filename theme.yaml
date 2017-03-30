@@ -6,6 +6,7 @@ website: 'https://github.com/matt-neill'
 engine: twig
 404: '404'
 customFields:
+    homeRibbon: { type: checkbox, title: 'Show home ribbon under home banner', default: '1'}
     blogOnHomepage: { type: checkbox, title: 'Show recent blog posts on the home page', default: '1' }
     megaMenuAdTile: { type: checkbox, title: 'Show featured ad tile in products dropdown menu', default: '1' }
     featuredAdPanel: { type: checkbox, title: 'Show featured ad panel on the home page', default: '1' }
