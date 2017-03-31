@@ -10,11 +10,11 @@
 <div layout="row">
   <md-input-container flex class="md-input-has-placeholder hide-errors">
     <label class="ls-subheading">First name</label>
-    <input ng-model="shipping.fname" ng-readonly="infoCopied" name="shippingInfo[firstName]" id="shipping_firstName" type="text" required   required>
+    <input ng-model="shipping.fname" ng-readonly="infoCopied" name="shippingInfo[firstName]" id="shipping_firstName" type="text" required    ng-disabled="shippingIsBilling;">
   </md-input-container>
   <md-input-container flex class="md-input-has-placeholder hide-errors">
     <label class="ls-subheading">Last name</label>
-    <input ng-model="shipping.lname" ng-readonly="infoCopied" name="shippingInfo[lastName]" id="shipping_lastName" type="text" required  required>
+    <input ng-model="shipping.lname" ng-readonly="infoCopied" name="shippingInfo[lastName]" id="shipping_lastName" type="text" required   ng-disabled="shippingIsBilling;">
 
   </md-input-container>
 </div>
@@ -29,7 +29,7 @@
 <div layout="row">
   <md-input-container flex class="md-input-has-placeholder hide-errors">
     <label class="ls-subheading font-16">Street address</label>
-    <input ng-model="shipping.street" ng-readonly="infoCopied" name="shippingInfo[streetAddressLine1]" id="shipping_address" type="text" required>
+    <input ng-model="shipping.street" name="shippingInfo[streetAddressLine1]" id="shipping_address" type="text" required  ng-disabled="shippingIsBilling;">
   </md-input-container>
 </div>
 
@@ -51,7 +51,7 @@
 
   <md-input-container flex class="md-input-has-placeholder hide-errors" ng-show="!shippingIsBilling;">
     <label for="shipping_state" class="ls-subheading font-16">State/Province</label>
-    <select ng-if="!shippingIsBilling" id="shipping_state" name="shippingInfo[stateId]" ng-model="shipping.state" ng-disabled="!shipping.street.length || shippingIsBilling " data-ajax-refresh >
+    <select ng-if="!shippingIsBilling" id="shipping_state" name="shippingInfo[stateId]" ng-model="shipping.state" ng-disabled="shippingIsBilling " data-ajax-refresh >
       {{ partial('shop-stateoptions', {'states': shippingStates, 'selected': shippingInfo.stateId}) }}
     </select>
     <input ng-if="shippingIsBilling" ng-model="state_name" ng-disabled="shippingIsBilling" id="shipping_stateName" type="text">
@@ -71,7 +71,7 @@
 <div layout="row">
   <md-input-container flex class="md-input-has-placeholder hide-errors">
     <label class="ls-subheading font-16">City</label>
-    <input ng-readonly="!shipping.street.length || infoCopied" ng-model="shipping.city" name="shippingInfo[city]" id="shipping_city" type="text" required>
+    <input ng-model="shipping.city" name="shippingInfo[city]" id="shipping_city" type="text" required  ng-disabled="shippingIsBilling;">
   </md-input-container>
   <md-input-container flex class="md-input-has-placeholder hide-errors">
     <label class="ls-subheading font-16">Postal/Zip Code</label>
