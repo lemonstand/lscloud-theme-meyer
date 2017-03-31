@@ -3,9 +3,11 @@
     <md-list-item>
         <p><strong>Subtotal:</strong> <i>{{ invoice.subtotal|currency }}</i></p>
     </md-list-item>
+    {% if invoice.total_sales_tax | length %}
      <md-list-item>
         <p><strong>Sales Tax:</strong> <i>{{ invoice.total_sales_tax |currency }}</i></p>
     </md-list-item>
+    {% endif %}
     <md-list-item>
         <p><strong>Shipping:</strong> <i>{{ invoice.total_shipping_quote|currency }}</i></p>
     </md-list-item>
