@@ -633,8 +633,19 @@ angular.module('lsAngularApp')
       if (newBrand !== oldBrand){ browsing = true; }
     });
 
+    var bannerLoad = function(currentCategory) {
+      $scope.title = currentCategory.name;
+      $scope.shortDescription = currentCategory.short_description;
+      $scope.setBackground = function(){
+        return {
+                'background-image':'url(' + currentCategory.thumbnail + ')'
+            }
+      }
+    }
+
     var categoryInit = function(parent,child){
       $scope.brands = [];
+
       if (angular.isUndefined($scope.productCategories)) {
         getAllCategories(parent);
       }
@@ -728,10 +739,10 @@ angular.module('lsAngularApp')
       }
     },true);
 
-
     var updateProductMenuTile = function(parent){
       $scope.currentCategory = $filter('filter')($scope.productCategories, { 'url_name': parent },true)[0];
       $scope.childCategories = $scope.currentCategory.children;
+      bannerLoad($scope.currentCategory);
     };
 
     var getAllCategories = function(parent){

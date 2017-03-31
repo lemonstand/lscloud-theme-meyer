@@ -12,6 +12,7 @@
           {
             "id": {{ category.id }},
             "name": "{{ category.name | raw }}",
+            "short_description": "{{ category.short_description|unescape }}",
             "url_name": "{{ category.url_name | raw }}",
             "api_code": "{{ category.api_code }}",
             "meta_keywords": "{{ category.meta_keywords | raw }}",
@@ -23,6 +24,7 @@
               {
                 "id": {{ child.id }},
                 "name": "{{ child.name | raw }}",
+                "short_description": "{{ child.short_description|unescape }}",
                 "url_name": "{{ child.url_name | raw }}",
                 "parent_name": "{{ child.parent.name | raw }}",
                 "parent_id": "{{ child.parent.id }}",
@@ -37,6 +39,7 @@
                         {
                             "id": {{ grandChild.id }},
                             "name": "{{ grandChild.name | raw }}",
+                            "short_description": "{{ grandChild.short_description|unescape }}",
                             "url_name": "{{ grandChild.url_name | raw }}",
                             "parent_name": "{{ grandChild.parent.name | raw }}",
                             "parent_id": "{{ grandChild.parent.id }}",
