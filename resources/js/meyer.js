@@ -645,7 +645,6 @@ angular.module('lsAngularApp')
 
     var categoryInit = function(parent,child){
       $scope.brands = [];
-
       if (angular.isUndefined($scope.productCategories)) {
         getAllCategories(parent);
       }
