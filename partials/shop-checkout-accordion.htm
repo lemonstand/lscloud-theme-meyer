@@ -135,7 +135,7 @@ inputs %}
                         <md-input-container flex class="md-input-has-placeholder hide-errors">
                             <label for="billing_country" class="ls-subheading font-16">Country</label>
                             <select id="billing_country" name="billingInfo[countryId]" ng-model="billing.country" required ng-change="getValue('country', '#billing_country'); $root.showLoadingScreen(); onCountryChange();"
-                                ng-disabled="!billing.street.length" data-state-selector="#billing_state" data-current-state="{{ billingInfo.stateId }}">
+                             data-state-selector="#billing_state" data-current-state="{{ billingInfo.stateId }}">
                                       {% for country in countries %}
                                         <option {{ option_state(billingInfo.countryId, country.id) }} value="{{ country.id }}">{{ country.name }}</option>
                                       {% endfor %}
@@ -145,7 +145,7 @@ inputs %}
                         <md-input-container flex class="md-input-has-placeholder hide-errors">
                             <label for="billing_state" class="ls-subheading font-16">State/Province</label>
                             <select id="billing_state" name="billingInfo[stateId]" ng-model="billing.state" ng-change="getValue('state', '#billing_state'); onStateChange();"
-                                ng-disabled="!billing.street.length" data-ajax-refresh required>
+                              data-ajax-refresh required>
                                       {{ partial('shop-stateoptions', {'states': billingStates, 'selected': billingInfo.stateId}) }}
                                     </select>
                         </md-input-container>
@@ -159,7 +159,7 @@ inputs %}
                     <div layout="row">
                         <md-input-container flex class="md-input-has-placeholder hide-errors">
                             <label class="ls-subheading font-16">City</label>
-                            <input ng-disabled="!billing.street.length" ng-model="billing.city" name="billingInfo[city]" id="billing_city" type="text"
+                            <input ng-model="billing.city" name="billingInfo[city]" id="billing_city" type="text"
                                 required>
                         </md-input-container>
                         <md-input-container flex class="md-input-has-placeholder hide-errors">
