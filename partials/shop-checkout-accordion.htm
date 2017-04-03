@@ -92,11 +92,11 @@ inputs %}
                     <div layout="row">
                         <md-input-container flex class="md-input-has-placeholder hide-errors">
                             <label class="ls-subheading">First name</label>
-                            <input ng-model="billing.fname" name="billingInfo[firstName]" id="billing_firstName" type="text" required>
+                            <input ng-model="billing.fname" name="billingInfo[firstName]" ng-init="billing.fname='{{ billingInfo.firstName }}'" id="billing_firstName" type="text" required>
                         </md-input-container>
                         <md-input-container flex class="md-input-has-placeholder hide-errors">
                             <label class="ls-subheading">Last name</label>
-                            <input ng-model="billing.lname" name="billingInfo[lastName]" id="billing_lastName" type="text" required>
+                            <input ng-model="billing.lname" name="billingInfo[lastName]" ng-init="billing.lname='{{ billingInfo.lastName }}'" id="billing_lastName" type="text" required>
                         </md-input-container>
                     </div>
 
@@ -110,7 +110,7 @@ inputs %}
                     <div layout="row">
                         <md-input-container flex class="md-input-has-placeholder hide-errors">
                             <label class="ls-subheading font-16">Email address</label>
-                            <input ng-model="billing.email" name="billingInfo[email]" id="billing_email" type="email" required>
+                            <input ng-model="billing.email" name="billingInfo[email]" ng-init="billing.email='{{ billingInfo.email }}'" id="billing_email" type="email" required>
                         </md-input-container>
                     </div>
 
@@ -122,7 +122,7 @@ inputs %}
                     <div layout="row">
                         <md-input-container flex class="md-input-has-placeholder hide-errors">
                             <label class="ls-subheading font-16">Street address</label>
-                            <input ng-model="billing.street" name="billingInfo[streetAddressLine1]" id="billing_address" type="text" required>
+                            <input ng-model="billing.street" name="billingInfo[streetAddressLine1]" ng-init="billing.street = '{{ billingInfo.streetAddressLine1 }}'" id="billing_address" type="text" required>
                         </md-input-container>
                     </div>
 
@@ -134,7 +134,7 @@ inputs %}
                     <div layout="row">
                         <md-input-container flex class="md-input-has-placeholder hide-errors">
                             <label for="billing_country" class="ls-subheading font-16">Country</label>
-                            <select id="billing_country" name="billingInfo[countryId]" ng-model="billing.country" required ng-change="getValue('country', '#billing_country'); $root.showLoadingScreen(); onCountryChange();"
+                            <select id="billing_country" name="billingInfo[countryId]" ng-model="billing.country" ng-init="billing.country = '{{ billingInfo.country.id }}'" required ng-change="getValue('country', '#billing_country'); $root.showLoadingScreen(); onCountryChange();"
                              data-state-selector="#billing_state" data-current-state="{{ billingInfo.stateId }}">
                                       {% for country in countries %}
                                         <option {{ option_state(billingInfo.countryId, country.id) }} value="{{ country.id }}">{{ country.name }}</option>
@@ -144,7 +144,7 @@ inputs %}
 
                         <md-input-container flex class="md-input-has-placeholder hide-errors">
                             <label for="billing_state" class="ls-subheading font-16">State/Province</label>
-                            <select id="billing_state" name="billingInfo[stateId]" ng-model="billing.state" ng-change="getValue('state', '#billing_state'); onStateChange();"
+                            <select id="billing_state" name="billingInfo[stateId]" ng-model="billing.state" ng-init="billing.state = '{{ billingInfo.state.id }}'" ng-change="getValue('state', '#billing_state'); onStateChange();"
                               data-ajax-refresh required>
                                       {{ partial('shop-stateoptions', {'states': billingStates, 'selected': billingInfo.stateId}) }}
                                     </select>
@@ -159,12 +159,12 @@ inputs %}
                     <div layout="row">
                         <md-input-container flex class="md-input-has-placeholder hide-errors">
                             <label class="ls-subheading font-16">City</label>
-                            <input ng-model="billing.city" name="billingInfo[city]" id="billing_city" type="text"
+                            <input ng-model="billing.city" ng-init="billing.city ='{{ billingInfo.city }}'" name="billingInfo[city]" id="billing_city" type="text"
                                 required>
                         </md-input-container>
                         <md-input-container flex class="md-input-has-placeholder hide-errors">
                             <label class="ls-subheading font-16">Postal/Zip Code</label>
-                            <input ng-model="billing.postcode" name="billingInfo[postalCode]" id="billing_postalCode" type="text" required>
+                            <input ng-model="billing.postcode" name="billingInfo[postalCode]" ng-init="billing.postcode ='{{ billingInfo.postalCode }}'" id="billing_postalCode" type="text" required>
                         </md-input-container>
                     </div>
 
