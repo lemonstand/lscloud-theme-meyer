@@ -7,10 +7,6 @@ name: Order
 url: /account/orders/:orderId
 ---
 
-<script>
-  console.log({{ order | raw }});
-</script>
-
 {{ partial('partial-banner-alt', { banner: { title: 'Order receipt' }}) }}
 
 <div layout="column" layout-align="center center" class="bg-white" id="checkout-page" ng-controller="CheckoutCtrl" compile-on-change="#checkout-shippingMethod">

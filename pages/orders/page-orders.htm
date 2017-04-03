@@ -17,14 +17,19 @@ url: /account/orders
       <ul class="ls-cart" layout="column" flex>
         <li layout="row" flex class="ls-cart-heading">
           <h3 flex class="ls-heading text-grey font-13 letter-spacing-none">Order number</h3>
+          <h3 flex class="ls-heading text-grey font-13 letter-spacing-none">Tracking #</h3>
           <h3 flex class="ls-heading text-grey font-13 letter-spacing-none">Date</h3>
           <h3 flex="20" hide-xs class="ls-heading text-grey font-13 letter-spacing-none">View details</h3>
         </li>
+       
         {% for order in orders %}
           <li class="ls-cart-item" layout="row" layout-align="space-between center" flex>
             <div flex layout="row">
               <span hide-xs class="md-body-1 font-14">{{ order.id }}</span>
               <a hide show-xs href="{{ site_url('/account/orders/'~order.id) }}" target="_blank" class="md-body-1 font-14 no-link-style text-blue">{{ order.id }}</a>
+            </div>
+            <div flex layout="row">
+               {{ order.outputTrackingCodes() }}
             </div>
             <div flex layout="row">
               <span class="md-body-1 font-14">
