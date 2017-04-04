@@ -44,4 +44,42 @@ url: /blog
     'backgroundImage': 'images/living-room-tile.jpg' | theme_resource
   }}) }}
 
-  {{ partial('partial-blog-page') }}
+<div layout="row" layout-align="center start" ng-controller="BlogCtrl">
+  <div layout="row" layout-xs="column" class="content-container padding-y-mobile padding-mobile" layout-align="center start">
+    <div layout="column" flex>
+      <div layout="row" layout-wrap>
+        {% for post in archives %}
+          {% if post.type is same as('blog') %}
+            {{ partial('partial-blog-card-twig', { 'post': post }) }}
+          {% endif %}
+        {% endfor %}
+      </div>
+    </div>
+
+    <!-- sidebar -->
+    <div layout="column" flex="25" flex-xs="100" class="padding-small padding-x-medium no-padding-mobile">
+      {% set blogCategories = [] %}
+      <h4>Categories</h4>
+      <ul class="theme-list">
+        {% for post in cmsContent('blog')|extended_sort('published_on', false) %}
+          {% for category in post.categories %}
+              {% if category.name not in blogCategories %}
+                <li class="md-caption">
+                  <a href="/blog/archive/{{ category.slug }}">{{ category.name }}</a>
+                </li>
+                {% set blogCategories = blogCategories|merge([category.name]) %}
+              {% endif %}
+          {% endfor %}
+        {% endfor %}
+      </ul>
+
+      <p class="ls-heading md-caption theme-heading">Archive</p>
+      <ul class="theme-list">
+        <li class="md-caption" ng-repeat="archive in months track by $index">
+          <a ng-href="/blog/archive/date/[[ archive | date:'yyyy/MM' ]]">[[ archive | date:'MMMM yyyy' ]]</a>
+        </li>
+      </ul>
+    </div>
+
+  </div>
+</div>

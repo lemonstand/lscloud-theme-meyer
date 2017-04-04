@@ -7,14 +7,14 @@
   {% endif %}
 
   <div class="banner-text padding-mobile">
-    <h1 class="ls-heading" {% if category is not empty %} ng-bind="title" {% endif %}>
+    <h1 class="ls-heading" {% if category is not empty and archives is empty %} ng-bind="title" {% endif %}>
       {% if banner.title is not empty %}
         {{ banner.title }}
       {% else %}
         {{ theme.bannerTitleText }}
       {% endif %}
     </h1>
-    <p class="ls-subheading" {% if category is not empty %} ng-bind="shortDescription" {% endif %}>
+    <p class="ls-subheading" {% if category is not empty and archives is empty %} ng-bind="shortDescription" {% endif %}>
       {% if banner.title is not empty %}
         {{ banner.subheading }}
       {% else %}

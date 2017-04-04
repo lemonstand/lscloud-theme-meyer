@@ -1,10 +1,35 @@
-<div layout="row" layout-fill layout-align="center start" ng-controller="BlogCtrl">
-  <div layout="row" layout-xs="column" class="content-container padding-y-large padding-y-mobile padding-mobile" layout-align="center start">
+{% if category is not empty %}
+<div layout="row" layout-align="start center">
+  <h3 class="ls-heading margin-y-small padding-x-medium">Category: {{category}}</h3>
+</div>
+{% endif %}
 
+{% set archiveDate = '' %}
+{% if category is empty %}
+<div layout="row" layout-align="start center">
+  <h3 class="ls-heading margin-y-small padding-x-medium">
+    Archive: 
+    {% for x in date|reverse %}
+      {{x}}
+      {% set archiveDate = archiveDate ~ x %}
+    {% endfor %}
+  </h3>
+</div>
+{% endif %}
+
+<div layout="row" layout-align="center start" ng-controller="BlogCtrl">
+  <div layout="row" layout-xs="column" class="content-container padding-y-mobile padding-mobile" layout-align="center start">
     <div layout="column" flex>
       <div layout="row" layout-wrap>
         {% for post in archives %}
-          {% if post.type is same as('blog') %}
+          {% if category is empty %}
+            {% set month = post.published_on|slice(0, 2) %}
+            {% set year = post.published_on|slice(6, 9) %}
+            {% set postDate = month ~ year %}
+            {% if postDate == archiveDate and post.type is same as('blog') %}
+              {{ partial('partial-blog-card-twig', { 'post': post }) }}
+            {% endif %}
+          {% elseif post.type is same as('blog') %}
             {{ partial('partial-blog-card-twig', { 'post': post }) }}
           {% endif %}
         {% endfor %}
@@ -13,21 +38,28 @@
 
     <!-- sidebar -->
     <div layout="column" flex="25" flex-xs="100" class="padding-small padding-x-medium no-padding-mobile">
-      <p class="ls-heading md-caption theme-heading">Categories</p>
+      {% set blogCategories = [] %}
+      <h4>Categories</h4>
       <ul class="theme-list">
-        <li class="md-caption" ng-repeat="category in categories track by $index">
-          <a ng-href="/blog/category/[[ category | lowercase ]]">[[ category ]]</a>
-        </li>
+        {% for post in cmsContent('blog')|extended_sort('published_on', false) %}
+          {% for category in post.categories %}
+              {% if category.name not in blogCategories %}
+                <li class="md-caption">
+                  <a href="/blog/archive/{{ category.slug }}">{{ category.name }}</a>
+                </li>
+                {% set blogCategories = blogCategories|merge([category.name]) %}
+              {% endif %}
+          {% endfor %}
+        {% endfor %}
       </ul>
 
       <p class="ls-heading md-caption theme-heading">Archive</p>
       <ul class="theme-list">
         <li class="md-caption" ng-repeat="archive in months track by $index">
-          <a ng-href="/blog/archive/[[ archive | date:'yyyy/MM' ]]">[[ archive | date:'MMMM yyyy' ]]</a>
+          <a ng-href="/blog/archive/date/[[ archive | date:'yyyy/MM' ]]">[[ archive | date:'MMMM yyyy' ]]</a>
         </li>
       </ul>
     </div>
-
 
   </div>
 </div>
