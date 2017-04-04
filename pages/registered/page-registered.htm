@@ -6,11 +6,17 @@ name: Registered
 url: /registered
 ---
 
-<div layout="column" layout-align="center center" class="bg-white">
-	<h3>Thank you for registering</h3>
-	<p>A confirmation email has been sent to your email address.</p>
+{{ partial('partial-banner', {
+  'banner': {
+    'button': false,
+    'title': 'Thank you for registering',
+    'backgroundImage': 'images/living-room-tile.jpg' | theme_resource
+  }}) }}
+
+<div layout="column" layout-align="center center" class="bg-white padding-regular">
+	<p class="line-height-15 font-14">A confirmation email has been sent to your email address.</p>
 	{% if customer %}
-	    <p>You have been automatically logged in.</p>
+	    <p class="line-height-15 font-14">You have been automatically logged in.</p>
 	{% else %}
     	<p>Please <a href="{{ root_url('/login') }}">sign in</a> using your email and password.</p>
 	{% endif %}
