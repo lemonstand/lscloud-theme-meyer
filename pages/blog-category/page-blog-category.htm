@@ -4,14 +4,13 @@ template: main
 protocol: all
 published: true
 name: 'Blog category'
-url: /blog/category/:category
+url: /blog/archive/:category
 ---
 
 {{ partial('partial-banner', {
   'banner': {
     'button': false,
-    'title': 'The Blog',
-    'subheading': 'Where possibilities are endless',
+    'title': 'Blog Archive',
     'backgroundImage': 'images/living-room-tile.jpg' | theme_resource
   }}) }}
 
