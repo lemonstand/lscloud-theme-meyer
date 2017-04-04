@@ -332,6 +332,10 @@
     height: auto;
   }
 
+/*Conact Us page*/
+  .contact-form {
+    width: 500px;
+  }
 /*mailchimp sign up form */
   #sign-up form.mailchimp-form input {
     margin: 6px 24px 6px 8px;
