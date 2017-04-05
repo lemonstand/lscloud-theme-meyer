@@ -1,19 +1,11 @@
-<md-sidenav class="md-sidenav-left md-whiteframe-4dp" layout="column" layout-align="space-between start" md-component-id="left">
-  <md-list>
-    <md-list-item ng-click="closeSidenav('left')" ng-href="{{ site_url('/') }}">
-      <p class="ls-heading letter-spacing-2">Home</p>
-    </md-list-item>
-    <md-list-item ng-click="closeSidenav('left')" href="{{ site_url('/company') }}">
-      <p class="ls-heading letter-spacing-2">Company</p>
-    </md-list-item>
-    <md-list-item ng-click="closeSidenav('left')" ng-href="{{ site_url('/products') }}">
-      <p class="ls-heading letter-spacing-2">Products</p>
-    </md-list-item>
-    <md-list-item ng-click="closeSidenav('left')" ng-href="{{ site_url('/blog') }}">
-      <p class="ls-heading letter-spacing-2">Blog</p>
+<md-sidenav  class="md-sidenav-left md-whiteframe-4dp" layout="column" layout-align="space-between start" md-component-id="left">
+  <md-list ng-controller="NavCtrl">
+  
+    <md-list-item ng-click="closeSidenav('left')" ng-repeat="nav in cmsNav" ng-href="[[nav.href]]">
+      <p class="ls-heading letter-spacing-2">[[nav.text]]</p>
     </md-list-item>
   </md-list>
-
+  
   <div style="width:100%;">
     <md-divider></md-divider>
     <md-list>
@@ -32,5 +24,5 @@
         {% endif %}
     </md-list>
   </div>
-
+  
 </md-sidenav>

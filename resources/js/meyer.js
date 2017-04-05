@@ -162,6 +162,10 @@ angular.module('lsAngularApp')
       };
       getCurrentNavItem();
 
+      $scope.cmsNav = angular.element('#cms-menu').find('a').map(function(idx, el ){
+          return {text : el.text, href : el.href};
+      });
+
       // call Angular Material's $mdSidenav service
       $scope.openSideNav =  function(navID){ $mdSidenav(navID).open();  };
       $scope.closeSidenav = function(navID){ $mdSidenav(navID).close(); };
@@ -243,8 +247,15 @@ angular.module('lsAngularApp')
       };
 
     });
+    
+    
+angular.module('lsAngularApp')
+  .controller('footerNavCtrl', function ($scope) {
+      $scope.footerCmsNav = angular.element('#cms-footer').find('a').map(function(idx, el ){
+          return {text : el.text, href : el.href};
+      });
 
-
+ });
 /**
  * @ngdoc service
  * @name lsAngularApp.global

@@ -14,11 +14,13 @@
         <img class="nav-home-img" alt="{{ theme.storeTitle }}_logo" src="{{ theme.logoImage.thumbnail('auto', 'auto') }}" />
       </a>
       <div layout="row" layout-align="space-between center" hide-xs hide-sm>
+        <div id="cms-menu" class="ng-hide">
+             {{widget_block('header-menu')}}
+        </div>
+         
         <md-nav-bar nav-bar-aria-label="navigation links" class="md-primary" md-selected-nav-item="currentNavItem">
-            <md-nav-item md-nav-href="/" name="home">Home</md-nav-item>
-            <md-nav-item md-nav-href="/about-us" name="about-us">About Us</md-nav-item>
+            <md-nav-item ng-repeat="nav in cmsNav" md-nav-href="[[nav.href]]" name="home">[[nav.text]]</md-nav-item>
             <md-nav-item md-nav-click="$root.toggleCategoryView();" name="products">Products</md-nav-item>
-            <md-nav-item md-nav-href="/blog" name="blog">Blog</md-nav-item>
             {% if customer %}
               {{ open_form({'data-ajax-handler': 'shop:logout', 'data-validation-message' : ''}) }}
                 <md-button type="submit" value="Log Out" class="md-logout-mobile">Log Out</md-button>
@@ -144,17 +146,17 @@
             </ul>
           </div>
         </div>
-        {% if theme.megaMenuAdTile %}
-          <div layout="column" flex="33" class="featured-ad background-cover padding-medium text-left text-white" style="background-image: url({{ theme.megaMenuAdTileImage.thumbnail(400, 'auto') }});">
-          
-            <h2 class="ls-heading">{{ theme.megaMenuAdTileTitle }}</h2>
-            <div layout="row" layout-align="start center">
-              <md-button href="{{ theme.megaMenuAdTileLink }}" class="md-lowercase md-body-1 no-margin-left">
-                {{ theme.megaMenuAdTileLinkText }}
-              </md-button>
-            </div>
+         {% if theme.megaMenuAdTile %}
+        <div layout="column" flex="33" class="featured-ad background-cover padding-medium text-left text-white" style="background-image: url({{ theme.megaMenuAdTileImage.thumbnail(400, 'auto') }});">
+
+          <h2 class="ls-heading">{{ theme.megaMenuAdTileTitle }}</h2>
+          <div layout="row" layout-align="start center">
+            <md-button href="{{ theme.megaMenuAdTileLink }}" class="md-lowercase md-body-1 no-margin-left">
+              {{ theme.megaMenuAdTileLinkText }}
+            </md-button>
           </div>
-        {% endif %}
+        </div>
+         {% endif %}
       </div>
     </div>
 
