@@ -3,14 +3,15 @@
   <div layout="column" layout-align="center center" class="padding-mobile">
     <div layout="row" layout-xs="row" layout-sm="row" layout-wrap layout-align="space-between start" layout-fill class="content-container padding-y-large padding-y-mobile">
 
-      <div layout="column" class="theme-column" flex flex-xs="100" flex-sm="50">
+        <div ng-controller="footerNavCtrl" layout="column" class="theme-column" flex flex-xs="100" flex-sm="50">
         <p class="ls-heading md-caption theme-heading">Company</p>
+        <span class="ng-hide" id="cms-footer">
+            {{ widget_block('footer-menu')}}
+        </span>
         <ul class="theme-list" layout-xs="row" layout-wrap>
-          <li class="md-caption" flex-xs="50"><a href="/about-us">About us</a></li>
-          {% if customer %}<li class="md-caption" flex-xs="50"><a href="/account/orders">Orders</a></li> {% endif %}
-          <li class="md-caption" flex-xs="50"><a href="#">Return Policy</a></li>
-          <li class="md-caption" flex-xs="50"><a href="{{ site_url('/blog') }}">Blog</a></li>
-          <li class="md-caption" flex-xs="50"><a href="/contact-us">Contact us</a></li>
+            <li class="md-caption" flex-xs="50" ng-repeat="nav in footerCmsNav">
+              <a ng-href="[[nav.href]]">[[nav.text]]</a>
+            </li>
         </ul>
       </div>
 
