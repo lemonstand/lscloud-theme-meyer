@@ -28,7 +28,7 @@
        <div flex="20" flex-xs="100">
         <strong hide show-xs>discount:</strong> 
          {% if (item.discount + item.price_reduction ) > 0%}
-        <i class="discount"> - {{ (item.discount + item.price_reduction ) |currency }}</i>
+        <i class="discount"> - {{ ((item.discount + item.price_reduction ) * item.quantity) |currency }}</i>
          {% else %}
           <i> {{ 0 |currency }}</i>
         {% endif %}

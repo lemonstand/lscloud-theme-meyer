@@ -4,6 +4,7 @@
     {% set itemTotalDiscount = 0 %}
     {% set itemPivotPrice = 0 %}
     {% set itemOriginalPrice = 0 %}
+    {% set volumePriceThreshold = 0 %}
     
     {% for shipment in invoice.shipments %}
       {% for item in shipment.shipmentItems %}
@@ -11,6 +12,7 @@
          {% set itemPivotPrice = itemPivotPrice + item.pivot.price * item.quantity %}
           {% set itemOriginalPrice = itemOriginalPrice + item.original_price * item.quantity %}
           {% set itemTotalDiscount = itemTotalDiscount + item.price_reduction * item.quantity %}
+          {% set volumePriceThreshold = volumePriceThreshold + item.pivot.quantity_in_shipment %}
       {% endfor %}
     {% endfor %}
     {% set discount = invoice.total_discount %}
@@ -35,7 +37,8 @@
             <p><strong>Tax:</strong> <i>{{ invoice.tax_total|currency }}</i></p>
         </md-list-item>
     {% endif %}
-    {% if itemTotalNoTax - (itemPivotPrice + (itemOriginalPrice - itemPivotPrice)) > 0 %}
+
+    {% if (volumePriceThreshold > invoice.shipments | length) and itemTotalNoTax - (itemPivotPrice + (itemOriginalPrice - itemPivotPrice)) > 0 %}
           <md-list-item>
             <p><strong>Volume discount: </strong> <i class="discount"> - {{ (itemTotalNoTax - (itemPivotPrice + (itemOriginalPrice - itemPivotPrice))) | currency }}</i></p>
          </md-list-item>
