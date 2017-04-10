@@ -1,5 +1,7 @@
 {{ partial('partial-banner-alt', { banner: { title: 'My cart' }}) }}
 
+{% if flash() | length %}
+{% endif %}
 
 <div layout="column" layout-align="center center" class="bg-white padding-mobile">
 
