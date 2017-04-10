@@ -19,6 +19,7 @@
             "products_count": {{ category.products_count }},
             "is_visible": {{ category.is_visible is same as(1) ? "true" : "false" }},
             "thumbnail": "{{ category.images.first.thumbnail(800, 'auto')|default('http://placehold.it/460x300') }}",
+            "background_image": "{{ category.images[1].thumbnail(800, 'auto')|default('http://placehold.it/460x300') }}",
             "children": [
               {% for child in category.children %}
               {
@@ -33,6 +34,7 @@
                 "products_count": {{ child.products_count }},
                 "is_visible": {{ child.is_visible is same as(1) ? "true" : "false" }},
                 "thumbnail": "{{ category.images.first.thumbnail(800, 'auto')|default('http://placehold.it/460x300') }}",
+                "background_image": "{{ category.images[1].thumbnail(800, 'auto')|default('http://placehold.it/460x300') }}",
                 "children": [
                     {% if child.children | length %}
                         {% for grandChild in child.children%}
@@ -47,7 +49,8 @@
                             "meta_keywords": "{{ grandChild.meta_keywords | raw }}",
                             "products_count": {{ grandChild.products_count }},
                             "is_visible": {{ grandChild.is_visible is same as(1) ? "true" : "false" }},
-                            "thumbnail": "{{ category.images.first.thumbnail(800, 'auto')|default('http://placehold.it/460x300') }}",    
+                            "thumbnail": "{{ category.images.first.thumbnail(800, 'auto')|default('http://placehold.it/460x300') }}",  
+                            "background_image": "{{ category.images[1].thumbnail(800, 'auto')|default('http://placehold.it/460x300') }}"
                         }
                         
                         {% endfor %}
