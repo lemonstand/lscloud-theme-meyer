@@ -1,4 +1,5 @@
 {% for shipment in invoice.shipments %}
+
    <div layout="row" layout-align="space-between center" style="background-color: {{ theme.primaryColor }}; color: #FFF" layout-padding hide-xs>
         <div flex="20">Item</div>
         <div flex="20">Quantity</div>
@@ -21,15 +22,19 @@
        </div>
        
        <div flex="20" flex-xs="100">
-       <strong hide show-xs>unit price:</strong><i>{{ item.pivot.price|currency }}</i>
+       <strong hide show-xs>unit price:</strong><i>{{ item.base_price|currency }}</i>
        </div>
-       
+      
        <div flex="20" flex-xs="100">
-        <strong hide show-xs>discount:</strong> <i>{{ 0|currency }}</i>
+        <strong hide show-xs>discount:</strong> 
+         {% if (item.discount + item.price_reduction ) > 0%}
+        <i class="discount"> - {{ ((item.discount + item.price_reduction ) * item.quantity) |currency }}</i>
+         {% else %}
+          <i> {{ 0 |currency }}</i>
+        {% endif %}
        </div>
-       
        <div flex="20" flex-xs="100">
-        <strong hide show-xs>total:</strong><i>{{ (item.quantity *item.pivot.price)|currency }}</i>
+        <strong hide show-xs>total:</strong><i>{{ ((item.quantity *item.pivot.price) - item.discount )|currency }}</i>
        </div>
    </div>
 

@@ -726,7 +726,8 @@
   #payment_form ul.form li > div input { width: 100%; margin-bottom: 18px; outline: none !important; }
   #payment_form ul.form li > div input:focus { border-color: rgba(63,83,181,1); }
   #payment_form input[type=submit] { float: right; }
-
+  .discount{ color:#ED3C3C; }
+    
 
 /*brand page*/
   #brand-list md-grid-tile { background: #fafafa; }
