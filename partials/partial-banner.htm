@@ -22,13 +22,9 @@
       {% endif %}
     </p>
 
-    {% if (category is empty) and ( banner.button ) %}
+    {% if (category is empty) and ( banner.button )  and banner.button.text is not empty %}
       <md-button class="ls-button {% if theme.bannerButtonStyle == 'outline' %}md-button-outline{% endif %}" href="{% if banner.button.href is empty %} /products {% else %} {{ banner.button.href }} {% endif %}">
-      {% if banner.button.text is empty %}
-        Learn more
-      {% else %}
         {{ banner.button.text }}
-      {% endif %}
       </md-button>
     {% endif %}
   </div>
