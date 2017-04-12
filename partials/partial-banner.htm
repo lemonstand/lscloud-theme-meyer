@@ -1,5 +1,5 @@
 <div class="banner-container background-cover" layout="row" layout-align="center center" layout-fill
-  style="background-image: url('{% if banner.backgroundImage is not empty %}{{ banner.backgroundImage }}{% elseif category is not empty %}{{ category.images.first.thumbnail(1280, 'auto') }}{% else %}{{ theme.bannerImage.thumbnail('auto', 'auto') }}{% endif %}');" 
+  style="background-image: url('{% if banner.backgroundImage is not empty %}{{ banner.backgroundImage }}{% elseif category is not empty %}{{ category.images[1].thumbnail(1280, 'auto') }}{% else %}{{ theme.bannerImage.thumbnail('auto', 'auto') }}{% endif %}');" 
   ng-class="{ 'banner-short' : banner.short }" {% if category is not empty %} ng-style="setBackground()" {% endif %}>
 
   {% if banner.overlay %}
