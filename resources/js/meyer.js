@@ -649,7 +649,7 @@ angular.module('lsAngularApp')
       $scope.shortDescription = currentCategory.short_description;
       $scope.setBackground = function(){
         return {
-                'background-image':'url(' + currentCategory.thumbnail + ')'
+                'background-image':'url(' + currentCategory.background_image + ')'
             }
       }
     }
