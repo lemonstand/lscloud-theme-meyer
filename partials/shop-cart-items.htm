@@ -44,11 +44,11 @@
       </div>
       <div class="cart-item-qty" layout="row" flex="35" flex-xs="100" layout-align="space-between center">
         <div layout="row" ng-init="items['{{ item.key }}'] = { qty: {{ item.quantity }}, initialQty: {{ item.quantity }}}; " class="order-quantity" layout-align="center center" flex-order-xs="2">
-          <a ng-href="#" ng-click="items['{{ item.key }}'].qty = items['{{ item.key }}'].qty - 1 >= 1 ? items['{{ item.key }}'].qty - 1 : 1; $root.showLoadingScreen();" md-ink-ripple class="md-button md-icon-button" compile-on-click="#cart-total, #cart-items">
+          <a ng-href="#" ng-click="items['{{ item.key }}'].qty = items['{{ item.key }}'].qty - 1 >= 1 ? items['{{ item.key }}'].qty - 1 : 1; $root.showLoadingScreen();" md-ink-ripple class="md-button md-icon-button" compile-on-click="#cart">
             <md-icon>remove</md-icon>
           </a>
-          <input type="text" min="1" readonly max="99" ng-model="items['{{ item.key }}'].qty" value="{{ item.quantity }}" name="item_quantity[{{ item.key }}]" data-ajax-handler="shop:cart" watch-change data-ajax-update="#cart-total=shop-cart-totals, #cart-items=shop-cart-items" />
-          <a ng-href="#" ng-click="items['{{ item.key }}'].qty = items['{{ item.key }}'].qty + 1 <= 99 ? items['{{ item.key }}'].qty + 1 : 99; $root.showLoadingScreen();" md-ink-ripple class="md-button md-icon-button" compile-on-click="#cart-total, #cart-items">
+          <input type="text" min="1" readonly max="99" ng-model="items['{{ item.key }}'].qty" value="{{ item.quantity }}" name="item_quantity[{{ item.key }}]" data-ajax-handler="shop:cart" watch-change data-ajax-update="#cart=partial-cart" />
+          <a ng-href="#" ng-click="items['{{ item.key }}'].qty = items['{{ item.key }}'].qty + 1 <= 99 ? items['{{ item.key }}'].qty + 1 : 99; $root.showLoadingScreen();" md-ink-ripple class="md-button md-icon-button" compile-on-click="#cart">
             <md-icon>add</md-icon>
           </a>
         </div>
