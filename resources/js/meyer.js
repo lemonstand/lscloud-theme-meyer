@@ -246,6 +246,10 @@ angular.module('lsAngularApp')
         return deferred.promise;
       };
 
+      $scope.removeCartItem = function(){
+        $window.location.reload();
+      };
+
     });
     
     
