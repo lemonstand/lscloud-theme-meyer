@@ -49,4 +49,5 @@ customFields:
     buttonShape: { type: dropdown, title: 'Button shape', comment: 'The default button shape.', default: 0px, options: { 0px: Sharp, 3px: 'Slightly rounded', 25px: Pill } }
     bannerButtonStyle: { type: dropdown, title: 'Banner button style', comment: 'The style for the button on the hero banner.', default: solid, options: { solid: Solid, outline: 'Empty, with outline' } }
     productTileOverlay: { type: dropdown, title: 'Product tile text background', comment: 'The background behind text on each product tile.', default: 'rgba(255,255,255,0.75)', options: { transparent: None, 'rgba(0,0,0,0.5)': 'Transparent black', 'rgba(255,255,255,0.75)': 'Transparent white' } }
+    categoryTileOverlay: { type: dropdown, title: 'Category tile text background', comment: 'The background behind text on each category tile on homepage.', default: 'rgba(0,0,0,0.5)', options: { transparent: None, 'rgba(0,0,0,0.5)': 'Transparent black', 'rgba(255,255,255,0.75)': 'Transparent white' } }
 ---
