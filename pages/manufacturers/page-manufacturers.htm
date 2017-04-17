@@ -1,10 +1,10 @@
 ---
-action: 'cmscontent:page'
+action: 'shop:manufacturer'
 template: main
 protocol: all
 published: true
 name: Brands
-url: /products/brands
+url: /brands
 ---
 
 {{ partial('partial-banner', {
@@ -34,7 +34,7 @@ url: /products/brands
           md-gutter="25px">
           {% for man in manufacturers %}
           <md-grid-tile md-rowspan="1" md-colspan="1" >
-            <a ng-href="{{ site_url('products/') ~ '?brand=' ~ man.url_name }}" class="no-link-style" layout="column" layout-fill layout-align="center center" md-ink-ripple>
+            <a ng-href="{{ site_url('brands/') ~ man.url_name }}" class="no-link-style" layout="column" layout-fill layout-align="center center" md-ink-ripple>
               {% if man.images.first.thumbnail('auto', 'auto') %}
                 <img src="{{ man.images.first.thumbnail('auto', 'auto') }}" alt="{{ man.url_name }}"><br>
               {% else %}

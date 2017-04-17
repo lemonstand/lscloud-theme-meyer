@@ -1,0 +1,82 @@
+---
+action: 'shop:manufacturer'
+template: main
+protocol: all
+published: true
+name: Brand
+url: /brands/:urlName@
+---
+
+{{ partial('partial-banner', {
+  'banner': {
+    'button': false,
+    'title': manufacturer.name,
+    'subheading': manufacturer.description,
+    'overlay': true
+  }}) }}
+
+  <div layout="row" layout-fill layout-align="center center" class="bg-white">
+    <div class="content-container" layout="row" layout-align="center start">
+
+      <div layout="column" layout-fill class="padding-y-medium max-width-960">
+        <div layout="row" class="padding-y-small no-padding-top">
+          <h3>Contact Information</h3>
+        </div>
+        <table class="padding-x-small">
+          {% if manufacturer.address %}
+            <tr>
+              <td><p class="md-caption ls-caption line-height-15"><strong>Location:</strong></p></td>
+              <td><p class="md-caption ls-caption line-height-15 padding-x-small">{{manufacturer.address}},</p></td>
+            </tr>
+            <tr>
+              <td></td>
+              <td><p class="md-caption ls-caption line-height-15 padding-x-small">{{manufacturer.city}}, {{manufacturer.state.name}},</p></td>
+            </tr>
+            <tr>
+              <td></td>
+              <td><p class="md-caption ls-caption line-height-15 padding-x-small">{{manufacturer.country.name}},</p></td>
+            </tr>
+            <tr>
+              <td></td>
+              <td><p class="md-caption ls-caption line-height-15 padding-x-small">{{manufacturer.postal_code}}</p></td>
+            </tr>
+          {% elseif manufacturer.country %}
+            <tr>
+              <td><p class="md-caption ls-caption line-height-15"><strong>Location:</strong></p></td>
+              <td><p class="md-caption ls-caption line-height-15 padding-x-small">{{manufacturer.country.name}}</p></td>
+            </tr>
+          {% endif %}
+          {% if manufacturer.phone %}
+            <tr>
+              <td><p class="md-caption ls-caption line-height-15"><strong>Phone:</strong></p></td>
+              <td><p class="md-caption ls-caption line-height-15 padding-x-small">{{manufacturer.phone}}</p></td>
+            </tr>
+          {% endif %}
+          {% if manufacturer.website_url %}
+            <tr>
+              <td><p class="md-caption ls-caption line-height-15"><strong>URL:</strong></p></td>
+              <td><p class="md-caption ls-caption line-height-15 padding-x-small"><a href="{{manufacturer.website_url}}">{{manufacturer.website_url}}</a></p></td>
+            </tr>
+          {% endif %}
+        </table>
+        
+        <div layout="column" layout-fill class="padding-y-large max-width-960">
+          <md-grid-list
+            id="brand-list"
+            md-cols="3"
+            md-row-height="2:1"
+            md-gutter="25px">
+            <md-grid-tile md-rowspan="1" md-colspan="1" >
+              <a ng-href="{{ site_url('products/') ~ '?brand=' ~ manufacturer.url_name }}" class="no-link-style" layout="column" layout-fill layout-align="center center" md-ink-ripple>
+                <h3 class="ls-subheading">View {{manufacturer.name}}'s Products</h3> 
+                {% if manufacturer.images.first.thumbnail('auto', 'auto') %}
+                  <img style="position:relative;" src="{{ manufacturer.images.first.thumbnail('auto', 'auto') }}" alt="{{ manufacturer.url_name }}"><br>
+                {% endif %}
+              </a>
+            </md-grid-tile>
+          </md-grid-list>
+        </div>
+
+      </div>
+    </div>
+  </div>

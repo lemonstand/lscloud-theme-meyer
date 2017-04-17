@@ -634,9 +634,13 @@ angular.module('lsAngularApp')
         };
         $scope.filters.price = maxPrice;
         //add to the `brands` array using the indexOfObject global function
-        angular.forEach( results.data.products, function(product){
-          var manufacturer = { name: product.manufacturer, slug: product.manufacturer.replace(/ /g, '-').toLowerCase(), url_name: product.manufacturer_url };
-          if (window.indexOfObject( $scope.brands, manufacturer) === -1 ){ $scope.brands.push(manufacturer); }
+        angular.forEach( results.data.products, function(product) {
+          if(product.manufacturer) {
+            var manufacturer = { name: product.manufacturer, slug: product.manufacturer.replace(/ /g, '-').toLowerCase(), url_name: product.manufacturer_url };
+            if (window.indexOfObject( $scope.brands, manufacturer) === -1 ) {
+              $scope.brands.push(manufacturer);
+            }
+          }
         });
         $scope.brands = $filter('orderBy')( $scope.brands, 'slug' ); //order alphabetically
       }
