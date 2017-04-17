@@ -1,17 +1,15 @@
 <div layout="column">
      <md-list>
     {% set itemTotalNoTax = 0 %}
-    {% set itemTotalDiscount = 0 %}
     {% set itemPivotPrice = 0 %}
     {% set itemOriginalPrice = 0 %}
     {% set volumePriceThreshold = 0 %}
     
     {% for shipment in invoice.shipments %}
       {% for item in shipment.shipmentItems %}
-        {% set itemTotalNoTax = itemTotalNoTax + item.base_price * item.quantity %}
+        {% set itemTotalNoTax = itemTotalNoTax + item.original_price * item.quantity %}
          {% set itemPivotPrice = itemPivotPrice + item.pivot.price * item.quantity %}
           {% set itemOriginalPrice = itemOriginalPrice + item.original_price * item.quantity %}
-          {% set itemTotalDiscount = itemTotalDiscount + item.price_reduction * item.quantity %}
           {% set volumePriceThreshold = volumePriceThreshold + item.pivot.quantity_in_shipment %}
       {% endfor %}
     {% endfor %}
@@ -20,11 +18,6 @@
     {% if itemTotalNoTax > 0 %}
         <md-list-item>
          <p><strong>Item Totals:</strong> <i>{{ itemTotalNoTax |currency }}</i></p>
-        </md-list-item>
-    {% endif %}
-     {% if invoice.total_sales_tax | length %}
-         <md-list-item>
-            <p><strong>Sales Tax:</strong> <i>{{ invoice.total_sales_tax |currency }}</i></p>
         </md-list-item>
     {% endif %}
     {% if invoice.total_shipping_quote > 0 %}
@@ -37,20 +30,9 @@
             <p><strong>Tax:</strong> <i>{{ invoice.tax_total|currency }}</i></p>
         </md-list-item>
     {% endif %}
-
-    {% if (volumePriceThreshold > invoice.shipments | length) and itemTotalNoTax - (itemPivotPrice + (itemOriginalPrice - itemPivotPrice)) > 0 %}
-          <md-list-item>
-            <p><strong>Volume discount: </strong> <i class="discount"> - {{ (itemTotalNoTax - (itemPivotPrice + (itemOriginalPrice - itemPivotPrice))) | currency }}</i></p>
-         </md-list-item>
-    {% endif %}
-    {% if invoice.order.coupon_codes | length %}
-          <md-list-item>
-            <p><strong>Coupon: {{invoice.order.coupon_codes }} </strong> <i class="discount"> - {{ (itemOriginalPrice - itemPivotPrice) | currency }}</i></p>
-         </md-list-item>
-    {% endif %}
-    {% if itemTotalDiscount > 0 %}
+    {% if discount > 0 %}
          <md-list-item>
-            <p><strong>Total Discount:</strong> <i class="discount"> - {{ itemTotalDiscount|currency }}</i></p>
+            <p><strong>Total Discount:</strong> <i class="discount"> - {{ discount|currency }}</i></p>
          </md-list-item>
     {% endif %}
         <md-list-item>

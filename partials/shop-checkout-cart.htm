@@ -68,7 +68,7 @@
       <div layout="row" layout-align="end center" class="margin-bottom-xs">
         <div flex="66" flex-xs="100"  layout="row" layout-align="space-between center">
           <h3 class="ls-heading-small">
-            Subtotal:
+            Cart total:
           </h3>
           <span class="checkout-price ls-heading-small">
             {{ totals.subtotalNoTax|currency }}
@@ -88,18 +88,20 @@
           </div>
         </div>
       {% endif %}
-
-      <div layout="row" layout-align="end center">
-        <div flex="66" flex-xs="100"  layout="row" layout-align="space-between center">
-          <h3 class="ls-heading-small">
-            Taxes:
-          </h3>
-          <span class="checkout-price ls-heading-small">
-            {{ totals.totalTax|currency }}
-          </span>
+      {% if totals.totalTax %}
+        <div layout="row" layout-align="end center">
+          <div flex="66" flex-xs="100"  layout="row" layout-align="space-between center">
+            <h3 class="ls-heading-small">
+              Taxes:
+            </h3>
+            <span class="checkout-price ls-heading-small">
+              {{ totals.totalTax|currency }}
+            </span>
+          </div>
         </div>
-      </div>
+      {% endif %}
     </div>
+
 
     <div layout="row" layout-align="end center" class="padding-y no-padding-bottom">
       <div flex="66" flex-xs="100"  layout="row" layout-align="space-between center">
