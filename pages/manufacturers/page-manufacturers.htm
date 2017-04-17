@@ -36,12 +36,10 @@ url: /brands
           <md-grid-tile md-rowspan="1" md-colspan="1" >
             <a ng-href="{{ site_url('brands/') ~ man.url_name }}" class="no-link-style" layout="column" layout-fill layout-align="center center" md-ink-ripple>
               {% if man.images.first.thumbnail('auto', 'auto') %}
-                <img src="{{ man.images.first.thumbnail('auto', 'auto') }}" alt="{{ man.url_name }}"><br>
-              {% else %}
-                <h3 class="ls-subheading">
-                  {{ man.name }}
-                </h3>
+                <img style="position:relative;" src="{{ man.images.first.thumbnail('auto', 100) }}"><br>
               {% endif %}
+              <h3 class="ls-subheading">{{ man.name }}</h3>
+              
             </a>
           </md-grid-tile>
           {% endfor %}

@@ -68,10 +68,10 @@ url: /brands/:urlName@
             md-gutter="25px">
             <md-grid-tile md-rowspan="1" md-colspan="1" >
               <a ng-href="{{ site_url('products/') ~ '?brand=' ~ manufacturer.url_name }}" class="no-link-style" layout="column" layout-fill layout-align="center center" md-ink-ripple>
-                <h3 class="ls-subheading">View {{manufacturer.name}}'s Products</h3> 
                 {% if manufacturer.images.first.thumbnail('auto', 'auto') %}
                   <img style="position:relative;" src="{{ manufacturer.images.first.thumbnail('auto', 'auto') }}" alt="{{ manufacturer.url_name }}"><br>
                 {% endif %}
+                <h3 class="ls-subheading">View {{manufacturer.name}}'s Products</h3> 
               </a>
             </md-grid-tile>
           </md-grid-list>
