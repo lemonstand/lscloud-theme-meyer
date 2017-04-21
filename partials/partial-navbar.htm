@@ -19,8 +19,9 @@
         </div>
          
         <md-nav-bar nav-bar-aria-label="navigation links" class="md-primary" md-selected-nav-item="currentNavItem">
-            <md-nav-item ng-repeat="nav in cmsNav" md-nav-href="[[nav.href]]" name="home">[[nav.text]]</md-nav-item>
+            <md-nav-item name="home" md-nav-href="/">Home</md-nav-item>
             <md-nav-item md-nav-click="$root.toggleCategoryView();" name="products">Products</md-nav-item>
+            <md-nav-item ng-repeat="nav in cmsNav" md-nav-href="[[nav.href]]" name="home">[[nav.text]]</md-nav-item>
             {% if customer %}
               {{ open_form({'data-ajax-handler': 'shop:logout', 'data-validation-message' : ''}) }}
                 <md-button type="submit" value="Log Out" class="md-logout-mobile">Log Out</md-button>
