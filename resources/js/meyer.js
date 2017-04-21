@@ -246,8 +246,19 @@ angular.module('lsAngularApp')
         return deferred.promise;
       };
 
-      $scope.removeCartItem = function(){
-        $window.location.reload();
+      $scope.removeCartItem = function(e) {
+
+        $.ajax({
+            data : { delete_item: e.currentTarget.getAttribute('delete-item') },
+            type: 'post',
+            url: '/',
+            headers: {
+              'X-Event-Handler': 'shop:cart'
+            },
+            success: function(data) {
+              location.reload();
+            }
+        });
       };
 
     });

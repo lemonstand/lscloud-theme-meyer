@@ -114,7 +114,7 @@
                     </p>
                   </div>
                   <div layout="column" layout-align="center center">
-                    <md-button aria-label="Remove from cart" class="md-icon-button" ng-href="#" data-ajax-handler="shop:cart" data-ajax-extra-fields="delete_item='{{ item.key }}'" ng-click="removeCartItem();">
+                    <md-button aria-label="Remove from cart" class="md-icon-button" ng-href="#" delete-item='{{ item.key }}' ng-click="removeCartItem($event);">
                       <md-icon>cancel</md-icon>
                     </md-button>
                   </div>
