@@ -1,3 +1,6 @@
+---
+description: 'One page checkout'
+---
 {% if step == 'billing_info' %} {% set inputs %}
 <input type="hidden" name="step" value="billing_info,shipping_info">
 <input type="hidden" name="nextStep" value="shipping_method" /> {% endset %} {% elseif step == 'shipping_method' %} {% set

@@ -1,4 +1,7 @@
-{%if states | length %}
+---
+description: 'State selector.'
+---
+{% if states | length %}
     <option selected value="" disabled>- select state -</option>
     {% for state in states %}
         <option value="{{ state.id }}" {{ option_state(selected, state.id) }} >
