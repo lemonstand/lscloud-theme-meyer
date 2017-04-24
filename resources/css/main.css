@@ -215,7 +215,7 @@
 
 /*featured categories */
   #featured-categories { margin-bottom: 25px; }
-  #featured-categories md-grid-tile-header { padding:25px 0 0 25px; height: auto; }
+  #featured-categories md-grid-tile-header { padding:12px 0 12px 25px; height: auto; }
   #featured-categories md-grid-tile-footer { padding: 0 25px 15px 25px; height:auto; }
 
 /*product image tiles*/
