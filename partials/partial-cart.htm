@@ -15,28 +15,6 @@ description: 'Shows cart items, totals and more.'
       {{ partial('shop-cart-items') }}
     </ul>
 
-    <div layout="row" layout-xs="column" layout-align="space-between center" flex layout-fill class="padding-y-small border-bottom">
-      <p class="md-caption ls-caption margin-y-mobile" flex>
-        Have a discount code?
-      </p>
-      <div layout="row" layout-xs="column" layout-align="end center" flex>
-        <md-input-container md-no-float flex class="hide-errors margin-x no-margin-left no-margin-mobile">
-          <input name="coupon" id="coupon" placeholder="Enter discount code" type="text">
-        </md-input-container>
-        <md-button
-          class="ls-button ls-button-wide  no-margin margin-y-mobile md-primary"
-          id="discount-button"
-          ng-href="#"
-          ng-click="$root.showLoadingScreen();"
-          data-ajax-handler="shop:cart"
-          data-ajax-update="#cart-total=shop-cart-totals"
-          compile-on-click="#cart-total"
-          value="Apply code">
-          Apply code
-        </md-button>
-      </div>
-    </div>
-
     <div layout="row" layout-align="end center" layout-fill flex class="padding-y-medium border-bottom padding-x-medium" id="cart-total">
       {{ partial('shop-cart-totals') }}
     </div>
