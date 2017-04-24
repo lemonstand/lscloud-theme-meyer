@@ -11,4 +11,27 @@ url: /cart
   <div id="cart" recompile>
     {{ partial('partial-cart', {'edit_cart': true}) }}
   </div>
+  <div layout="column" layout-align="center center">
+    <div layout="row" layout-xs="column" layout-align="space-between center" flex layout-fill class=" content-container padding-y-small border-bottom">
+      <p class="md-caption ls-caption margin-y-mobile" flex>
+        Have a discount code?
+      </p>
+      <div layout="row" layout-xs="column" layout-align="end center" flex>
+        <md-input-container md-no-float flex class="hide-errors margin-x no-margin-left no-margin-mobile">
+          <input name="coupon" id="coupon" placeholder="Enter discount code" type="text">
+        </md-input-container>
+        <md-button
+          class="ls-button ls-button-wide  no-margin margin-y-mobile md-primary"
+          id="discount-button"
+          ng-href="#"
+          ng-click="$root.showLoadingScreen();"
+          data-ajax-handler="shop:cart"
+          data-ajax-update="#cart-total=shop-cart-totals"
+          compile-on-click="#cart-total"
+          value="Apply code">
+          Apply code
+        </md-button>
+      </div>
+    </div>
+  </div>
 {{ close_form() }}
