@@ -1,3 +1,6 @@
+---
+description: 'Displays correct payment form based on customers selection.'
+---
 {% if paymentMethod is defined %}
   {% set name = paymentMethod.getFrontendPartialName() %}
   {{ partial(name, {paymentMethod: paymentMethod, payment: payment}) }}
