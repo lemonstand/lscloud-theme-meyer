@@ -22,8 +22,9 @@ description: 'Navigation bar'
         </div>
          
         <md-nav-bar nav-bar-aria-label="navigation links" class="md-primary" md-selected-nav-item="currentNavItem">
-            <md-nav-item ng-repeat="nav in cmsNav" md-nav-href="[[nav.href]]" name="home">[[nav.text]]</md-nav-item>
+            <md-nav-item name="home" md-nav-href="/">Home</md-nav-item>
             <md-nav-item md-nav-click="$root.toggleCategoryView();" name="products">Products</md-nav-item>
+            <md-nav-item ng-repeat="nav in cmsNav" md-nav-href="[[nav.href]]" name="home">[[nav.text]]</md-nav-item>
             {% if customer %}
               {{ open_form({'data-ajax-handler': 'shop:logout', 'data-validation-message' : ''}) }}
                 <md-button type="submit" value="Log Out" class="md-logout-mobile">Log Out</md-button>
@@ -117,7 +118,7 @@ description: 'Navigation bar'
                     </p>
                   </div>
                   <div layout="column" layout-align="center center">
-                    <md-button aria-label="Remove from cart" class="md-icon-button" ng-href="#" data-ajax-handler="shop:cart" data-ajax-extra-fields="delete_item='{{ item.key }}'" ng-click="removeCartItem();">
+                    <md-button aria-label="Remove from cart" class="md-icon-button" ng-href="#" delete-item='{{ item.key }}' ng-click="removeCartItem($event);">
                       <md-icon>cancel</md-icon>
                     </md-button>
                   </div>
@@ -150,7 +151,7 @@ description: 'Navigation bar'
           </div>
         </div>
          {% if theme.megaMenuAdTile %}
-        <div layout="column" flex="33" class="featured-ad background-cover padding-medium text-left text-white" style="background-image: url({{ theme.megaMenuAdTileImage.thumbnail(400, 'auto') }});">
+        <div layout="column" flex="33" class="featured-ad background-cover padding-medium text-left text-white" style="background-image: url({{ theme.megaMenuAdTileImage.thumbnail(400, 'auto') }}); background-color: #ffcb40;">
 
           <h2 class="ls-heading">{{ theme.megaMenuAdTileTitle }}</h2>
           <div layout="row" layout-align="start center">

@@ -6,7 +6,7 @@ website: 'https://github.com/matt-neill'
 engine: twig
 404: '404'
 customFields:
-    homeRibbon: { type: checkbox, title: 'Show home ribbon under home banner', default: '1'}
+    homeRibbon: { type: checkbox, title: 'Show home ribbon under home banner', default: '1' }
     blogOnHomepage: { type: checkbox, title: 'Show recent blog posts on the home page', default: '1' }
     megaMenuAdTile: { type: checkbox, title: 'Show featured ad tile in products dropdown menu', default: '1' }
     featuredAdPanel: { type: checkbox, title: 'Show featured ad panel on the home page', default: '1' }
@@ -17,8 +17,8 @@ customFields:
     bannerImage: { type: image, title: 'Banner Image', default: '@images/meyer-hero.jpg', comment: 'Upload your own homepage banner! Recommended dimensions of 1920px by 1080px.' }
     signUpBackground: { type: image, title: 'Newsletter sign up background image', default: '@images/meyer-hero.jpg', comment: 'Upload your own sign up background image! Recommended dimensions of 1920px by 1080px.' }
     loginPageBackground: { type: image, title: 'Log in page sign up background image', default: '@images/meyer-hero.jpg', comment: 'Upload your own log in background image! Recommended dimensions of 1920px by 1080px.' }
-    megaMenuAdTileImage: { type: image, title: 'Image for the ad tile in the products dropdown menu', default: '@images/featured-ad.jpg', comment: 'Upload your own featured ad image! Recommended dimensions of 400px by 400px.' }
-    featuredAdPanelImage: { type: image, title: 'Image for the featured ad panel on the home page', default: '@images/featured-ad.jpg', comment: 'Upload your own featured ad image! Recommended dimensions of 1920px by 1080px.' }
+    megaMenuAdTileImage: { type: image, title: 'Image for the ad tile in the products dropdown menu', default: '', comment: 'Upload your own featured ad image! Recommended dimensions of 400px by 400px.' }
+    featuredAdPanelImage: { type: image, title: 'Image for the featured ad panel on the home page', default: '', comment: 'Upload your own featured ad image! Recommended dimensions of 1920px by 1080px.' }
     primaryColor: { type: color, title: 'Theme primary color', default: '#64CDE0', comment: 'Used for input fields.' }
     secondaryColor: { type: color, title: 'Theme secondary color', default: '#FFCB40', comment: 'Used for buttons.' }
     accentColor: { type: color, title: 'Theme accent color', default: '#EE728F', comment: 'Used for links and loading spinners.' }
@@ -37,7 +37,7 @@ customFields:
     featuredAdPanelTitle: { type: text, title: 'Title for the featured ad panel on the home page', default: 'Summer sale', comment: 'What are you trying to advertise?' }
     featuredAdPanelText: { type: text, title: 'Title for the featured ad panel on the home page', default: 'Check out this awesome sale!', comment: 'Let people know why they would want to click the link.' }
     storeLatLng: { type: text, title: 'Google Maps Latitude and Longitude', default: '49.2838684,-123.1146013' }
-    pinterestUrl: { type: text, title: 'Pinterest URL', default: 'http://pinterest.com/lemonstand', comment: 'If you don''t have Pinterest enter "none"'  }
+    pinterestUrl: { type: text, title: 'Pinterest URL', default: 'http://pinterest.com/lemonstand', comment: 'If you don''t have Pinterest enter "none"' }
     facebookUrl: { type: text, title: 'Facebook URL', default: 'http://facebook.com/lemonstand', comment: 'If you don''t have Facebook enter "none"' }
     twitterUrl: { type: text, title: 'Twitter username (without @)', default: lemonstand, comment: 'If you don''t have Twitter enter "none"' }
     instagramUrl: { type: text, title: 'Instagram URL', default: 'http://instagram.com/lemonstand', comment: 'If you don''t have Instagram enter "none"' }
@@ -49,4 +49,5 @@ customFields:
     buttonShape: { type: dropdown, title: 'Button shape', comment: 'The default button shape.', default: 0px, options: { 0px: Sharp, 3px: 'Slightly rounded', 25px: Pill } }
     bannerButtonStyle: { type: dropdown, title: 'Banner button style', comment: 'The style for the button on the hero banner.', default: solid, options: { solid: Solid, outline: 'Empty, with outline' } }
     productTileOverlay: { type: dropdown, title: 'Product tile text background', comment: 'The background behind text on each product tile.', default: 'rgba(255,255,255,0.75)', options: { transparent: None, 'rgba(0,0,0,0.5)': 'Transparent black', 'rgba(255,255,255,0.75)': 'Transparent white' } }
+    categoryTileOverlay: { type: dropdown, title: 'Category tile text background', comment: 'The background behind text on each category tile on homepage.', default: 'rgba(0,0,0,0.5)', options: { transparent: None, 'rgba(0,0,0,0.5)': 'Transparent black', 'rgba(255,255,255,0.75)': 'Transparent white' } }
 ---

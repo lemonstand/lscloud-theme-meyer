@@ -25,19 +25,18 @@ description: 'Item list for receipt page and order page.'
        </div>
        
        <div flex="20" flex-xs="100">
-       <strong hide show-xs>unit price:</strong><i>{{ item.base_price|currency }}</i>
+       <strong hide show-xs>unit price:</strong><i>{% if item.product.onSale() %}<s class="discount">{{ item.product.fullPrice()|currency }}</s>{% endif %} {{ item.original_price|currency }}</i>
        </div>
       
        <div flex="20" flex-xs="100">
-        <strong hide show-xs>discount:</strong> 
-         {% if (item.discount + item.price_reduction ) > 0%}
-        <i class="discount"> - {{ ((item.discount + item.price_reduction ) * item.quantity) |currency }}</i>
+         {% if item.discount > 0 %}
+        <i class="discount"> - {{ (item.discount  * item.quantity) |currency }}</i>
          {% else %}
           <i> {{ 0 |currency }}</i>
         {% endif %}
        </div>
        <div flex="20" flex-xs="100">
-        <strong hide show-xs>total:</strong><i>{{ ((item.quantity *item.pivot.price) - item.discount )|currency }}</i>
+        <strong hide show-xs>total:</strong><i>{{ item.total()|currency }}</i>
        </div>
    </div>
 

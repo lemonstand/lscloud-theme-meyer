@@ -3,14 +3,15 @@ description: 'Cart totals.'
 ---
 <div layout="column" layout-align="center end">
   <div layout="row" layout-align="end center">
-    <p class="ls-heading letter-spacing-none text-right">Total:</p>
+    <p class="ls-heading letter-spacing-none text-right">Cart total:</p>
     <p class="ls-caption md-caption font-16">
       <span class="padding-x-medium">
-        {{ totals.total | currency }}
+        {{ totals.subtotal | currency }}
       </span>
     </p>
   </div>
   {% if totals.discountTotal > 0 %}
+
   <div layout="row" layout-align="end center" class="margin-top-small">
     <p class="ls-heading letter-spacing-none text-right">Total savings:</p>
     <p class="ls-caption md-caption text-blue font-16" >
@@ -20,4 +21,12 @@ description: 'Cart totals.'
     </p>
   </div>
   {% endif %}
+  <div layout="row" layout-align="end center" class="margin-top-small">
+    <p class="ls-heading letter-spacing-none text-right">Total:</p>
+    <p class="ls-caption md-caption text-blue font-16" >
+      <span class="padding-x-medium">
+        {{ totals.total | currency }}
+      </span>
+    </p>
+  </div>
 </div>

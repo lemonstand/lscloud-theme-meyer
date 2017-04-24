@@ -7,7 +7,14 @@ description: '3 page checkout address step'
 <div layout="column">
   {{ partial('shop-checkout-billing') }}
   {{ partial('shop-checkout-shipping') }}
-
+  <div layout="row" layout-align="start center">
+    <md-checkbox class="md-primary" ng-model="profile.accepts_marketing" ng-true-value="1" ng-false-value="0" ng-checked="1" aria-label="Receive notifications" >
+      <span class="md-caption">
+        Receive occasional email updates and promotions from us.
+      </span>
+    </md-checkbox>
+    <input ng-model="profile.accepts_marketing" class="input-hidden" name="accepts_marketing" readonly />
+  </div>
   <div layout="row" layout-xs="column" layout-align="space-between center" layout-align-xs="center center">
     <a md-ink-ripple flex-order-xs="2" class="md-button ls-button md-button-outline  opacity-50 no-margin margin-y-mobile" ng-href="{{ site_url('products') }}">Continue shopping</a>
     <a class="md-button ls-button  ls-button-wide no-margin"

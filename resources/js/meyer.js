@@ -246,8 +246,19 @@ angular.module('lsAngularApp')
         return deferred.promise;
       };
 
-      $scope.removeCartItem = function(){
-        $window.location.reload();
+      $scope.removeCartItem = function(e) {
+
+        $.ajax({
+            data : { delete_item: e.currentTarget.getAttribute('delete-item') },
+            type: 'post',
+            url: '/',
+            headers: {
+              'X-Event-Handler': 'shop:cart'
+            },
+            success: function(data) {
+              location.reload();
+            }
+        });
       };
 
     });
@@ -634,9 +645,13 @@ angular.module('lsAngularApp')
         };
         $scope.filters.price = maxPrice;
         //add to the `brands` array using the indexOfObject global function
-        angular.forEach( results.data.products, function(product){
-          var manufacturer = { name: product.manufacturer, slug: product.manufacturer.replace(/ /g, '-').toLowerCase(), url_name: product.manufacturer_url };
-          if (window.indexOfObject( $scope.brands, manufacturer) === -1 ){ $scope.brands.push(manufacturer); }
+        angular.forEach( results.data.products, function(product) {
+          if(product.manufacturer) {
+            var manufacturer = { name: product.manufacturer, slug: product.manufacturer.replace(/ /g, '-').toLowerCase(), url_name: product.manufacturer_url };
+            if (window.indexOfObject( $scope.brands, manufacturer) === -1 ) {
+              $scope.brands.push(manufacturer);
+            }
+          }
         });
         $scope.brands = $filter('orderBy')( $scope.brands, 'slug' ); //order alphabetically
       }
@@ -651,9 +666,10 @@ angular.module('lsAngularApp')
     var bannerLoad = function(currentCategory) {
       $scope.title = currentCategory.name;
       $scope.shortDescription = currentCategory.short_description;
+      var background = encodeURI(currentCategory.background_image);
       $scope.setBackground = function(){
         return {
-                'background-image':'url(' + currentCategory.background_image + ')'
+                'background-image':'url(' + background + ')'
             }
       }
     }
