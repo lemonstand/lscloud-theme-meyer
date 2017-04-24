@@ -651,9 +651,10 @@ angular.module('lsAngularApp')
     var bannerLoad = function(currentCategory) {
       $scope.title = currentCategory.name;
       $scope.shortDescription = currentCategory.short_description;
+      var background = encodeURI(currentCategory.background_image);
       $scope.setBackground = function(){
         return {
-                'background-image':'url(' + currentCategory.background_image + ')'
+                'background-image':'url(' + background + ')'
             }
       }
     }
