@@ -281,7 +281,14 @@ inputs %}
                         type="text">
 
                 </div>
-
+                <div layout="row" layout-align="start center">
+                    <md-checkbox class="md-primary" ng-model="profile.accepts_marketing" ng-true-value="1" ng-false-value="0" ng-checked="1" aria-label="Receive notifications" >
+                        <span class="md-caption">
+                            Receive occasional email updates and promotions from us.
+                        </span>
+                    </md-checkbox>
+                    <input ng-model="profile.accepts_marketing" class="input-hidden" name="accepts_marketing" readonly />
+                </div>
 
                 <div layout="row" layout-align="end center">
 
