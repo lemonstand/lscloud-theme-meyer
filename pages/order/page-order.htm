@@ -33,7 +33,9 @@ url: /account/orders/:orderId
           <h3 flex class="ls-heading text-grey font-13 letter-spacing-none">Quantity</h3>
           <h3 flex class="ls-heading text-grey font-13 letter-spacing-none">Price</h3>
         </li>
-        {% for item in order.orderItems %}
+        {% for invoice in order.invoices %}
+        {% for shipment in invoice.shipments %}
+        {% for item in shipment.shipmentItems %}
           <li class="ls-cart-item" layout="row" layout-align="space-between center" flex>
             <div flex="50" layout="row">
               <span class="md-body-1 font-14">{{ item.name }} {{ item.url_name }}</span>
@@ -43,19 +45,21 @@ url: /account/orders/:orderId
             </div>
             <div flex layout="row">
               <span class="md-body-1 font-14 font-child">
-                {% if item.price_reduction %}
-                  {{ item.price | currency }}
-                  <span class="strikethrough">
-                    {{ item.base_price | currency }}
-                  </span>
-                {% else %}
-                  {{ item.price | currency }}
+                {% if item.product.onSale() %}
+                  <s class="discount">
+                    {{ item.product.fullPrice()|currency }}
+                  </s>
                 {% endif %}
+                {{ item.original_price|currency }}</i>
               </span>
             </div>
           </li>
         {% endfor %}
+        {% endfor %}
       </ul>
+      <h3 class="ls-heading letter-spacing-2 padding-y-medium">Order Summary</h3>
+      {{ partial('shop-invoicetotals', {'invoice': invoice}) }}
+      {% endfor %}
     </div>
     {% else %}
       <h2 class="ls-heading">You're not logged in</h2>

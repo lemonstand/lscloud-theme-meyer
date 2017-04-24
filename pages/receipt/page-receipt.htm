@@ -28,6 +28,13 @@ url: '/receipt/:paymenthash'
              <div layout="column">
                {{ partial('shop-invoiceitems') }}
              </div>
+             <div layout="column">
+              {% if invoice.order.coupon_codes | length %}
+                    <h3 class="ls-subheading">
+                      Coupon Code: {{invoice.order.coupon_codes }}
+                    </h3>
+              {% endif %}
+             </div>
             {% if invoice.isPaid() %}
            <div layout="column">
                    {{ partial('shop-invoicetotals') }}
