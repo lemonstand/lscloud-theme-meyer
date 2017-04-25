@@ -26,6 +26,7 @@ description: '3 page checkout progress bar.'
     ng-click="$root.showLoadingScreen();"
     data-ajax-handler="shop:checkout"
     data-ajax-update="#checkout-progress=shop-checkout-progress,#checkout-steps=shop-checkout-steps"
+    compile-on-click="#checkout-page"
     data-ajax-extra-fields="nextStep=billing_info">
     <span class="step-number ls-checkout-progress ls-heading-small" layout="row" layout-align="center center">1</span>
     <p class="step-name ls-checkout-progress ls-heading-small">Info</p>
@@ -49,6 +50,7 @@ description: '3 page checkout progress bar.'
     ng-click="$root.showLoadingScreen();"
     data-ajax-handler="shop:checkout"
     data-ajax-update="#checkout-progress=shop-checkout-progress,#checkout-steps=shop-checkout-steps"
+    compile-on-click="#checkout-page"
     data-ajax-extra-fields="nextStep=billing_info">
     <span class="step-number ls-checkout-progress ls-heading-small" layout="row" layout-align="center center">1</span>
     <p class="step-name ls-checkout-progress ls-heading-small">Info</p>
@@ -59,7 +61,7 @@ description: '3 page checkout progress bar.'
     ng-click="$root.showLoadingScreen();"
     data-ajax-handler="shop:checkout"
     data-ajax-update="#checkout-progress=shop-checkout-progress,#checkout-steps=shop-checkout-steps"
-
+    compile-on-click="#checkout-page"
     data-ajax-extra-fields="nextStep=shipping_method">
     <span class="step-number ls-checkout-progress ls-heading-small" layout="row" layout-align="center center">2</span>
     <p class="step-name ls-checkout-progress ls-heading-small">Shipping</p>
