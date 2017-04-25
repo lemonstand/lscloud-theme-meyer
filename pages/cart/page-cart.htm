@@ -26,8 +26,8 @@ url: /cart
           ng-href="#"
           ng-click="$root.showLoadingScreen();"
           data-ajax-handler="shop:cart"
-          data-ajax-update="#cart-total=shop-cart-totals"
-          compile-on-click="#cart-total"
+          data-ajax-update="#cart=partial-cart"
+          compile-on-click="#cart"
           value="Apply code">
           Apply code
         </md-button>

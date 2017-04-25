@@ -1030,8 +1030,7 @@ angular.module('lsAngularApp')
 
       $(this).sendRequest('shop:onUpdatePaymentMethod', {
         update: {'#payment_form' : 'partial-paymentform'},
-        onAfterUpdate: function(e){
-        },
+        onAfterUpdate: function(e){}
       });
     });
 
@@ -1064,12 +1063,17 @@ angular.module('lsAngularApp')
     $scope.isUpdateCoupon = false;
 
     $scope.nextStep = function(){
-      $(window).on('onAfterAjaxUpdate', function(e){
-        if (typeof $('#checkout-page')[0] !== 'undefined'){
-          $compile($('#checkout-page').contents())($scope);
-          $scope.$digest();
+      $(window).on('onAjaxAfterUpdate onAjaxFailure', function(e){
+        if(e.type !== 'onAjaxFailure') {
+          if (typeof $('#checkout-page')[0] !== 'undefined'){
+            $compile($('#checkout-page').contents())($scope);
+            $scope.$digest();
+          }
         }
+        $(window).off('onAfterAjaxUpdate onAjaxFailure');
+        $rootScope.hideLoadingScreen();
       });
+      
     }
 
     //nothing to see here, move along
@@ -1132,17 +1136,21 @@ angular.module('lsAngularApp')
  * # compileOnChange
  */
 angular.module('lsAngularApp')
-  .directive('compileOnChange', function ($window,$compile,$timeout) {
+  .directive('compileOnChange', function ($window,$compile,$timeout,$rootScope) {
     return {
       restrict: 'A',
       link: function(scope,element,attrs){
         //after LS returns the AJAX request and updates the HTML, recompile Angular template
         element.on('change', function(){
-          $(window).on('onAfterAjaxUpdate', function(e){
-            if (typeof $(attrs.compileOnChange)[0] !== 'undefined'){
-              $compile(element)(scope);
-              scope.$digest();
+          $(window).on('onAfterAjaxUpdate onAjaxFailure', function(e){
+            if(e.type !== 'onAjaxFailure') {
+              if (typeof $(attrs.compileOnChange)[0] !== 'undefined'){
+                $compile(element)(scope);
+                scope.$digest();
+              }
             }
+            $(window).off('onAfterAjaxUpdate onAjaxFailure');
+            $rootScope.hideLoadingScreen();
           });
         })
       }
@@ -1163,21 +1171,19 @@ angular.module('lsAngularApp')
         //after LS returns the AJAX request and updates the HTML, recompile Angular template
         // * same as the compileOnChange directive, but is triggered by a click
         element.on('click', function(){
-          if ($rootScope.compiled.indexOf(attrs.compileOnClick) === -1){
-            $rootScope.compiled.push(attrs.compileOnClick);
-            $(window).on('onAfterAjaxUpdate', function(e){
-              var $elem = $($(attrs.compileOnClick)[0]);
-              if (typeof $elem !== 'undefined'){
-                $timeout(function(){
-                  var e = $(attrs.compileOnClick).contents();
-                  $elem.empty().append($compile(e)(scope));
-                });
+            $(window).on('onAfterAjaxUpdate onAjaxFailure', function(e){
+              if(e.type !== 'onAjaxFailure') {
+                var $elem = $($(attrs.compileOnClick)[0]);
+                if (typeof $elem !== 'undefined'){
+                  $timeout(function(){
+                    var e = $(attrs.compileOnClick).contents();
+                    $elem.empty().append($compile(e)(scope));
+                  });
+                }  
               }
+              $(window).off('onAfterAjaxUpdate onAjaxFailure');
+              $rootScope.hideLoadingScreen();
             });
-          }
-          else {
-            console.warn('Already watching for Ajax updates to ' + attrs.compileOnClick);
-          }
         })
       }
     }
