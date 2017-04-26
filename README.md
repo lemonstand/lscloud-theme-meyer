@@ -1,27 +1,22 @@
 # Meyer - A LemonStand theme
 
-The Meyer theme, made by the POET team in Waterloo.
+The Meyer theme, made by the LemonStand team in Vancouver.
 
-## Running Gulp
+## Engine
 
-Gulp is a simple build system for web things. It automates compiling Sass, minifying files, and so on.
+Meyer is the first LemonStand theme that uses Angular.
 
-1. Install Node.js (https://nodejs.org)
-2. Install Gulp: `npm install -g gulp`
-3. Gulp!
+## Features
 
-## Node Modules
-
-* gulp (https://www.npmjs.com/package/gulp)
-* gulp-sass (https://www.npmjs.com/package/gulp-sass)
-* node-bourbon (https://www.npmjs.com/package/node-bourbon)
-* node-neat (https://www.npmjs.com/package/node-neat)
-* gulp-minify-css (https://www.npmjs.com/package/gulp-minify-css)
-* gulp-jshint (https://www.npmjs.com/package/jshint)
-* gulp-concat (https://www.npmjs.com/package/concat)
-* gulp-uglify (https://www.npmjs.com/package/gulp-uglify)
-* gulp-rename (https://www.npmjs.com/package/gulp-rename)
-* glup-notify (https://www.npmjs.com/package/gulp-notify)
+* Product favouriting
+* Responsive / mobile-friendly
+* Customizable colours
+* Customizable home page
+* Product rating
+* Blog with archive
+* Guest and registered checkout
+* Single page shop; customers can filter and search through all products without reloading the page!
+* Easy header and footer navigation customization using widget blocks
 
 ---
 

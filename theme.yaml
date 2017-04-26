@@ -1,9 +1,9 @@
 ---
 name: Meyer
-description: 'The Meyer theme, made by the POET team in Waterloo.'
-author: 'Matt Neill'
-website: 'https://github.com/matt-neill'
-engine: twig
+description: 'The Meyer theme, made by LemonStand.'
+author: 'LemonStand'
+website: 'https://lemonstand.com/'
+engine: Twig
 404: '404'
 customFields:
     homeRibbon: { type: checkbox, title: 'Show home ribbon under home banner', default: '1' }
