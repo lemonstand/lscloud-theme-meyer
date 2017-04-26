@@ -40,7 +40,7 @@ url: /
   {% endif %}
 
   <md-content layout="column" class="padding-y-large">
-
+    {% if theme.homeCategories %}
     <div layout="column" layout-align="center center" id="featured-categories" >
       <div layout-fill class="content-container">
         <md-grid-list
@@ -79,6 +79,7 @@ url: /
         </md-grid-list>
       </div>
     </div>
+    {% endif %}
 
     <div layout="column" layout-align="center center" id="featured-products">
       <div layout-fill class="content-container padding-mobile">
