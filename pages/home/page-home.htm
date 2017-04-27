@@ -29,14 +29,18 @@ url: /
 
 </script>
 
-
-
 <div ng-controller="HomeCtrl">
-  
+
     {{ partial('partial-banner') }}
 
   {% if theme.homeRibbon %}
-    {{ partial('partial-home-ribbon') }}
+    <div layout="row" layout-align="center center" layout-padding class="ls-ribbon">
+      <div layout="row" layout-xs="column" layout-align="space-around center" layout-align-xs="center start" class="content-container">
+        {{ widget_block('home-ribbon-one')}}
+        {{ widget_block('home-ribbon-two')}}
+        {{ widget_block('home-ribbon-three')}}
+      </div>
+    </div>
   {% endif %}
 
   <md-content layout="column" class="padding-y-large">
