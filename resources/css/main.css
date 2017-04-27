@@ -541,7 +541,7 @@
 }
 
 @media only screen and (min-width:360px) {
-  .content-container { width: 96%; }
+  .content-container { margin: 0 2% 0 2%; }
   .content-container-tabs md-tabs-canvas { max-width: 96% !important; margin:0 auto; }
 }
 
