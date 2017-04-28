@@ -177,7 +177,7 @@ url: '/product/:urlName'
                 </md-button>
               </div>
 
-              <div layout="column" class="padding-y-medium padding-y-mobile">
+              <div id="product-social" layout="column" class="padding-y-medium padding-y-mobile">
                 <p class="ls-heading md-caption theme-heading padding-y-mobile">Share</p>
                 <ul class="social-icons" layout="row" layout-align="start start">
                   <li md-ink-ripple>
@@ -230,7 +230,7 @@ url: '/product/:urlName'
                 <div layout="column" ng-show="!customerReviews.length" class="padding-y-medium">
                   <h2 class="ls-heading text-center">No reviews found</h2>
                   <p class="ls-subheading margin-y-small text-center">Please check again later, or write your own!</p>
-                </div>
+               </div>
               </div>
 
               {% if customer %}

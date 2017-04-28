@@ -556,10 +556,6 @@
   #blog-body blockquote { margin: 15px 15px 15px 0; padding: 15px 0 15px 40px; }
   #blog-body blockquote:after { margin-top: 10px; }
   #blog-after { border-bottom: 1px solid #e5e5e5; }
-  #product-add-cart { height: 250px; }
-  #product-review { height: 350px; }
-  #write-review { padding-bottom: 40px; }
-  .photos-column { max-height: 300px }
 }
 
 @media only screen and (max-width:959px) {
@@ -813,11 +809,8 @@
     display: -webkit-box;
     display: -ms-flexbox;
     display: flex;
-    /*background: #f1f1f1;*/
     max-height: 500px;
     max-width: 500px;
-    /*height: 0 !important;
-    padding-bottom: 100%;*/
   }
   .swiper-slide > img {
     margin: 0 auto;
@@ -832,22 +825,16 @@
             transform: translate3d(-50%,-50%,0);
   }
   .gallery-top .swiper-wrapper {
-    /*height: 100%;*/
-    height: 43vw;
+    height: 100%;
   }
   .gallery-top {
-    /*width: 100%;
-    flex-grow: 8;
-    height: 0 !important;
-    padding-bottom: 100%;*/
-    width: 43vw;
-    height: 43vw;
+    height: 80vh;
     max-width: 500px;
     max-height: 500px;
   }
-  @media (min-width: 600px) and (max-width: 959px) {
-    .gallery-top {
-      height: 43vw;
+  @media (max-width: 600px) {
+    .photos-column {
+      max-height: 80vh;
     }
   }
   .gallery-thumbs {
@@ -855,7 +842,10 @@
     box-sizing: border-box;
     flex-grow: 2;
     max-height: 120px;
+    min-height: 75px;
+    height: 20%;
   }
+  
   .gallery-thumbs .swiper-slide {
     width: 25%;
     opacity: 0.4;
