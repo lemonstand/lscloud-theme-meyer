@@ -171,6 +171,7 @@
 
 /*ribbon*/
   div.ls-ribbon md-list-item { max-width: 240px; }
+  .ribbon-container { padding: 0px 10px 0px 10px; }
 
 /*navbar*/
   #navbar { z-index: 50; position: fixed; width: 100%; top:0;  }
