@@ -45,7 +45,7 @@ description: 'Cart item list.'
 
         </div>
       </div>
-      <div class="cart-item-qty" layout="row" flex="35" flex-xs="100" layout-align="space-between center">
+      <div class="cart-item-qty" layout="row" layout-align="space-between center">
         <div layout="row" ng-init="items['{{ item.key }}'] = { qty: {{ item.quantity }}, initialQty: {{ item.quantity }}}; " class="order-quantity" layout-align="center center" flex-order-xs="2">
           <a ng-href="#" ng-click="items['{{ item.key }}'].qty = items['{{ item.key }}'].qty - 1 >= 1 ? items['{{ item.key }}'].qty - 1 : 1; $root.showLoadingScreen();" md-ink-ripple class="md-button md-icon-button" compile-on-click="#cart">
             <md-icon>remove</md-icon>

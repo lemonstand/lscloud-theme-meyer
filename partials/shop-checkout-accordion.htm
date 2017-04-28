@@ -77,7 +77,7 @@ inputs %}
 
 <!-- Begin Checkout Content -->
 <div layout="row" layout-align="center start" layout-xs="column" class="padding-mobile" layout-fill>
-    <div class="max-width-1024" layout="column" flex="66" flex-xs="100" flex-order-xs="2" id="checkout-steps">
+    <div class="max-width-1024" layout="column" flex-order-xs="2" id="checkout-steps">
         <!-- Begin Billing/Shipping Checkout Tab -->
         <div id="shop-address" class="{% if step == 'billing_info' %}checkout-tab active{% elseif step == 'shipping_method' %}checkout-tab{% elseif step == 'pay' %}checkout-tab{% endif %}">
 
@@ -321,7 +321,7 @@ inputs %}
                     <div layout="column">
                         {% if shippingOptions %}
 
-                            <div layout="column" flex="66" id="checkout-shippingMethod">
+                            <div layout="column" id="checkout-shippingMethod">
                                 <div layout="column">
                                     <h3 class="ls-heading letter-spacing-2 padding-y-medium">Shipping method</h3>
                                     <input type="text" class="input-hidden" readonly ng-model="shipping.shippingMethod" watch-change name="shippingMethod" />                            {% if shippingOptions | length == 1 %}

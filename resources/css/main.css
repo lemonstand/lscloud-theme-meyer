@@ -144,7 +144,6 @@
   input:disabled,
   md-input-container .md-input[disabled],
   select:disabled { color: rgba(0,0,0,0.38); background-color: #fafafa !important; }
-  input:read-only,
   input:disabled,
   md-input-container .md-input[disabled],
   select:disabled { color: rgba(0,0,0,0.38); background-color: #fafafa !important; }
