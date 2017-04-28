@@ -556,6 +556,10 @@
   #blog-body blockquote { margin: 15px 15px 15px 0; padding: 15px 0 15px 40px; }
   #blog-body blockquote:after { margin-top: 10px; }
   #blog-after { border-bottom: 1px solid #e5e5e5; }
+  #product-add-cart { height: 250px; }
+  #product-review { height: 350px; }
+  #write-review { padding-bottom: 40px; }
+  .photos-column { max-height: 300px }
 }
 
 @media only screen and (max-width:959px) {
