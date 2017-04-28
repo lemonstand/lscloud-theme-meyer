@@ -141,7 +141,6 @@
     background-position: right center;
   }
   select:disabled { background-image: url('data:image/svg+xml;utf-8,<svg fill="#A5A5A5" height="24" viewBox="0 0 24 24" width="24" xmlns="http://www.w3.org/2000/svg"><path d="M7 10l5 5 5-5z"/><path d="M0 0h24v24H0z" fill="none"/></svg>'); }
-  input:-moz-read-only,
   input:disabled,
   md-input-container .md-input[disabled],
   select:disabled { color: rgba(0,0,0,0.38); background-color: #fafafa !important; }

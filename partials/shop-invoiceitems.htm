@@ -21,22 +21,22 @@ description: 'Item list for receipt page and order page.'
         </div>
         
        <div flex="20" flex-xs="100">
-        <strong hide show-xs>qty:</strong><i>{{ item.quantity|number_format(0) }}</i>
+        <strong hide show-xs>qty: </strong><i>{{ item.quantity|number_format(0) }}</i>
        </div>
        
        <div flex="20" flex-xs="100">
-       <strong hide show-xs>unit price:</strong><i>{% if item.product.onSale() %}<s class="discount">{{ item.product.fullPrice()|currency }}</s>{% endif %} {{ item.original_price|currency }}</i>
+       <strong hide show-xs>unit price: </strong><i>{% if item.product.onSale() %}<s class="discount">{{ item.product.fullPrice()|currency }}</s>{% endif %} {{ item.original_price|currency }}</i>
        </div>
       
        <div flex="20" flex-xs="100">
          {% if item.discount > 0 %}
-        <i class="discount"> - {{ (item.discount  * item.quantity) |currency }}</i>
+        <strong hide show-xs>Discount:</strong><i class="discount"> - {{ (item.discount  * item.quantity) |currency }}</i>
          {% else %}
-          <i> {{ 0 |currency }}</i>
+          <strong hide show-xs>Discount:</strong><i> {{ 0 |currency }}</i>
         {% endif %}
        </div>
        <div flex="20" flex-xs="100">
-        <strong hide show-xs>total:</strong><i>{{ item.total()|currency }}</i>
+        <strong hide show-xs>total: </strong><i>{{ item.total()|currency }}</i>
        </div>
    </div>
 
