@@ -13,7 +13,6 @@ url: /brands
     'button': false,
     'title': 'Manufacturers',
     'subheading': 'Our industry-leading brands are here to make your place look fresh.',
-    'overlay': true,
     'backgroundImage': 'images/pexels-photo-95354.jpeg' | theme_resource
   }}) }}
 
@@ -27,25 +26,25 @@ url: /brands
             Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
           </p>
         </div>
-
-        <md-grid-list
-          id="brand-list"
-          md-cols="3"
-          md-row-height="2:1"
-          md-gutter="25px">
-          {% for man in manufacturers %}
-          <md-grid-tile md-rowspan="1" md-colspan="1" >
-            <a ng-href="{{ site_url('brands/') ~ man.url_name }}" class="no-link-style" layout="column" layout-fill layout-align="center center" md-ink-ripple>
-              {% if man.images.first.thumbnail('auto', 'auto') %}
-                <img style="position:relative;" src="{{ man.images.first.thumbnail('auto', 100) }}"><br>
-              {% endif %}
-              <h3 class="ls-subheading">{{ man.name }}</h3>
-              
-            </a>
-          </md-grid-tile>
-          {% endfor %}
-        </md-grid-list>
-
+        <div>
+          <md-grid-list
+            id="brand-list"
+            md-cols="3"
+            md-cols-xs="1"
+            md-row-height="2:1"
+            md-gutter="25px">
+            {% for man in manufacturers %}
+            <md-grid-tile md-rowspan="1" md-colspan="1" >
+              <a ng-href="{{ site_url('brands/') ~ man.url_name }}" class="no-link-style" layout="column" layout-fill layout-align="center center" md-ink-ripple>
+                {% if man.images.first.thumbnail('auto', 'auto') %}
+                  <img style="position:relative;" src="{{ man.images.first.thumbnail('auto', 100) }}"><br>
+                {% endif %}
+                <h3 class="ls-subheading">{{ man.name }}</h3>
+              </a>
+            </md-grid-tile>
+            {% endfor %}
+          </md-grid-list>
+        </div>
 
         <!-- <div layout="row" layout-wrap layout-fill>
           {% for man in manufacturers %}

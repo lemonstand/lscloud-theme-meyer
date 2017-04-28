@@ -11,8 +11,7 @@ url: /brands/:urlName@
   'banner': {
     'button': false,
     'title': manufacturer.name,
-    'subheading': manufacturer.description,
-    'overlay': true
+    'subheading': manufacturer.description
   }}) }}
 
   <div layout="row" layout-fill layout-align="center center" class="bg-white">
@@ -60,10 +59,10 @@ url: /brands/:urlName@
           {% endif %}
         </table>
         
-        <div layout="column" layout-fill class="padding-y-large max-width-960">
+        <div>
           <md-grid-list
             id="brand-list"
-            md-cols="3"
+            md-cols="1"
             md-row-height="2:1"
             md-gutter="25px">
             <md-grid-tile md-rowspan="1" md-colspan="1" >
