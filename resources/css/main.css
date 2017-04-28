@@ -352,6 +352,9 @@
   form.mailchimp-form .message p { text-align: center;}
 
 /*footer*/
+  #footer {
+    margin: 0% 2% 0% 2%;
+  }
   div.theme-column { max-width: 225px; }
   .theme-heading { letter-spacing: inherit !important; }
 
