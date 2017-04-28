@@ -3,7 +3,9 @@ description: 'Blog card.'
 ---
 <md-card class="blog-card">
   <div class="md-card-img-container" image-loaded >
-    <img ng-src="[[ post.thumbnail ]]"  alt="[[ post.title ]]">
+    <a ng-href="[[ 'blog/' + post.permalink ]]" class="limit-2-line no-link-style ls-subheading">
+      <img ng-src="[[ post.thumbnail ]]"  alt="[[ post.title ]]">
+    </a>
   </div>
   <md-card-content>
     <div class="blog-title" layout="column" layout-align="center start">
@@ -11,7 +13,9 @@ description: 'Blog card.'
         [[ post.title ]]
       </a>
     </div>
-    <p ng-bind-html="post.excerpt" class="blog-excerpt limit-2-line md-caption ls-caption line-height-15 font-13"></p>
-    <p class="blog-date md-body-1 font-14 ls-caption">[[ post.publish_date | moment | capitalize ]]</p>
+    <a ng-href="[[ 'blog/' + post.permalink ]]" class="limit-2-line no-link-style ls-subheading">
+      <p ng-bind-html="post.excerpt" class="blog-excerpt limit-2-line md-caption ls-caption line-height-15 font-13"></p>
+      <p class="blog-date md-body-1 font-14 ls-caption">[[ post.publish_date | moment | capitalize ]]</p>
+    </a>
   </md-card-content>
 </md-card>

@@ -60,8 +60,10 @@ url: '/product/:urlName'
 
           <div layout="column" class="padding-medium details-column" flex>
             <!-- column2 -->
-              <h1 class="ls-heading margin-y-small">{{ product.name }}</h1>
-              <div layout="row" layout-align="start center" class="padding-bottom-small">
+              <div layout="row" layout-align="start center" class="padding-bottom-small padding-y-mobile">
+                <h1 class="ls-heading margin-y-small">{{ product.name }}</h1>
+              </div>
+              <div layout="row" layout-align="start center" class="padding-bottom-small padding-y-mobile">
                 <p class="ls-subheading ls-caption">{{ product.sku }}</p>
                 {% if product.manufacturer %}
                   <a href="{{ site_url('/products/') ~ '?brand=' ~ product.manufacturer.url_name }}" class="ls-subheading no-link-style ls-caption ls-link margin-x-medium">By {{ product.manufacturer.name }}</a>
@@ -89,7 +91,7 @@ url: '/product/:urlName'
               </p>
 
               {% if product.productAttributes %}
-              <div layout="row" layout-xs="column" class="padding-y-small"/>
+              <div layout="row" layout-xs="column" class="padding-y-small" style="display: table;">
                 <table>
                   {% for attr in product.productAttributes %}
                   <tr>
@@ -146,7 +148,7 @@ url: '/product/:urlName'
                 </div>
               {% endif %}
 
-              <div layout="row" layout-xs="column" layout-align-xs="center center" layout-wrap>
+              <div id="product-add-cart" layout="row" layout-xs="column" layout-align-xs="center center">
                 <div layout="row" class="order-quantity" layout-align="center center" flex-order-xs="2">
                   <md-button ng-click="order.quantity = order.quantity - 1 >= 1 ? order.quantity - 1 : 1"  class="md-icon-button">
                     <md-icon>remove</md-icon>
@@ -175,8 +177,8 @@ url: '/product/:urlName'
                 </md-button>
               </div>
 
-              <div layout="column" class="padding-y-medium">
-                <p class="ls-heading md-caption theme-heading">Share</p>
+              <div id="product-social" layout="column" class="padding-y-medium padding-y-mobile">
+                <p class="ls-heading md-caption theme-heading padding-y-mobile">Share</p>
                 <ul class="social-icons" layout="row" layout-align="start start">
                   <li md-ink-ripple>
                     <a ng-href="http://pinterest.com/pin/create/button/?url=[[ current ]]&description={{ (product.name ~ ' on ' ~ theme.storeTitle) | url_encode }}" target="_blank" class="socicon pinterest">
@@ -196,7 +198,7 @@ url: '/product/:urlName'
                 </ul>
               </div>
 
-              <div layout="column">
+              <div id="product-review" layout="column">
                 <div layout="row" layout-xs="column" layout-align-xs="center start" layout-align="space-between center" class="reviews-header">
                   <h3 class="ls-subheading">Customer reviews</h3>
 
@@ -228,11 +230,11 @@ url: '/product/:urlName'
                 <div layout="column" ng-show="!customerReviews.length" class="padding-y-medium">
                   <h2 class="ls-heading text-center">No reviews found</h2>
                   <p class="ls-subheading margin-y-small text-center">Please check again later, or write your own!</p>
-                </div>
+               </div>
               </div>
 
               {% if customer %}
-              <div layout="row" layout-align="start center">
+              <div id="write-review" layout="row" layout-align="start center">
                 <md-button class="ls-button md-button-outline no-margin  opacity-50" ng-click="writeReview();">Write a review</md-button>
               </div>
               {% endif %}

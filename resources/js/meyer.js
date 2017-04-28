@@ -989,12 +989,12 @@ angular.module('lsAngularApp')
 
         angular.forEach($scope.blog, function(post, index){
           // group the posts by date (for the archive panel)
-            var d = Date.parse(post.publish_date);
+            var publishDate = post.publish_date.replace(/-/g, "/");
+            var d = Date.parse(publishDate);
             d = new Date(d);
             var month = d.getMonth() + 1;
             var year = d.getFullYear();
             var date = month +'/01/'+year;
-           
             if (dates.indexOf(date) === -1){
               dates.push(date);
               $scope.months.push(new Date(date));

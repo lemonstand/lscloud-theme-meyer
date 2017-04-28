@@ -35,10 +35,16 @@ url: /
 
   {% if theme.homeRibbon %}
     <div layout="row" layout-align="center center" layout-padding class="ls-ribbon">
-      <div layout="row" layout-xs="column" layout-align="space-around center" layout-align-xs="center start" class="content-container">
-        {{ widget_block('home-ribbon-one')}}
-        {{ widget_block('home-ribbon-two')}}
-        {{ widget_block('home-ribbon-three')}}
+      <div layout="row" layout-xs="column" layout-align="center center" layout-align-xs="space-around center" class="content-container">
+        <div class="ribbon-container">
+          {{ widget_block('home-ribbon-one')}}
+        </div>
+        <div class="ribbon-container">
+          {{ widget_block('home-ribbon-two')}}
+        </div>
+        <div class="ribbon-container">
+          {{ widget_block('home-ribbon-three')}}
+        </div>
       </div>
     </div>
   {% endif %}

@@ -15,7 +15,7 @@ url: '/receipt/:paymenthash'
     {% if invoice %}
       <h1 class="text-center padding-y-medium weight-300">Thank you!</h1>
       <div layout="column" layout-fill>
-        <div layout="column" flex="50">
+        <div layout="column">
           <h3 class="ls-heading letter-spacing-none">Your confirmation number: <span class="weight-400">{{ invoice.order.number }}</span></h3>
           <p class="ls-caption md-caption margin-y-medium">
             You will be sent a confirmation email shortly with your receipt.
