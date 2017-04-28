@@ -629,7 +629,7 @@ angular.module('lsAngularApp')
     
     $scope.showSaleItems = false;
     
-    $scope.toggleSaleItems =()=> {
+    $scope.toggleSaleItems = function() {
       $scope.filters.price = null;
       $scope.filters.brand = null;
       $scope.filters.search = null;
@@ -985,15 +985,15 @@ angular.module('lsAngularApp')
         $scope.blog = results.data.blog;
         $scope.categories = [];
         $scope.months = [];
-        let dates = [];
+        var dates = [];
 
         angular.forEach($scope.blog, function(post, index){
           // group the posts by date (for the archive panel)
-            let d = Date.parse(post.publish_date);
+            var d = Date.parse(post.publish_date);
             d = new Date(d);
-            let month = d.getMonth() + 1;
-            let year = d.getFullYear();
-            let date = month +'/01/'+year;
+            var month = d.getMonth() + 1;
+            var year = d.getFullYear();
+            var date = month +'/01/'+year;
            
             if (dates.indexOf(date) === -1){
               dates.push(date);
@@ -1034,10 +1034,10 @@ angular.module('lsAngularApp')
       });
     });
 
-    $scope.autoApplyShipping = (shipping) =>{
+    $scope.autoApplyShipping = function(shipping) {
 
-        $timeout(()=>{
-            let shippingList = angular.element('#shipping_method_list');
+        $timeout(function() {
+            var shippingList = angular.element('#shipping_method_list');
             $scope.$apply();
             angular.element(shippingList).children()[0].click();
             angular.element('#select_shipping_continue').click();
@@ -1047,11 +1047,11 @@ angular.module('lsAngularApp')
 
     $scope.isAutoUpdatedPayment = false;
     
-    $scope.autoUpdateSinglePaymentMethod = () =>{
+    $scope.autoUpdateSinglePaymentMethod = function() {
         if(!$scope.isAutoUpdatedPayment){
-            $timeout(() =>{
-                let select = angular.element('#payment_method');
-                let selectedVal = select.children()[1].value;
+            $timeout(function() {
+                var select = angular.element('#payment_method');
+                var selectedVal = select.children()[1].value;
                 select.val(selectedVal);
                 select.change();
                 $scope.isAutoUpdatedPayment = true;
@@ -1085,8 +1085,8 @@ angular.module('lsAngularApp')
       $scope[model+'_name'] = $(elem+ ' option:selected').text().trim();
     };
     
-    $scope.onCountryChange =() =>{
-        $timeout(() =>{
+    $scope.onCountryChange =function() {
+        $timeout(function() {
             $scope.billing.state = "";
             if(angular.element('#billing_state').children().length === 1){
                 $scope.billing.state = "";
@@ -1101,21 +1101,21 @@ angular.module('lsAngularApp')
     $scope.stateTextValue = "";
     
     $scope.onStateChange = function(){
-      $timeout(() => {
+      $timeout(function() {
           $scope.stateTextValue = angular.element('#billing_state option:selected').text().trim();
           $scope.$apply();
       });
     };
     
-    $scope.initBillingIsShipping = ()=>{
-        $timeout(() =>{
+    $scope.initBillingIsShipping = function() {
+        $timeout(function() {
             $scope.shippingIsBilling =  $scope.billing.street === $scope.shipping.street;
             $scope.$apply();
             $scope.shipping = $scope.billing;
         }, 1000);
     }
     
-    $scope.$watch('shippingIsBilling', (newval, oldval) =>{
+    $scope.$watch('shippingIsBilling', function(newval, oldval) {
         
         $scope.onStateChange();
         
