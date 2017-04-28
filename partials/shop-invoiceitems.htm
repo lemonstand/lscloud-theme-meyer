@@ -4,38 +4,38 @@ description: 'Item list for receipt page and order page.'
 {% for shipment in invoice.shipments %}
 
    <div layout="row" layout-align="space-between center" style="background-color: {{ theme.primaryColor }}; color: #FFF" layout-padding hide-xs>
-        <div flex="20">Item</div>
-        <div flex="20">Quantity</div>
-        <div flex="20">Unit Price</div>
-        <div flex="20">Discount</div>
-        <div flex="20">Total</div>
+        <div>Item</div>
+        <div>Quantity</div>
+        <div>Unit Price</div>
+        <div>Discount</div>
+        <div>Total</div>
     </div>
 
     {% for item in shipment.shipmentItems %}
     
     <div layout="row" layout-xs="column" layout-align="space-between center" layout-align-xs="center start" layout-padding class="no-padding-left">
 
-        <div flex="20" flex-xs="100">
+        <div>
             <h3 class="ls-heading letter-spacing-2 padding-y-medium"><a class="no-link-style" href="/product/{{ item.product.url_name }}">{{ item.product.name }}</a></h3>
             <a href="/product/{{ item.product.url_name }}"><img src="{{ item.product.images.first.thumbnail(80, 80) }}"/></a>
         </div>
         
-       <div flex="20" flex-xs="100">
+       <div>
         <strong hide show-xs>qty: </strong><i>{{ item.quantity|number_format(0) }}</i>
        </div>
        
-       <div flex="20" flex-xs="100">
+       <div>
        <strong hide show-xs>unit price: </strong><i>{% if item.product.onSale() %}<s class="discount">{{ item.product.fullPrice()|currency }}</s>{% endif %} {{ item.original_price|currency }}</i>
        </div>
       
-       <div flex="20" flex-xs="100">
+       <div>
          {% if item.discount > 0 %}
         <strong hide show-xs>Discount:</strong><i class="discount"> - {{ (item.discount  * item.quantity) |currency }}</i>
          {% else %}
           <strong hide show-xs>Discount:</strong><i> {{ 0 |currency }}</i>
         {% endif %}
        </div>
-       <div flex="20" flex-xs="100">
+       <div>
         <strong hide show-xs>total: </strong><i>{{ item.total()|currency }}</i>
        </div>
    </div>
