@@ -991,17 +991,13 @@ angular.module('lsAngularApp')
           // group the posts by date (for the archive panel)
             var publishDate = post.publish_date.replace(/-/g, "/");
             var d = Date.parse(publishDate);
-            console.log(typeof publishDate);
-            console.log(publishDate);
             d = new Date(d);
             var month = d.getMonth() + 1;
             var year = d.getFullYear();
             var date = month +'/01/'+year;
-           console.log('d: ' + d + ', month: ' + month  + ', year: ' + year + ', date: ' + date);
             if (dates.indexOf(date) === -1){
               dates.push(date);
               $scope.months.push(new Date(date));
-              console.log($scope.months);
             }
             angular.forEach(post.categories, function(category, index){
               //pass to front-end archive list
