@@ -9,7 +9,7 @@ description: 'Cart item list.'
 
   {% for item in cart.items %}
     <li class="ls-cart-item" layout="row" layout-xs="column" flex ng-hide="items['{{ item.key }}'].removed">
-      <div flex="50" flex-xs="100" class="cart-item-info no-padding-mobile" layout="row" layout-xs="column">
+      <div class="cart-item-info no-padding-mobile" layout="row" layout-xs="column">
         <div class="cart-item-image-container" layout="column">
           <img class="cart-item-image" src="{{ item.product.images.first.thumbnail(136, 136) }}" alt="product-image" />
         </div>
