@@ -1,14 +1,24 @@
 {
   "name": "poet-ls-meyer",
   "version": "1.0.0",
-  "description": "The Meyer theme for LemonStand 2",
+  "description": "Meyer is a modern, responsive theme for showcasing beautiful merchandise. It is extremely customizable, and includes large product spaces, featured product cards, and extensive navigation and search pages. Meyer uses Material Design concepts and Angular, for a fast, responsive, and interactive store experience.",
   "main": "theme.yaml",
+  "lemonstand" : {
+    "code":"meyer",
+    "type": "theme",
+    "options": "options.json",
+    "demo" : "https//meyer.lemonstand.com",
+    "screenshot" : {
+      "small":"https://raw.githubusercontent.com/lemonstand/lscloud-theme-meyer/master/resources/screenshots/tiny-square.png",
+      "large":"https://raw.githubusercontent.com/lemonstand/lscloud-theme-meyer/master/resources/screenshots/large-square.png"
+    }
+  },
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {
     "type": "git",
-    "url": "git://github.com/matt-neill/lemonstand-meyer.git"
+    "url": "git@github.com:lemonstand/lscloud-theme-meyer.git"
   },
   "author": "Matt Neill",
   "license": "MIT",
