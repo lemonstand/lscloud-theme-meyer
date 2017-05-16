@@ -21,11 +21,11 @@ url: /checkout
     </div>
     {% else %}
              {% if theme.onePageCheckout %}
-                <div id="checkout-accordion" layout="column" class="content-container padding-y-large" layout-align="start center" layout-fill>
+                <div id="checkout-accordion" layout="column" class="content-container checkout-container padding-y-large" layout-align="start center" layout-fill>
                   {{ partial('shop-checkout-accordion') }}
                 </div>
              {% else %}
-              <div layout="column" class="content-container padding-y-large" layout-align="start center">
+              <div layout="column" class="content-container checkout-container padding-y-large" layout-align="start center">
                 <div layout="row" layout-xs="column" class="max-width-1024 padding-mobile" layout-fill>
                   <div layout="column" flex-order-xs="2">
                     <div layout="row" layout-xs="column" id="checkout-progress" class="margin-bottom-small">
