@@ -36,7 +36,7 @@ customFields:
     featuredAdPanelLink: { type: text, title: 'Featured ad link for the home page', default: '#', comment: 'Where should the featured ad go to?' }
     featuredAdPanelLinkText: { type: text, title: 'Featured ad link text for the home page', default: 'View collection', comment: 'Eg. "View collection"' }
     featuredAdPanelTitle: { type: text, title: 'Title for the featured ad panel on the home page', default: 'Summer sale', comment: 'What are you trying to advertise?' }
-    featuredAdPanelText: { type: text, title: 'Title for the featured ad panel on the home page', default: 'Check out this awesome sale!', comment: 'Let people know why they would want to click the link.' }
+    featuredAdPanelText: { type: text, title: 'Description for the featured ad panel on the home page', default: 'Check out this awesome sale!', comment: 'Let people know why they would want to click the link.' }
     storeLatLng: { type: text, title: 'Google Maps Latitude and Longitude', default: '49.2838684,-123.1146013' }
     pinterestUrl: { type: text, title: 'Pinterest URL', default: 'http://pinterest.com/lemonstand', comment: 'If you don''t have Pinterest enter "none"' }
     facebookUrl: { type: text, title: 'Facebook URL', default: 'http://facebook.com/lemonstand', comment: 'If you don''t have Facebook enter "none"' }
