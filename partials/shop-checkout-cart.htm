@@ -3,7 +3,9 @@ description: '3 page checkout cart items and totals.'
 ---
 <div layout="column" flex class="padding-x-medium no-padding-right no-padding-mobile margin-bottom-mobile" layout-align="center center" >
   <div id="checkout-cart" class="padding-regular">
+    {% set cartTotalBeforeDiscount = 0 %}
     {% for item in cart.items %}
+    {% set cartTotalBeforeDiscount = cartTotalBeforeDiscount + item.price * item.quantity %}
     <div layout="row" class="cart-item border-divider padding-y" layout-align="space-between start">
       <div flex class="cart-item-image-container">
         <img class="cart-item-image" src="{{ item.product.images.first.thumbnail(136, 136) }}" alt="product-image" />
@@ -74,7 +76,7 @@ description: '3 page checkout cart items and totals.'
             Cart total:
           </h3>
           <span class="checkout-price ls-heading-small">
-            {{ totals.subtotalNoTax|currency }}
+            {{ cartTotalBeforeDiscount|currency }}
           </span>
         </div>
       </div>
