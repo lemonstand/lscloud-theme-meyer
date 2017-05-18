@@ -3,7 +3,7 @@ name: Meyer
 description: 'The Meyer theme, made by LemonStand.'
 author: 'LemonStand'
 website: 'https://lemonstand.com/'
-engine: Twig
+engine: twig
 404: '404'
 customFields:
     homeRibbon: { type: checkbox, title: 'Show home ribbon under home banner', default: '1' }
