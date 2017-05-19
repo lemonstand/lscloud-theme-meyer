@@ -15,27 +15,26 @@ url: '/receipt/:paymenthash'
     {% if invoice %}
       <h1 class="text-center padding-y-medium weight-300">Thank you!</h1>
       <div layout="column" layout-fill>
-        <div layout="column">
-          <h3 class="ls-heading letter-spacing-none">Your confirmation number: <span class="weight-400">{{ invoice.order.number }}</span></h3>
-          <p class="ls-caption md-caption margin-y-medium">
-            You will be sent a confirmation email shortly with your receipt.
-          </p>
-        </div>
-        
            {% if invoice %}
             <div layout="row">
-                <h3 class="ls-heading letter-spacing-2 padding-y-medium">Your Order</h3>
+                <h3 class="ls-heading letter-spacing-2 padding-y-small">Your Order</h3>
             </div>
-             <div layout="column">
-               {{ partial('shop-invoiceitems') }}
-             </div>
-             <div layout="column">
+            <div layout="column" class="padding-y-small">
+              <p class="ls-caption md-caption">
+                Your confirmation number is <span class="weight-600">{{ invoice.order.number }}</span></h3>. You will be sent a confirmation email shortly with your receipt.
+              </p>
+            </div>
+            <div layout="column" class="padding-y-small">
               {% if invoice.order.coupon_codes | length %}
                     <h3 class="ls-subheading">
-                      Coupon Code: {{invoice.order.coupon_codes }}
+                      Coupon Used: {{invoice.order.coupon_codes }}
                     </h3>
               {% endif %}
              </div>
+             <div layout="column">
+               {{ partial('shop-invoiceitems') }}
+             </div>
+             
             {% if invoice.isPaid() %}
            <div layout="column">
                    {{ partial('shop-invoicetotals') }}
