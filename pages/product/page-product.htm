@@ -24,7 +24,7 @@ url: '/product/:urlName'
       {{ attribute | raw }}{% if not loop.last %},{% endif %}
     {% endfor %}
   ];
-
+  
   var reviewDialog = `{{ partial('partial-review-dialog') }}`;
 </script>
 
@@ -108,7 +108,8 @@ url: '/product/:urlName'
                   {% for option in product.options %}
                   <md-menu md-position-mode="target-right target" style="margin-bottom:5px;">
                     <md-button aria-label="Product {{option.name}}" ng-click="$mdOpenMenu($event)" class="ls-subheading">
-                      <strong>{{ option.name }}[[ viewOption['{{ option.id }}'] ? ':'  : '' ]]</strong><span class="selected-value">[[ viewOption['{{ option.id }}'] | lowercase ]]</span>
+                      <strong>{{ option.name }}[[ viewOption['{{ option.id }}'] ? ':'  : '' ]]</strong><span class="selected-value" id="selected-option-{{option.id}}"></span>
+                      {#<span class="selected-value">[[ viewOption['{{ option.id }}'] | lowercase ]]</span>#}
                       <md-icon>arrow_drop_down</md-icon>
                     </md-button>
                     <md-menu-content width="2">
@@ -116,10 +117,10 @@ url: '/product/:urlName'
                       <md-menu-item>
                         <md-button
                         {% if loop.first %}
-                          ng-init="changeOption('{{option.id}}','{{ key }}'); viewOption['{{ option.id }}'] = '{{ value }}';"
+                          ng-init="changeOption('{{option.id}}', '{{key}}' , {{ value }}); viewOption['{{ option.id }}'] = '{{ value }}';"
                         {% endif %}
-                         ng-click="changeOption('{{option.id}}','{{ key }}'); viewOption['{{ option.id }}'] = '{{ value }}'; $root.showLoadingScreen();">
-                          <span>{{ value }}</span>
+                         ng-click="changeOption('{{option.id}}','{{ key }}' ,{{ value }}); updateSlug('{{ key }}' , '{{ option.id }}' , '{{value}}');; viewOption['{{ option.id }}'] = '{{ value }}'; $root.showLoadingScreen();">
+                          <span id="selectable-option-{{key}}">{{ value }}</span>
                         </md-button>
                       </md-menu-item>
                       {% endfor %}
