@@ -18,7 +18,7 @@ url: /cart
       </p>
       <div layout="row" layout-xs="column" layout-align="end center" flex>
         <md-input-container md-no-float flex class="hide-errors margin-x no-margin-left no-margin-mobile">
-          <input name="coupon" id="coupon" placeholder="Enter discount code" type="text">
+          <input name="coupon" id="coupon" placeholder="Enter discount code" value="{{ coupon_code }}" type="text">
         </md-input-container>
         <md-button
           class="ls-button ls-button-wide  no-margin margin-y-mobile md-primary"
@@ -28,7 +28,7 @@ url: /cart
           data-ajax-handler="shop:cart"
           data-ajax-update="#cart=partial-cart"
           compile-on-click="#cart"
-          value="Apply code">
+          value="Apply Code">
           Apply code
         </md-button>
       </div>
