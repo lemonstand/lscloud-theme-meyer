@@ -17,8 +17,7 @@ description: 'Payment form partial for PayPal Payments Standard payment method'
     <form method="post" action="" data-ajax-handler="shop:onPay">
         <input type="hidden" value="{{ paymentMethod.id }}" name="payment_method_id">
         <md-input-container>
-        <md-button type="submit" id="paypal_button" value="Pay With PayPal" class="md-button ls-button ls-button-wide no-margin md-ink-ripple">Pay With PayPal</md-button>
+         <input type="submit" value="Pay With PayPal" class="md-button ls-button ls-button-wide no-margin md-ink-ripple">
         </md-input-container>
     </form>
-    
 {% endif %}
