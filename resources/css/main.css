@@ -680,7 +680,7 @@
 
 /*cart */
   ul.ls-cart { width:100%; }
-  ul.ls-cart li > div { padding:16px 0; }
+  ul.ls-cart li > div { padding:16px 0; width: 100%; }
   ul.ls-cart ul { list-style-type: none; }
   .border-bottom,
   ul.ls-cart li.ls-cart-item,
