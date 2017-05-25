@@ -1,6 +1,11 @@
 <md-sidenav  class="md-sidenav-left md-whiteframe-4dp" layout="column" layout-align="space-between start" md-component-id="left">
   <md-list ng-controller="NavCtrl">
-  
+   <md-list-item ng-click="closeSidenav('left')" ng-href="{{ site_url('/') }}">
+        <p class="ls-heading letter-spacing-2">Home</p>
+      </md-list-item>
+    <md-list-item ng-click="closeSidenav('left')" ng-href="{{ site_url('/products') }}">
+        <p class="ls-heading letter-spacing-2">Products</p>
+      </md-list-item>
     <md-list-item ng-click="closeSidenav('left')" ng-repeat="nav in cmsNav" ng-href="[[nav.href]]">
       <p class="ls-heading letter-spacing-2">[[nav.text]]</p>
     </md-list-item>
@@ -24,5 +29,4 @@
         {% endif %}
     </md-list>
   </div>
-  
 </md-sidenav>
