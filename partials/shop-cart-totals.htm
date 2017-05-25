@@ -1,12 +1,17 @@
 ---
 description: 'Cart totals.'
 ---
+{% set cartTotalBeforeDiscount = 0 %}
+{% for item in cart.items %}
+  {% set cartTotalBeforeDiscount = cartTotalBeforeDiscount + item.price * item.quantity %}
+{% endfor %}
+
 <div layout="column" layout-align="center end">
   <div layout="row" layout-align="end center">
     <p class="ls-heading letter-spacing-none text-right">Cart total:</p>
     <p class="ls-caption md-caption font-16">
       <span class="padding-x-medium">
-        {{ totals.subtotal | currency }}
+        {{ cartTotalBeforeDiscount | currency }}
       </span>
     </p>
   </div>
