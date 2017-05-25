@@ -929,13 +929,57 @@ angular.module('lsAngularApp')
       $scope.carouselIndex = index;
     };
 
+    function getUrlParameter(name) {
+        name = name.replace(/[\[]/, '\\[').replace(/[\]]/, '\\]');
+        var regex = new RegExp('[\\?&]' + name + '=([^&#]*)');
+        var results = regex.exec(location.search);
+        return results === null ? '' : decodeURIComponent(results[1].replace(/\+/g, ' '));
+    };
+    
     $scope.options = {};
-    $scope.changeOption = function(id,value){
+    
+    $scope.changeOption = function(id , key , value){
+     var decodedOptions = [];
+     var queryString = location.search.substr(1).split('&');
+ 
       $timeout(function(){
-        $scope.options[id] = value;
+        if(queryString[0].length > 0){
+    
+            angular.forEach(queryString, function(arr, idx){
+               var urlParam = arr.substr(0,arr.indexOf('='))
+               var urlParamIndex = urlParam.match(/\d/g).join();
+               var paramVal = getUrlParameter(urlParam);
+               decodedOptions.push([urlParamIndex , paramVal, value]);
+            });
+
+            angular.forEach(decodedOptions, function(val , id){
+                $scope.options[val[0]] = val[1];
+                var selectableOption = angular.element('#selectable-option-'+ val[1] );
+                angular.element('#selected-option-'+val[0] ).text(selectableOption.text());
+            });
+ 
+        }else{
+         $scope.options[id] = key;
+         var selectableOption = angular.element('#selectable-option-'+key );
+         angular.element('#selected-option-'+id ).text(selectableOption.text());
+        }
       },50);
     };
+    
 
+    $scope.updateSlug = function(key, id, value){
+        
+        var baseProductUrl = $window.location.href.split("?")[0];
+        var optionString = "";
+
+        angular.forEach($scope.options, function(v, k, context){
+        optionString+='options['+id+']='+ key;
+        })
+        $timeout(function(){
+             $window.location.href = baseProductUrl + '?'+ optionString;
+        },100);
+    }
+    
     angular.forEach(reviews, function(review, index){
       //convert the 'n/5' rating to a number
       var rating = review.item_rating.split('/');
