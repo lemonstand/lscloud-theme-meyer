@@ -7,8 +7,15 @@ published: true
 name: Orders
 url: /account/orders
 ---
-
 {{ partial('partial-banner-alt', { banner: { title: 'Order history' }}) }}
+
+<script>
+var trackingCodes = []
+{%for order in orders %}
+    trackingCodes.push([{{order.id}} , "{{ order.outputTrackingCodes() | raw }}"])
+{% endfor %}
+
+</script>
 
 <div layout="column" layout-align="center center" class="bg-white" id="checkout-page" ng-controller="CheckoutCtrl" compile-on-change="#checkout-shippingMethod">
   <div layout="column" class="content-container padding-y-large padding-y-mobile padding-mobile" layout-align="start center">
@@ -24,13 +31,13 @@ url: /account/orders
         </li>
        
         {% for order in orders %}
+
           <li class="ls-cart-item" layout="row" layout-align="space-between center" flex>
             <div flex layout="row">
               <span hide-xs class="md-body-1 font-14">{{ order.id }}</span>
               <a hide show-xs href="{{ site_url('/account/orders/'~order.id) }}" target="_blank" class="md-body-1 font-14 no-link-style text-blue">{{ order.id }}</a>
             </div>
-            <div flex layout="row">
-               {{ order.outputTrackingCodes() }}
+            <div flex layout="row" ng-init="parseTrackingCodes({{order.id}})" id="o_{{ order.id }}">
             </div>
             <div flex layout="row">
               <span class="md-body-1 font-14">

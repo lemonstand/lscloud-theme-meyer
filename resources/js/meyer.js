@@ -1169,6 +1169,20 @@ angular.module('lsAngularApp')
              $scope.shipping = {};
         }
     })
+    
+    function htmlDecode(input){
+      var e = document.createElement('div');
+      e.innerHTML = input;
+      return e.childNodes.length === 0 ? "" : e.childNodes[0].nodeValue;
+    }
+    
+    $scope.parseTrackingCodes = function(orderid){
+        angular.forEach(trackingCodes, function(code){
+            if(code[0] == orderid){
+             angular.element('#o_'+ orderid).html(htmlDecode(code[1]));
+            }
+        })
+    }
   });
 
 
