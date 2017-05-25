@@ -731,6 +731,14 @@
   #payment_form input[type=submit] { float: right; }
   .discount{ color:#ED3C3C; }
     
+/* Receipt Page */
+  #receipt-table {
+    width: 100%;
+  }
+  #receipt-table a:hover {
+    text-decoration: underline;
+  }
+
 
 /*brand page*/
   #brand-list md-grid-tile { background: #fafafa; }
