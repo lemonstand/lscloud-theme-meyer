@@ -2,8 +2,8 @@
 description: 'Cart item list.'
 ---
 <li layout="row" flex class="ls-cart-heading" hide-xs>
-    <h3 flex="50" class="ls-heading text-grey font-13 letter-spacing-none">Product</h3>
-    <h3 flex="33" class="ls-heading text-grey font-13 letter-spacing-none">QTY</h3>
+    <h3 flex="55" class="ls-heading text-grey font-13 letter-spacing-none">Product</h3>
+    <h3 flex="35" class="ls-heading text-grey font-13 letter-spacing-none">QTY</h3>
     <h3 flex class="ls-heading text-grey font-13 letter-spacing-none">Price</h3>
   </li>
 
@@ -45,7 +45,7 @@ description: 'Cart item list.'
 
         </div>
       </div>
-      <div class="cart-item-qty" layout="row" layout-align="center center" flex="30" flex-xs="100">
+      <div class="cart-item-qty" layout="row" layout-align="center center" flex="40" flex-xs="100">
         <div layout="row" ng-init="items['{{ item.key }}'] = { qty: {{ item.quantity }}, initialQty: {{ item.quantity }}}; " class="order-quantity" layout-align="center center" flex-order-xs="2">
           <a ng-href="#" ng-click="items['{{ item.key }}'].qty = items['{{ item.key }}'].qty - 1 >= 1 ? items['{{ item.key }}'].qty - 1 : 1; $root.showLoadingScreen();" md-ink-ripple class="md-button md-icon-button" compile-on-click="#cart">
             <md-icon>remove</md-icon>
@@ -72,7 +72,7 @@ description: 'Cart item list.'
         </div>
       </div>
 
-      <div class="cart-item-price" layout="row" flex layout-align="center center" hide-xs>
+      <div class="cart-item-price" layout="row" flex layout-align="end center" hide-xs>
         <p class="text-grey">
           [[ '$' + ({{ item.price }} | trailingZero) ]]
           {% if item.price != item.fullPrice() %}
