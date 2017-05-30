@@ -8,8 +8,9 @@
     "type": "theme",
     "options": "options.json",
     "demo" : "https//meyer.lemonstand.com",
-    "screenshot" : {
+    "screenshots" : {
       "small":"https://raw.githubusercontent.com/lemonstand/lscloud-theme-meyer/master/resources/screenshots/tiny-square.png",
+      "large":"https://raw.githubusercontent.com/lemonstand/lscloud-theme-meyer/master/resources/screenshots/large-square.png",
       "large":"https://raw.githubusercontent.com/lemonstand/lscloud-theme-meyer/master/resources/screenshots/large-square.png"
     }
   },
