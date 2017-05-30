@@ -22,7 +22,7 @@
                         id="delete-card"
                         href="javascript:void(0)"
                         data-ajax-handler="shop:onDeleteCustomerCard"
-                        data-ajax-update="#profile-edit-card=shop-customerprofile-edit-card"
+                        data-ajax-update="#profile-edit-card=partial-account-edit-card"
                         data-ajax-extra-fields="deleteCardId='{{ card.id }}'"
                         >Delete Card</a>
                     </th>
@@ -45,10 +45,10 @@
 <div class="panel-collapse collapse in col-md-6">
     <div>
         {% for card in customer.cards %}
-            {{ partial('shop-customerprofile-edit-card-form', {'card' : card}) }}
+            {{ partial('partial-account-edit-card-form', {'card' : card}) }}
         {% endfor %}
         
-        {{ partial('shop-customerprofile-add-card-form') }}
+        {{ partial('partial-account-add-card-form') }}
     </div>
 </div>
 </div>
