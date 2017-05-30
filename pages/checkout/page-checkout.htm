@@ -42,6 +42,10 @@ url: /checkout
                 </div>
               </div>
             {% endif %}
+
+            {% if hasFeature('saved-cards') %}
+                {{ code_block('script') }}
+            {% endif %}
     {% endif %}
   </div>
 </div>
