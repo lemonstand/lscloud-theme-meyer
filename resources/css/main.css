@@ -889,12 +889,13 @@
 }
 .card-table th {
     padding: 10px;
-    color: #3A3D3F;
+    color: #rgba(0,0,0,0.87);
 }
 .card-table a,
 .card-table a:hover,
 .card-table a:focus {
     text-decoration: underline;
+    color: #212121
 }
 .card-form-close {
     display: none;

@@ -1,9 +1,6 @@
 ---
 description: 'Displays account info form.'
 ---
-
-
-<div layout="column" class="min-width-640 padding-mobile" ng-controller="CheckoutCtrl">
 {{ open_form({'data-ajax-handler': 'shop:onUpdateCustomerProfile', 'class': 'custom', 'data-validation-message' : ''}) }}
   <input type="hidden" name="billing[id]" value="{{ billing.id }}" />
   <h3 class="ls-heading letter-spacing-2 padding-y-medium">Personal information</h3>
@@ -154,4 +151,3 @@ description: 'Displays account info form.'
  
   <input type="hidden" name="redirect" value="{{ site_url('/products') }}"/>
   {{ close_form() }}
-</div>

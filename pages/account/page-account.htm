@@ -12,16 +12,19 @@ url: /account
 
 <div layout="column" layout-align="center center" class="bg-white" id="checkout-page" ng-controller="CheckoutCtrl" compile-on-change="#checkout-shippingMethod">
   <div layout="column" class="content-container padding-y-large" layout-align="start center">
+
     {% if customer %}
-      {{ partial('partial-account') }}
-      <!-- Using hasFeature helper method to check whether card variables should be accessed. -->
-      {% if hasFeature('saved-cards') %}
-          {% set editedCard = '' %}
-          <div id="profile-edit-card">
-              {{ partial('partial-account-edit-card') }}
-          </div>
-          {{ code_block('script') }}
-      {% endif %}
+      <div layout="column" class="min-width-640 padding-mobile" ng-controller="CheckoutCtrl">
+        {{ partial('partial-account') }}
+        <!-- Using hasFeature helper method to check whether card variables should be accessed. -->
+        {% if hasFeature('saved-cards') %}
+            {% set editedCard = '' %}
+            <div id="profile-edit-card">
+                {{ partial('partial-account-edit-card') }}
+            </div>
+            {{ code_block('script') }}
+        {% endif %}
+      </div>
     {% else %}
       <h2 class="ls-heading">You're not logged in</h2>
       <div layout="column">
