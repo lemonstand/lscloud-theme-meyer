@@ -14,6 +14,14 @@ url: /account
   <div layout="column" class="content-container padding-y-large" layout-align="start center">
     {% if customer %}
       {{ partial('partial-account') }}
+      <!-- Using hasFeature helper method to check whether card variables should be accessed. -->
+      {% if hasFeature('saved-cards') %}
+          {% set editedCard = '' %}
+          <div id="profile-edit-card">
+              {{ partial('shop-customerprofile-edit-card') }}
+          </div>
+          {{ code_block('script') }}
+      {% endif %}
     {% else %}
       <h2 class="ls-heading">You're not logged in</h2>
       <div layout="column">

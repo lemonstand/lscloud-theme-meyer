@@ -874,3 +874,31 @@
     width: 100%;
   }
   .gallery-thumbs .swiper-slide-active { opacity: 1; }
+
+/* Card Form */
+
+.ls-card-form {
+    width: 100%;
+}
+.card-form-expiry-outer label {
+    display: inherit;
+}
+.card-table {
+    font-size: 15px;
+    background-color: #E7E7E7;
+}
+.card-table th {
+    padding: 10px;
+    color: #3A3D3F;
+}
+.card-table a,
+.card-table a:hover,
+.card-table a:focus {
+    text-decoration: underline;
+}
+.card-form-close {
+    display: none;
+}
+.card-form-open {
+    display: block;
+}
