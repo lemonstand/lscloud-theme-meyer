@@ -880,6 +880,11 @@
 .ls-card-form {
     width: 100%;
 }
+
+.ls-card-form a {
+    text-decoration: none;
+}
+
 .card-form-expiry-outer label {
     display: inherit;
 }
@@ -902,4 +907,53 @@
 }
 .card-form-open {
     display: block;
+}
+
+/* Card Form - Inputs */
+.ls-card-form .card-form-input {
+    background-color: #FFF;
+    border: 1px solid #DDD;
+    font-family: inherit;
+    box-shadow: none;
+    border-radius: 0px;
+}
+.ls-card-form .card-form-input:focus {
+    background-color: inherit;
+}
+.ls-card-form .card-form-input::-webkit-input-placeholder {
+    font-family: inherit;
+    font-weight: inherit;
+    letter-spacing: inherit;
+    color: #D4D4D4;
+}
+.ls-card-form .card-form-input:-moz-placeholder {
+    /* Firefox 18- */
+    
+    font-family: inherit;
+    font-weight: inherit;
+    letter-spacing: inherit;
+    color: #D4D4D4;
+}
+.ls-card-form .card-form-input::-moz-placeholder {
+    /* Firefox 19+ */
+    
+    font-family: inherit;
+    font-weight: inherit;
+    letter-spacing: inherit;
+    color: #D4D4D4;
+}
+.ls-card-form .card-form-input:-ms-input-placeholder {
+    font-family: inherit;
+    font-weight: inherit;
+    letter-spacing: inherit;
+    color: #D4D4D4;
+}
+.ls-card-form .error-highlight,
+.ls-card-form .error-highlight:focus {
+    border-color: #D34246 !important;
+}
+
+.ls-card-form .valid-highlight,
+.ls-card-form .valid-highlight:focus {
+    border-color: #3DE000 !important;
 }
