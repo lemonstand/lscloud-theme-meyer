@@ -218,11 +218,6 @@
       "title": "MailChimp List ID",
       "default": "a1234b5c67"
     },
-    "onePageCheckout": {
-      "type": "checkbox",
-      "title": "Enable One Page Checkout",
-      "default": "1"
-    },
     "headingFont": {
       "type": "dropdown",
       "title": "Heading font",

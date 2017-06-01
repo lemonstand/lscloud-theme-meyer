@@ -20,32 +20,26 @@ url: /checkout
       </div>
     </div>
     {% else %}
-             {% if theme.onePageCheckout %}
-                <div id="checkout-accordion" layout="column" class="content-container checkout-container padding-y-large" layout-align="start center" layout-fill>
-                  {{ partial('shop-checkout-accordion') }}
-                </div>
-             {% else %}
-              <div layout="column" class="content-container checkout-container padding-y-large" layout-align="start center">
-                <div layout="row" layout-xs="column" class="max-width-1024 padding-mobile" layout-fill>
-                  <div layout="column" flex-order-xs="2">
-                    <div layout="row" layout-xs="column" id="checkout-progress" class="margin-bottom-small">
-                      {{ partial('shop-checkout-progress') }}
-                    </div>
-                    <div id="checkout-steps">
-                      {{ partial('shop-checkout-steps') }}
-                    </div>
-                  </div>
-                   
-                  <div id="checkout-minicart" flex-order-xs="1">
-                    {{ partial('shop-checkout-cart') }}
-                  </div>
-                </div>
-              </div>
-            {% endif %}
+      <div layout="column" class="content-container checkout-container padding-y-large" layout-align="start center">
+        <div layout="row" layout-xs="column" class="max-width-1024 padding-mobile" layout-fill>
+          <div layout="column" flex-order-xs="2">
+            <div layout="row" layout-xs="column" id="checkout-progress" class="margin-bottom-small">
+              {{ partial('shop-checkout-progress') }}
+            </div>
+            <div id="checkout-steps">
+              {{ partial('shop-checkout-steps') }}
+            </div>
+          </div>
+             
+          <div id="checkout-minicart" flex-order-xs="1">
+            {{ partial('shop-checkout-cart') }}
+          </div>
+        </div>
+      </div>
 
-            {% if hasFeature('saved-cards') %}
-                {{ code_block('script') }}
-            {% endif %}
+      {% if hasFeature('saved-cards') %}
+          {{ code_block('script') }}
+      {% endif %}
     {% endif %}
   </div>
 </div>
