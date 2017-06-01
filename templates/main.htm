@@ -34,13 +34,13 @@
     	{% endif %}
       {{ theme.storeTitle }}
     </title>
-    <link rel="stylesheet" type="text/css" href="/cms/core.css">
+    <link rel="stylesheet" type="text/css" href="/cms/lemonstand.css">
     <link rel="stylesheet" type="text/css" href="{{ 'css/vendor.css' | theme_resource }}">
     <link rel="stylesheet" type="text/css" href="{{ 'css/main.css' | theme_resource }}">
     <link rel="stylesheet" type="text/css" href="{{ 'css/meyer.css' | theme_resource }}">
     <script type="text/javascript" src="{{ 'js/jquery.js'|theme_resource }}"></script>
     <script type="text/javascript" src="{{ 'js/vendor.min.js' | theme_resource }}"></script>
-    <script type="text/javascript" src="/cms/core.js"></script>
+    <script type="text/javascript" src="/cms/lemonstand.js"></script>
     <script type="text/javascript">
       var themePrimaryColor = '{{ theme.primaryColor }}';
       var themeSecondaryColor = '{{ theme.secondaryColor }}';
@@ -65,10 +65,18 @@
       [ng\:cloak], [ng-cloak], [data-ng-cloak], [x-ng-cloak], .ng-cloak, .x-ng-cloak { display: none !important; }
       .layout-fill { height:auto !important; }
       md-grid-tile.product-on-sale div.on-sale-container,
-      .md-button.ls-button:not(.md-button-outline):not(.md-primary) { background-color: {{ theme.secondaryColor }}; color: #FFFFFF; }
+      .md-button.ls-button:not(.md-button-outline):not(.md-primary),
+      .ls-card-form .submit-button,
+      .ls-card-form .delete-button,
+      .ls-card-form .submit-button:hover,
+      .ls-card-form .delete-button:hover
+        { background-color: {{ theme.secondaryColor }}; color: #FFFFFF; 
+      }
       .md-button.ls-button.md-primary { background-color: {{ theme.primaryColor }}; color: #FFFFFF; }
       .md-button .md-ripple-container,
-      .md-button.ls-button { border-radius: {{ theme.buttonShape }}; }
+      .md-button.ls-button,
+      .ls-card-form .submit-button,
+      .ls-card-form .delete-button { border-radius: {{ theme.buttonShape }}; }
       #category-menu a.ls-heading,
       #category-menu ul.theme-list li a,
       #navbar nav .md-button,

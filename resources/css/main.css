@@ -874,3 +874,94 @@
     width: 100%;
   }
   .gallery-thumbs .swiper-slide-active { opacity: 1; }
+
+/* Card Form */
+
+.ls-card-form {
+    width: 100%;
+}
+
+.ls-card-form a {
+    text-decoration: none;
+}
+
+.card-form-expiry-outer label {
+    display: inherit;
+}
+.card-table {
+    font-size: 15px;
+    background-color: #E7E7E7;
+}
+.card-table th {
+    padding: 10px;
+    color: #rgba(0,0,0,0.87);
+}
+.card-table a,
+.card-table a:hover,
+.card-table a:focus {
+    text-decoration: underline;
+    color: #212121
+}
+.card-form-close {
+    display: none;
+}
+.card-form-open {
+    display: block;
+}
+/* Card Form - Buttons */
+.ls-card-form .submit-button,
+.ls-card-form .delete-button {
+    text-transform: uppercase;
+    padding: 15px 50px 15px;
+    font-size: 0.8125em;
+    letter-spacing: .010em;
+}
+
+/* Card Form - Inputs */
+.ls-card-form .card-form-input {
+    background-color: #FFF;
+    border: 1px solid #DDD;
+    font-family: inherit;
+    box-shadow: none;
+    border-radius: 0px;
+}
+.ls-card-form .card-form-input:focus {
+    background-color: inherit;
+}
+.ls-card-form .card-form-input::-webkit-input-placeholder {
+    font-family: inherit;
+    font-weight: inherit;
+    letter-spacing: inherit;
+    color: #D4D4D4;
+}
+.ls-card-form .card-form-input:-moz-placeholder {
+    /* Firefox 18- */
+    
+    font-family: inherit;
+    font-weight: inherit;
+    letter-spacing: inherit;
+    color: #D4D4D4;
+}
+.ls-card-form .card-form-input::-moz-placeholder {
+    /* Firefox 19+ */
+    
+    font-family: inherit;
+    font-weight: inherit;
+    letter-spacing: inherit;
+    color: #D4D4D4;
+}
+.ls-card-form .card-form-input:-ms-input-placeholder {
+    font-family: inherit;
+    font-weight: inherit;
+    letter-spacing: inherit;
+    color: #D4D4D4;
+}
+.ls-card-form .error-highlight,
+.ls-card-form .error-highlight:focus {
+    border-color: #D34246 !important;
+}
+
+.ls-card-form .valid-highlight,
+.ls-card-form .valid-highlight:focus {
+    border-color: #3DE000 !important;
+}
