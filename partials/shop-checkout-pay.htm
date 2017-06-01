@@ -4,7 +4,8 @@ description: '3 page checkout paystep.'
 <div layout="column" id="checkout-paymentMethod">
   <div layout="column">
     {{ open_form({'class': 'custom'}) }}
-    {{ partial('shop-checkout-edit-discount') }}
+      {{ partial('shop-checkout-edit-discount') }}
+    {{ close_form() }}
      {% if paymentMethods | length == 1 %}
          <span class="input-hidden" ng-init="autoUpdateSinglePaymentMethod();"></span>
      {% endif %}
@@ -27,7 +28,7 @@ description: '3 page checkout paystep.'
       </form>
       </div>
     {% endif %}
-
+    {{ open_form({'class': 'custom'}) }}
     <!--  Payment Method(s) -->
     <h3 class="ls-heading letter-spacing-2 padding-y-medium">Payment method</h3>
     <div layout="row">
