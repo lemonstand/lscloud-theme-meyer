@@ -8,6 +8,27 @@ description: '3 page checkout paystep.'
      {% if paymentMethods | length == 1 %}
          <span class="input-hidden" ng-init="autoUpdateSinglePaymentMethod();"></span>
      {% endif %}
+
+     <!--  Pay with stored cards shown in dropdown -->
+    {% if cards is defined %}
+      <h3 class="ls-heading letter-spacing-2 padding-y-medium">Pay with a Saved Card</h3>
+      <div class="row">
+      <form class="custom saved-card-form" method="post" data-ajax-handler="shop:onPay">
+        <label class="ls-subheading font-16">Credit Card</label>
+        <input type='hidden' name='payment_method_id' id='payment_method_id' value=''>
+        <select name="payment_method_token" class="md-select saved-card-selector" id="saved_card_option" style="margin-bottom: 15px;">
+          <option disabled selected value=''>Select Saved Card</option>
+          {% for card in cards %}
+            <option id="token-{{ card.token }}" value="{{ card.token }}" card-method="{{ card.paymentMethod.id }}">{{ card.paymentMethod.name }}: {{ card.cardAndBrand }}</option>
+          {% endfor %}
+        </select>
+        <br>
+        <input type="submit" class="ls-button no-margin-x  ls-button-wide md-button md-ink-ripple flex-order-xs-1" value="Pay with Saved Card">
+      </form>
+      </div>
+    {% endif %}
+
+    <!--  Payment Method(s) -->
     <h3 class="ls-heading letter-spacing-2 padding-y-medium">Payment method</h3>
     <div layout="row">
       <md-input-container class="md-input-has-placeholder hide-errors">
