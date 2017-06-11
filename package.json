@@ -39,5 +39,14 @@
     "gulp-uglify": "^1.4.1",
     "node-bourbon": "^4.2.3",
     "node-neat": "^1.7.2"
-  }
+  },
+  "keywords": [
+    "hero-image",
+    "customizable",
+    "fashion",
+    "angularjs",
+    "3-page-checkout",
+    "material-design",
+    "large-catalog"
+  ]
 }
