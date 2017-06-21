@@ -27,10 +27,14 @@
         </table>
 
         <input type="button" class="ls-button no-margin-x  ls-button-wide md-button md-ink-ripple flex-order-xs-1" id="add-card" value="Add Card">
+
         {% else %}
             <p>
                 No saved cards available.
             </p>
+
+            <input type="button" class="ls-button no-margin-x  ls-button-wide md-button md-ink-ripple flex-order-xs-1" id="add-card" value="Add Card">
+            
         {% endif %}
         {{ flash() }}
     </div>
