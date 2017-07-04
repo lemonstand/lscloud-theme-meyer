@@ -25,7 +25,7 @@ url: '/blog/:slug'
 
 <div layout="row" layout-fill layout-align="start center">
   <div class="content-container" layout="row" layout-xs="column" layout-align="center start">
-    <div layout="column" flex-order-xs="2">
+    <div layout="column" flex-order-xs="2" flex-gt-xs="25">
       <div id="blog-bio-card" layout="column" layout-align="start center" class="padding-medium">
         <div style="display:none;">{{ post.user.image.first.thumbnail('auto','180') }}</div>
         <div class="round-image-container">
@@ -40,7 +40,7 @@ url: '/blog/:slug'
       </div>
     </div>
 
-    <div layout="column" flex class="padding-y-medium padding-y-mobile" flex-order-xs="1">
+    <div layout="column" flex class="padding-y-medium padding-y-mobile" flex-order-xs="1" flex-gt-xs="75">
       <div style="border-left:1px solid #ededed;" class="padding-x-medium">
         <div id="blog-excerpt">
           {{ post.excerpt | raw }}
