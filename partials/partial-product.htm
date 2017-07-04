@@ -6,7 +6,7 @@ description: 'Product object'
       "id": {{ product.id }},
       "name" : "{{ product.name | unescape }}",
       "sku" : "{{ product.sku }}",
-      "description" : "{{ product.short_description }}",
+      "description" : "{{ product.short_description | escape("html_attr") }}",
       "url_name": "{{ product.url_name }}",
       "price": {{ product.price }},
       "on_sale": {{ product.is_on_sale is same as(1) ? "true" : "false" }},

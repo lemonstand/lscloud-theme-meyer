@@ -246,7 +246,7 @@ url: '/product/:urlName'
               <div layout="row" layout-xs="column" layout-fill>
                 <div layout="column" flex class="padding-y-medium padding-mobile" style="font-size:16px;">
                   <p class="line-height-15 md-body-1">
-                    {{ product.description | striptags | raw }}
+                    {{ product.description | raw }}
                   </p>
                 </div>
                 <div layout="column" flex></div>

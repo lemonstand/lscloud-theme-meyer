@@ -10,7 +10,7 @@ url: '/api/categories/:urlName'
 
 {
   "name": "{{ category.name | raw }}",
-  "short_description": "{{ category.short_description | raw }}",
+  "short_description": "{{ category.short_description | escape("html_attr")  }}",
   "thumbnail": "{{ category.images.first.thumbnail(600,'auto') |default('http://placehold.it/1920x1080') }}",
   "images": [
     {% for image in category.images %}
