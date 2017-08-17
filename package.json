@@ -2,6 +2,7 @@
   "name": "Meyer",
   "version": "1.0.0",
   "description": "Meyer is a modern, responsive theme for showcasing beautiful merchandise. It is extremely customizable, and includes large product spaces, featured product cards, and extensive navigation and search pages. Meyer uses Material Design concepts and Angular, for a fast, responsive, and interactive store experience.",
+  "excerpt": "Meyer is a responsive theme built on Angular, with a clean design and robust customization settings.",
   "main": "theme.yaml",
   "lemonstand" : {
     "code":"meyer",
