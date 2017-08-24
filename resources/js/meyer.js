@@ -938,7 +938,7 @@ angular.module('lsAngularApp')
     
     $scope.options = {};
     
-    $scope.changeOption = function(id , key , value){
+    $scope.changeOption = function(id , key){
      var decodedOptions = [];
      var queryString = location.search.substr(1).split('&');
  
@@ -967,7 +967,7 @@ angular.module('lsAngularApp')
     };
     
 
-    $scope.updateSlug = function(key, id, value){
+    $scope.updateSlug = function(key, id){
         
         var baseProductUrl = $window.location.href.split("?")[0];
         var optionString = "";
