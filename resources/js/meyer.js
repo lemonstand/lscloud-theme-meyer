@@ -947,7 +947,7 @@ angular.module('lsAngularApp')
     
             angular.forEach(queryString, function(arr, idx){
                var urlParam = arr.substr(0,arr.indexOf('='))
-               var urlParamIndex = urlParam.match(/\d/g).join();
+               var urlParamIndex = urlParam.match(/\d+/g).join();
                var paramVal = getUrlParameter(urlParam);
                decodedOptions.push([urlParamIndex , paramVal, value]);
             });
