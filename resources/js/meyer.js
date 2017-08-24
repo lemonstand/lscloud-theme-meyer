@@ -971,13 +971,15 @@ angular.module('lsAngularApp')
         
         var baseProductUrl = $window.location.href.split("?")[0];
         var optionString = "";
+        var optionCount = 0;
 
         angular.forEach($scope.options, function(v, k, context){
-        optionString+='options['+id+']='+ key;
-        })
-        $timeout(function(){
-             $window.location.href = baseProductUrl + '?'+ optionString;
-        },100);
+            optionCount++;
+            optionString += 'options['+k+']='+ v;
+            if (optionCount < Object.keys(context).length) {
+                optionString += '&';
+            }
+        });
     }
     
     angular.forEach(reviews, function(review, index){
