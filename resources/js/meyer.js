@@ -967,19 +967,26 @@ angular.module('lsAngularApp')
     };
     
 
-    $scope.updateSlug = function(key, id){
+    $scope.updateSlug = function(value, key){
         
         var baseProductUrl = $window.location.href.split("?")[0];
         var optionString = "";
         var optionCount = 0;
-
         angular.forEach($scope.options, function(v, k, context){
             optionCount++;
-            optionString += 'options['+k+']='+ v;
+            if (k == key) {
+                optionString += 'options['+key+']='+ value;
+            } else {
+                optionString += 'options['+k+']='+ v;
+            }
+            
             if (optionCount < Object.keys(context).length) {
                 optionString += '&';
             }
         });
+        $timeout(function(){
+             $window.location.href = baseProductUrl + '?' + optionString;
+        },100);
     }
     
     angular.forEach(reviews, function(review, index){
