@@ -30,7 +30,7 @@ description: 'Cart item list.'
           {% if item.options %}
             <ul>
               {% for option in item.options %}
-                <li class="md-caption ls-caption">[[ '{{ option.value }}' | capitalize ]]</li>
+                <li class="md-caption ls-caption">{{ option.value|upper }}</li>
               {% endfor %}
             </ul>
           {% endif %}
@@ -38,7 +38,7 @@ description: 'Cart item list.'
           {% if item.extras %}
             <ul>
               {% for extra in item.extras %}
-                <li class="md-caption ls-caption">+ [[ '{{ extra.name }}' | capitalize ]] ({{ extra.base_price | currency }})</li>
+                <li class="md-caption ls-caption">+ {{ extra.name|upper }} ({{ extra.base_price | currency }})</li>
               {% endfor %}
             </ul>
           {% endif %}
