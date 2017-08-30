@@ -45,6 +45,7 @@ description: 'Navigation bar'
                 md-items="item in querySearch(searchText)"
                 md-item-text="item.name"
                 md-min-length="0"
+                md-delay="500"
                 placeholder="Search products...">
               <md-item-template>
                 <md-list-item class="md-2-line" ng-href="/product/[[ item.url_name ]]">
