@@ -240,9 +240,7 @@ angular.module('lsAngularApp')
       $scope.querySearch = function(query) {
         var deferred = $q.defer();
         var results = $filter('filter')( $scope.products, { 'name':  query } );
-        $timeout(function(){
-          deferred.resolve(results);
-        },Math.random() * 1000, false); //simulate a query loading time
+        deferred.resolve(results);
         return deferred.promise;
       };
 
