@@ -120,17 +120,13 @@ angular.module('lsAngularApp')
 
     CategoryService.all().then(function(results){
       angular.forEach(results.data.categories, function(category){
-        $timeout(function(){
-          $scope.categories.push(category);
-        },100);
+        $scope.categories.push(category);
       });
     });
 
     ProductService.featured().then(function(results){
       angular.forEach(results.data.products, function(product){
-        $timeout(function(){
-          $scope.productList.push(product);
-        },100);
+        $scope.productList.push(product);
       });
     });
   });
