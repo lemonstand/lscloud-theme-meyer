@@ -372,7 +372,7 @@ angular.module('lsAngularApp')
         return deferred.promise;
       }
       else {
-        return $http.get(LEMONSTAND.PRODUCTS);
+        return $http.get(LEMONSTAND.PRODUCTS, {cache: true});
       }
     };
 
@@ -384,7 +384,7 @@ angular.module('lsAngularApp')
         return deferred.promise;
       }
       else {
-        return $http.get(LEMONSTAND.PRODUCTS);
+        return $http.get(LEMONSTAND.PRODUCTS, {cache: true});
       }
     };
 
@@ -401,7 +401,7 @@ angular.module('lsAngularApp')
       }
       else {
         page = angular.isUndefined(page) ? 1 : page;
-        return $http.get(LEMONSTAND.FEATURED + page);
+        return $http.get(LEMONSTAND.FEATURED + page, {cache: true});
       }
     };
 
