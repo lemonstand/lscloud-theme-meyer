@@ -686,8 +686,7 @@ angular.module('lsAngularApp')
       if ( parent === $route.current.params.parentCategory ){
         CategoryService.get(parent).then(function(results){
           categoryInit(parent,child);
-          ProductService.category().then(function(categoryResults){
-            setProducts(categoryResults);
+          ProductService.category().then(setProducts);
           });
         });
       }
