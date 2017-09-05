@@ -141,7 +141,7 @@ angular.module('lsAngularApp')
   */
 
 angular.module('lsAngularApp')
-  .controller('NavCtrl', function ($rootScope,$scope,$filter,CartService,ProductService,CategoryService,$q,$timeout,$mdSidenav) {
+  .controller('NavCtrl', function ($rootScope,$scope,$filter,CartService,ProductService,CategoryService,$q,$timeout,$mdSidenav, $http, LEMONSTAND) {
 
       //display the current nav item as 'active'
       var getCurrentNavItem = function(){
@@ -234,10 +234,14 @@ angular.module('lsAngularApp')
       $scope.searchText = '';
 
       $scope.querySearch = function(query) {
-        var deferred = $q.defer();
+        return $http.get(
+	  LEMONSTAND.SEARCH,
+	  {cache: true, params: {query: query}}).then(
+	  function(result) { return result.data.products; });
+        /*var deferred = $q.defer();
         var results = $filter('filter')( $scope.products, { 'name':  query } );
         deferred.resolve(results);
-        return deferred.promise;
+        return deferred.promise;*/
       };
 
       $scope.removeCartItem = function(e) {
@@ -281,7 +285,8 @@ angular.module('lsAngularApp')
       FEATURED: resource + '/products/featured/',
       CATEGORIES: resource + '/categories/',
       THEME: resource + '/theme/',
-      BLOG: resource + '/blog/'
+      BLOG: resource + '/blog/',
+      SEARCH: resource + '/search'
     };
   })());
 
