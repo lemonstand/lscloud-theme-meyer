@@ -7,28 +7,6 @@ published: true
 name: Home
 url: /
 ---
-
-<script type="text/javascript">
-  var products = {
-    "products": [
-      {{ partial("partial-product", { "products": products }) }}
-    ]
-  };
-  var featuredProducts = 
-  {% set featuredCollection = 'featured'|collection.products %}
-  {% if not featuredCollection %}
-    {% set featuredCollection = products %}
-  {% endif %}
-  {% paginate featuredCollection by 10 %}
-    {
-      "products": [
-        {{ partial("partial-product", { "products": pagination.items }) }}
-      ]
-    }
-  {% endpaginate %}
-
-</script>
-
 <div ng-controller="HomeCtrl">
 
     {{ partial('partial-banner') }}
