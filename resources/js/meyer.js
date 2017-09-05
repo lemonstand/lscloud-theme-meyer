@@ -141,7 +141,7 @@ angular.module('lsAngularApp')
   */
 
 angular.module('lsAngularApp')
-  .controller('NavCtrl', function ($rootScope,$scope,$filter,CartService,ProductService,CategoryService,$q,$timeout,$mdSidenav, $http, LEMONSTAND) {
+  .controller('NavCtrl', function ($rootScope,$scope,$filter,CartService,CategoryService,$q,$timeout,$mdSidenav, $http, LEMONSTAND) {
 
       //display the current nav item as 'active'
       var getCurrentNavItem = function(){
@@ -227,10 +227,6 @@ angular.module('lsAngularApp')
         });
       };
 
-      ProductService.all().then(function(results){
-        $scope.products = results.data.products;
-      });
-
       $scope.searchText = '';
 
       $scope.querySearch = function(query) {
@@ -238,10 +234,6 @@ angular.module('lsAngularApp')
 	  LEMONSTAND.SEARCH,
 	  {cache: true, params: {query: query}}).then(
 	  function(result) { return result.data.products; });
-        /*var deferred = $q.defer();
-        var results = $filter('filter')( $scope.products, { 'name':  query } );
-        deferred.resolve(results);
-        return deferred.promise;*/
       };
 
       $scope.removeCartItem = function(e) {
