@@ -687,7 +687,6 @@ angular.module('lsAngularApp')
         CategoryService.get(parent).then(function(results){
           categoryInit(parent,child);
           ProductService.category().then(setProducts);
-          });
         });
       }
       else {
