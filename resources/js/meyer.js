@@ -373,16 +373,10 @@ angular.module('lsAngularApp')
       }
     };
 
-    this.category = function(){
-      if ( typeof categoryProducts !== 'undefined' ){
-        var deferred = $q.defer();
-        var results = { data: categoryProducts };
-        deferred.resolve(results);
-        return deferred.promise;
-      }
-      else {
-        return $http.get(LEMONSTAND.PRODUCTS, {cache: true});
-      }
+    this.category = function(category, start, length){
+      return $http.get(LEMONSTAND.CATEGORIES + category,
+        {cache: true,
+	params: {start: start, length: length}});
     };
 
     this.get = function(slug){
@@ -683,18 +677,11 @@ angular.module('lsAngularApp')
     $scope.categoryProducts = [];
     $scope.getCategoryProducts = function(parent,child){
       $scope.productsLoading = true;
-      if ( parent === $route.current.params.parentCategory ){
-        CategoryService.get(parent).then(function(results){
-          categoryInit(parent,child);
-          ProductService.category().then(setProducts);
+      //TODO jstumpf set proper length
+      ProductService.category(parent,0,1000).then(function(results){
+        categoryInit(parent,child);
+        setProducts(results);
         });
-      }
-      else {
-        CategoryService.get(parent,true).then(function(results){
-          categoryInit(parent,child);
-          setProducts(results);
-        });
-      }
     };
 
     $scope.getAllProducts = function(){

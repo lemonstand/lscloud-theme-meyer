@@ -29,12 +29,6 @@ url: /categories/:urlName
     }
   }
 
-  var categoryProducts = {
-    "products": [
-      {{ partial("partial-product", { "products": category.productList }) }}
-    ]
-  }
-
 </script>
 
 <div ng-controller="CategoriesCtrl">
