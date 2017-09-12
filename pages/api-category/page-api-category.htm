@@ -31,6 +31,7 @@ url: '/api/categories/:urlName'
     {},
   {% endif %}
   "products": [
-    {{ partial("partial-product", { "products": category.productList }) }}
-  ]
+    {{ partial("partial-product", { "products": category.productList[param('start'):param('length')] }) }}
+  ],
+  "count": {{ category.productList|length }}
 }
