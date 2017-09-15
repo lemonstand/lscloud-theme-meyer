@@ -117,16 +117,16 @@ description: 'Lists products, provides filters and search options.'
 
         </div>
         <div layout="row" layout-align="space-between center" ng-hide="pages.length <= 1">
-          <md-button class="md-square-button" ng-disabled="currentPage <= 1" ng-click="goToPage( currentPage - 1, filteredProducts )">
+          <md-button class="md-square-button" ng-disabled="currentPage <= 1" ng-click="goToPage( currentPage - 1 )">
             <md-icon>chevron_left</md-icon>
           </md-button>
 
           <div layout="row" layout-align="center center" layout-nowrap flex style="overflow-x:auto;">
-            <md-button class="md-small-button pagination-button" ng-class="{ 'page-active': currentPage === $index + 1 }" ng-disabled="currentPage === $index + 1" ng-repeat="page in pages track by $index" ng-click="goToPage( $index +1, filteredProducts )">
+            <md-button class="md-small-button pagination-button" ng-class="{ 'page-active': currentPage === $index + 1 }" ng-disabled="currentPage === $index + 1" ng-repeat="page in pages track by $index" ng-click="goToPage( $index +1 )">
               [[ $index +1 ]]
             </md-button>
           </div>
-          <md-button class="md-square-button" ng-disabled="currentPage >= pages.length" ng-click="goToPage( currentPage + 1, filteredProducts )">
+          <md-button class="md-square-button" ng-disabled="currentPage >= pages.length" ng-click="goToPage( currentPage + 1 )">
             <md-icon>chevron_right</md-icon>
           </md-button>
         </div>

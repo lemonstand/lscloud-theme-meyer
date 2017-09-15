@@ -374,9 +374,13 @@ angular.module('lsAngularApp')
     };
 
     this.category = function(category, start, length){
-      return $http.get(LEMONSTAND.CATEGORIES + category,
-        {cache: true,
-	params: {start: start, length: length}});
+      if(category) {
+        return $http.get(LEMONSTAND.CATEGORIES + category,
+          {cache: true,
+          params: {start: start, length: length}});
+      } else {
+        return $http.get(LEMONSTAND.PRODUCTS, {cache: true});
+      }
     };
 
     this.get = function(slug){
@@ -674,11 +678,15 @@ angular.module('lsAngularApp')
       $scope.activeFilter = $scope.filters.category.child ? $scope.filters.category.child : $scope.filters.category.parent;
     };
 
+    $scope.setCategory = function(category, child) {
+      categoryInit(parent,child);
+      updateFilters();
+    }
+
     $scope.categoryProducts = [];
     $scope.getCategoryProducts = function(parent,child){
       $scope.productsLoading = true;
-      //TODO jstumpf set proper length
-      ProductService.category(parent,0,1000).then(function(results){
+      ProductService.category(parent,0,$scope.productListLimit).then(function(results){
         categoryInit(parent,child);
         setProducts(results);
         });
@@ -686,7 +694,7 @@ angular.module('lsAngularApp')
 
     $scope.getAllProducts = function(){
       $scope.productsLoading = true;
-      ProductService.all().then(function(results){
+      ProductService.category(false, 0, $scope.productListLimit).then(function(results){
         $scope.brands = [];
         getAllCategories();
 
@@ -697,16 +705,9 @@ angular.module('lsAngularApp')
       });
     };
 
-    if(!angular.isUndefined($scope.filters.category.parent) && $scope.filters.category.parent !== null){
-      $scope.getCategoryProducts($scope.filters.category.parent, $scope.filters.category.child);
-    }
-    else {
-      $scope.getAllProducts();
-    }
-
     $scope.updateFilter = function(){
+      /*
       var products = $scope.categoryProducts;
-
       //filter by search term
       if ($scope.filters.search){
         products = $filter('filter')( products, { 'name': $scope.filters.search });
@@ -732,10 +733,9 @@ angular.module('lsAngularApp')
       if ($scope.filters.sale ){
         products = $filter('filter')(products, { 'on_sale': true }, true);
       }
-
+      */
       //paginate filtered products
-      $scope.pagination(products);
-      $scope.filteredProducts = products;
+      $scope.pagination();
     };
 
     $scope.$watch('filters', function(newFilters,oldFilters){
@@ -767,29 +767,26 @@ angular.module('lsAngularApp')
     });
 
     //get the products filtered by category, then paginate them on the front-end
-    $scope.pagination = function(products){
-      var pages = Math.ceil(products.length / $scope.productListLimit); //how many pages?
-      $scope.newHeight(); //sets a min height of the container so it doesn't look weird
-      $scope.pages = new Array(pages);
-      $scope.goToPage(1,products);
+    $scope.pagination = function(){
+      $scope.goToPage(1);
+      var pages = Math.ceil($scope.numProducts / $scope.productListLimit); //how many pages?
+      //$scope.newHeight(); //sets a min height of the container so it doesn't look weird
+      $scope.pages = new Array(3);
     };
 
     //pagination navigation across the nation
-    $scope.goToPage = function(page,products){
+    $scope.goToPage = function(page){
       $scope.currentPage = page;
       var start = (page - 1) * $scope.productListLimit;
-      var end = ((page - 1) * $scope.productListLimit) + $scope.productListLimit;
-      $scope.productList = [];
-      $timeout(function(){
+      ProductService.category($scope.filters.category.parent,start,$scope.productListLimit).then(function(results){
+        $scope.productList = results.data.products;
+        $scope.numProducts = results.data.count;
         $scope.productsLoading = false;
-        if ($scope.filters.brand){
-          var brandName = $filter('filter')( $scope.brands, { url_name: $scope.filters.brand }, true );
-          $scope.displayBrand = brandName.length ? brandName[0].name : null;
-        }
-        $scope.productList = products.slice(start,end);
-      },400);
+        });
     };
 
+    getAllCategories();
+    $scope.updateFilter();
   });
 
 
