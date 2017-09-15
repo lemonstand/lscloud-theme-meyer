@@ -769,9 +769,6 @@ angular.module('lsAngularApp')
     //get the products filtered by category, then paginate them on the front-end
     $scope.pagination = function(){
       $scope.goToPage(1);
-      var pages = Math.ceil($scope.numProducts / $scope.productListLimit); //how many pages?
-      //$scope.newHeight(); //sets a min height of the container so it doesn't look weird
-      $scope.pages = new Array(3);
     };
 
     //pagination navigation across the nation
@@ -782,6 +779,9 @@ angular.module('lsAngularApp')
         $scope.productList = results.data.products;
         $scope.numProducts = results.data.count;
         $scope.productsLoading = false;
+        var pages = Math.ceil($scope.numProducts / $scope.productListLimit); //how many pages?
+        //$scope.newHeight(); //sets a min height of the container so it doesn't look weird
+        $scope.pages = new Array(pages);
         });
     };
 
