@@ -780,7 +780,7 @@ angular.module('lsAngularApp')
         $scope.numProducts = results.data.count;
         $scope.productsLoading = false;
         var pages = Math.ceil($scope.numProducts / $scope.productListLimit); //how many pages?
-        //$scope.newHeight(); //sets a min height of the container so it doesn't look weird
+        $scope.newHeight(); //sets a min height of the container so it doesn't look weird
         $scope.pages = new Array(pages);
         });
     };
