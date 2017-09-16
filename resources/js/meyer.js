@@ -678,8 +678,8 @@ angular.module('lsAngularApp')
       $scope.activeFilter = $scope.filters.category.child ? $scope.filters.category.child : $scope.filters.category.parent;
     };
 
-    $scope.setCategory = function(category, child) {
-      categoryInit(parent,child);
+    $scope.updateCategory = function(category, child) {
+      categoryInit(category,child);
       updateFilters();
     }
 
