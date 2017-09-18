@@ -581,6 +581,7 @@ angular.module('lsAngularApp')
             windowParams[nv[0]] = nv[1] || true;
         }
     }
+    var $route = {current: { params: {}}};
     $route.current.params.category = !angular.isUndefined( windowParams.category ) ? windowParams.category : null;
     $route.current.params.brand = !angular.isUndefined( windowParams.brand ) ? windowParams.brand : null;
     $scope.productsLoading = true;
