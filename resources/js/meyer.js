@@ -665,15 +665,6 @@ angular.module('lsAngularApp')
       updateFilters();
     }
 
-    $scope.categoryProducts = [];
-    $scope.getCategoryProducts = function(parent,child){
-      $scope.productsLoading = true;
-      ProductService.category(parent,0,$scope.productListLimit).then(function(results){
-        categoryInit(parent,child);
-        setProducts(results);
-        });
-    };
-
     $scope.getAllProducts = function(){
       $scope.productsLoading = true;
       ProductService.category(false, 0, $scope.productListLimit).then(function(results){
