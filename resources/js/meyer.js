@@ -587,10 +587,10 @@ angular.module('lsAngularApp')
 
     /**
       Set the product list limit on load
-      # Get from localstorage if it exists; if not, default is 6
+      # Get from localstorage if it exists; if not, default is 5
       # On load, paginate all of that category's items
      */
-    $scope.productListLimit = Number($scope.$ls.productPageListLimit ? $scope.$ls.productPageListLimit : 6);
+    $scope.productListLimit = Number($scope.$ls.productPageListLimit ? $scope.$ls.productPageListLimit : 5);
     $scope.setProductLimit = function(int){
       $scope.productListLimit = int;
       $scope.$ls.productPageListLimit = int;
