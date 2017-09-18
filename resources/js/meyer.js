@@ -748,7 +748,7 @@ angular.module('lsAngularApp')
     $scope.goToPage = function(page){
       $scope.currentPage = page;
       var start = (page - 1) * $scope.productListLimit;
-      ProductService.category($scope.filters.category[0],start,$scope.productListLimit).then(function(results){
+      ProductService.category($scope.filters.category.join('/'),start,$scope.productListLimit).then(function(results){
         $scope.productList = results.data.products;
         $scope.numProducts = results.data.count;
         $scope.productsLoading = false;
