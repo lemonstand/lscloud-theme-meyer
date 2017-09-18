@@ -571,7 +571,6 @@ angular.module('lsAngularApp')
  */
 angular.module('lsAngularApp')
   .controller('CategoriesCtrl', function ($scope,CategoryService,$filter,$timeout,ProductService) {
-    var browsing = false;
     var windowParams = {};
     if (window.location.search) {
         var parts = window.location.search.substring(1).split('&');
@@ -648,10 +647,6 @@ angular.module('lsAngularApp')
       $scope.categoryProducts = results.data.products;
       $scope.updateFilter();
     };
-
-    $scope.$watch('filters.brand',function(newBrand,oldBrand){
-      if (newBrand !== oldBrand){ browsing = true; }
-    });
 
     var bannerLoad = function(currentCategory) {
       $scope.title = currentCategory.name;
