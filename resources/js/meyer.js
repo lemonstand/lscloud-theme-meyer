@@ -570,21 +570,9 @@ angular.module('lsAngularApp')
  * Controller of the lsAngularApp
  */
 angular.module('lsAngularApp')
-  .controller('CategoriesCtrl', function ($scope,CategoryService,$filter,$timeout,ProductService) {
-    var windowParams = {};
-    if (window.location.search) {
-        var parts = window.location.search.substring(1).split('&');
-        for (var i = 0; i < parts.length; i++) {
-            var nv = parts[i].split('=');
-            if (!nv[0]) continue;
-            windowParams[nv[0]] = nv[1] || true;
-        }
-    }
-    var $route = {current: { params: {}}};
-    $route.current.params.category = !angular.isUndefined( windowParams.category ) ? windowParams.category : null;
-    $route.current.params.brand = !angular.isUndefined( windowParams.brand ) ? windowParams.brand : null;
-    $scope.productsLoading = true;
+  .controller('CategoriesCtrl', function ($scope,CategoryService,$filter,$timeout,ProductService,$location) {
 
+    $scope.productsLoading = true;
     /**
       Set the product list limit on load
       # Get from localstorage if it exists; if not, default is 5
@@ -597,18 +585,16 @@ angular.module('lsAngularApp')
     };
 
     $scope.filters = {
-      category: {
-        parent: $route.current.params.parentCategory,
-        child: !angular.isUndefined($route.current.params.category) ? $route.current.params.category : null
-      },
+      category: $location.path().split('/').slice(1),
       price: null,
-      brand: $route.current.params.brand ? $route.current.params.brand : null,
+      brand: null,
       search: null,
       sale: false,
       limit: $scope.productListLimit
     };
 
    $scope.resetFilters = function(){
+      $scope.filters.category = [],
       $scope.filters.price = null;
       $scope.filters.brand = null;
       $scope.displayBrand = null;
@@ -668,10 +654,10 @@ angular.module('lsAngularApp')
         updateProductMenuTile(parent); //fetch and define categories if not done
       }
       //update filters
-      $scope.filters.category.parent = parent;
-      $scope.filters.category.child = child;
+      $scope.filters.category = [parent,child];
       $scope.filters.brand = null;
-      $scope.activeFilter = $scope.filters.category.child ? $scope.filters.category.child : $scope.filters.category.parent;
+      $scope.activeFilter = $scope.filters.category[1] ? $scope.filters.category[1] : $scope.filters.category[0];
+      $location.path($scope.filters.category.join('/'));
     };
 
     $scope.updateCategory = function(category, child) {
@@ -695,7 +681,7 @@ angular.module('lsAngularApp')
         getAllCategories();
 
         //update filters
-        $scope.filters.brand = $route.current.params.brand ? $route.current.params.brand : null;
+        $scope.filters.brand = null;
         $scope.currentCategory = { name: 'Categories' };
         setProducts(results);
       });
@@ -736,7 +722,7 @@ angular.module('lsAngularApp')
 
     $scope.$watch('filters', function(newFilters,oldFilters){
       if (newFilters !== oldFilters){
-        $scope.activeFilter = $scope.filters.category.child ? $scope.filters.category.child : $scope.filters.category.parent;
+        $scope.activeFilter = $scope.filters.category[1] ? $scope.filters.category[1] : $scope.filters.category[0];
         $scope.updateFilter();
       }
     },true);
@@ -771,7 +757,7 @@ angular.module('lsAngularApp')
     $scope.goToPage = function(page){
       $scope.currentPage = page;
       var start = (page - 1) * $scope.productListLimit;
-      ProductService.category($scope.filters.category.parent,start,$scope.productListLimit).then(function(results){
+      ProductService.category($scope.filters.category[0],start,$scope.productListLimit).then(function(results){
         $scope.productList = results.data.products;
         $scope.numProducts = results.data.count;
         $scope.productsLoading = false;
