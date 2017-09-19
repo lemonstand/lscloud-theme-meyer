@@ -665,19 +665,6 @@ angular.module('lsAngularApp')
       updateFilters();
     }
 
-    $scope.getAllProducts = function(){
-      $scope.productsLoading = true;
-      ProductService.category(false, 0, $scope.productListLimit).then(function(results){
-        $scope.brands = [];
-        getAllCategories();
-
-        //update filters
-        $scope.filters.brand = null;
-        $scope.currentCategory = { name: 'Categories' };
-        setProducts(results);
-      });
-    };
-
     $scope.updateFilter = function(){
       /*
       var products = $scope.categoryProducts;
@@ -707,8 +694,7 @@ angular.module('lsAngularApp')
         products = $filter('filter')(products, { 'on_sale': true }, true);
       }
       */
-      //paginate filtered products
-      $scope.pagination();
+      $scope.goToPage(1);
     };
 
     $scope.$watch('filters', function(newFilters,oldFilters){
@@ -739,12 +725,6 @@ angular.module('lsAngularApp')
       if (newVal !== oldVal){ $scope.pagination($scope.productList); }
     });
 
-    //get the products filtered by category, then paginate them on the front-end
-    $scope.pagination = function(){
-      $scope.goToPage(1);
-    };
-
-    //pagination navigation across the nation
     $scope.goToPage = function(page){
       $scope.currentPage = page;
       var start = (page - 1) * $scope.productListLimit;
