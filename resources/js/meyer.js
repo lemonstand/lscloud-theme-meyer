@@ -722,7 +722,7 @@ angular.module('lsAngularApp')
 
 
     $scope.$watch('productListLimit', function(newVal,oldVal){
-      if (newVal !== oldVal){ $scope.pagination($scope.productList); }
+      if (newVal !== oldVal){ $scope.goToPage(1); }
     });
 
     $scope.goToPage = function(page){
