@@ -373,11 +373,11 @@ angular.module('lsAngularApp')
       }
     };
 
-    this.category = function(category, start, length){
+    this.category = function(category, start, length, search){
       if(category) {
         return $http.get(LEMONSTAND.CATEGORIES + category,
           {cache: true,
-          params: {start: start, length: length}});
+          params: {start: start, length: length, search: search}});
       } else {
         return $http.get(LEMONSTAND.PRODUCTS, {cache: true});
       }
@@ -728,7 +728,7 @@ angular.module('lsAngularApp')
     $scope.goToPage = function(page){
       $scope.currentPage = page;
       var start = (page - 1) * $scope.productListLimit;
-      ProductService.category($scope.filters.category.join('/'),start,$scope.productListLimit).then(function(results){
+      ProductService.category($scope.filters.category.join('/'),start,$scope.productListLimit,$scope.filters.search).then(function(results){
         $scope.productList = results.data.products;
         $scope.numProducts = results.data.count;
         $scope.productsLoading = false;
