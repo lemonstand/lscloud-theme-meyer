@@ -673,12 +673,6 @@ angular.module('lsAngularApp')
         products = $filter('filter')( products, { 'name': $scope.filters.search });
       }
 
-      //filter by category
-      var category = $scope.filters.category.child ? $scope.filters.category.child : $scope.filters.category.parent;
-      if (category){
-        products = $filter('filter')( products, { 'categories': category } );
-      }
-
       //filter by price
       if ($scope.filters.price){
         products = $filter('priceRange')( products, $scope.filters.price );
@@ -732,8 +726,8 @@ angular.module('lsAngularApp')
         $scope.productList = results.data.products;
         $scope.numProducts = results.data.count;
         $scope.productsLoading = false;
-        var pages = Math.ceil($scope.numProducts / $scope.productListLimit); //how many pages?
         $scope.newHeight(); //sets a min height of the container so it doesn't look weird
+        var pages = Math.ceil($scope.numProducts / $scope.productListLimit);
         $scope.pages = new Array(pages);
         });
     };
