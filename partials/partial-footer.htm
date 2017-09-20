@@ -22,7 +22,7 @@ description: 'Footer for most pages.'
         <p class="ls-heading md-caption theme-heading">Categories</p>
         <ul class="theme-list" layout-xs="row" layout-wrap>
           {% for category in categories %}
-            <li class="md-caption" flex-xs="50"><a href="{{ site_url('/categories/') ~ category.url_name }}">{{ category.name }}</a></li>
+            <li class="md-caption" flex-xs="50"><a href="{{ site_url('/products#/') ~ category.url_name }}">{{ category.name }}</a></li>
           {% endfor %}
         </ul>
       </div>

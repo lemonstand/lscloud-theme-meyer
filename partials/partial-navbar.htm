@@ -143,10 +143,10 @@ description: 'Navigation bar'
       <div layout="row" layout-fill class="content-container">
         <div layout="column" class="padding-y-medium padding-x-medium" flex ng-repeat="column in categories track by $index">
           <div class="row theme-column" ng-repeat="row in column track by $index">
-            <a ng-href="/categories/[[row.url_name]]" class="ls-heading md-caption theme-heading no-link-style">[[row.name]]</a>
+            <a ng-href="/products#/[[row.url_name]]" class="ls-heading md-caption theme-heading no-link-style">[[row.name]]</a>
             <ul class="theme-list">
               <li class="md-caption" ng-repeat="category in row.children track by $index">
-                <a ng-href="/categories/[[row.url_name]]?category=[[ category.url_name ]]">[[ category.name ]]</a>
+                <a ng-href="/products#/[[row.url_name]]?category=[[ category.url_name ]]">[[ category.name ]]</a>
               </li>
             </ul>
           </div>
