@@ -717,6 +717,9 @@ angular.module('lsAngularApp')
       });
     };
 
+    $scope.$on('$locationChangeSuccess', function() {
+      $scope.filters.category = $location.path().split('/').slice(1);
+    });
 
     $scope.$watch('productListLimit', function(newVal,oldVal){
       if (newVal !== oldVal){ $scope.goToPage(1); }
