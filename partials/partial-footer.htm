@@ -21,7 +21,7 @@ description: 'Footer for most pages.'
       <div layout="column" class="theme-column" flex flex-xs="100" flex-sm="50">
         <p class="ls-heading md-caption theme-heading">Categories</p>
         <ul class="theme-list" layout-xs="row" layout-wrap>
-          {% for category in categories %}
+          {% for category in categories if not category.parent %}
             <li class="md-caption" flex-xs="50"><a href="{{ site_url('/products#/') ~ category.url_name }}">{{ category.name }}</a></li>
           {% endfor %}
         </ul>
