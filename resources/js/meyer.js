@@ -586,12 +586,16 @@ angular.module('lsAngularApp')
       $scope.$ls.productPageListLimit = int;
     };
 
+    var params = $location.search();
+    var paramOr = function(name, alt) {
+      return params.hasOwnProperty(name) ? params[name] : alt;
+    }
     $scope.filters = {
       category: $location.path().split('/').slice(1),
-      price: null,
-      brand: null,
-      search: null,
-      sale: false,
+      price: paramOr('price',null),
+      brand: paramOr('brand',null),
+      search: paramOr('search',null),
+      sale: paramOr('sale',false),
       limit: $scope.productListLimit
     };
 
