@@ -694,11 +694,9 @@ angular.module('lsAngularApp')
       $scope.goToPage(1);
     };
 
-    $scope.$watch('filters', function(newFilters,oldFilters){
-      if (newFilters !== oldFilters){
-        $scope.activeFilter = $scope.filters.category[1] ? $scope.filters.category[1] : $scope.filters.category[0];
-        $scope.updateFilter();
-      }
+    $scope.$watch('filters', function(){
+      $scope.activeFilter = $scope.filters.category[1] ? $scope.filters.category[1] : $scope.filters.category[0];
+      $scope.updateFilter();
     },true);
 
     var updateProductMenuTile = function(parent){
@@ -721,8 +719,8 @@ angular.module('lsAngularApp')
       $scope.filters.category = $location.path().split('/').slice(1);
     });
 
-    $scope.$watch('productListLimit', function(newVal,oldVal){
-      if (newVal !== oldVal){ $scope.goToPage(1); }
+    $scope.$watch('productListLimit', function(){
+      $scope.goToPage(1);
     });
 
     $scope.goToPage = function(page){
