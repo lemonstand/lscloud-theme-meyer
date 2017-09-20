@@ -1,7 +1,15 @@
 ---
 description: 'Product object'
 ---
+{# filter products #}
+{% set filtered = [] %}
 {% for product in products %}
+  {% if not param('search') or param('search')|lower in product.name|lower %}
+    {% set filtered = filtered|merge([product]) %}
+  {% endif %}
+{% endfor %}
+"products": [
+{% for product in filtered[param('start')|default(0):param('length')|default(100)] %}
   {
       "id": {{ product.id }},
       "name" : "{{ product.name | unescape }}",
@@ -35,3 +43,5 @@ description: 'Product object'
   }
 {% if not loop.last %},{% endif %}
 {% endfor %}
+],
+"count": {{ filtered|length }}

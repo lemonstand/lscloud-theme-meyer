@@ -7,13 +7,6 @@ published: true
 name: 'Category API'
 url: '/api/categories/:urlName'
 ---
-{# filter products #}
-{% set filtered = [] %}
-{% for product in category.productList %}
-  {% if not param('search') or param('search')|lower in product.name|lower %}
-    {% set filtered = filtered|merge([product]) %}
-  {% endif %}
-{% endfor %}
 {
   "name": "{{ category.name | raw }}",
   "short_description": "{{ category.short_description | escape("html_attr")  }}",
@@ -36,8 +29,5 @@ url: '/api/categories/:urlName'
     {% else %}
     {},
   {% endif %}
-  "products": [
-    {{ partial("partial-product", { "products": filtered[param('start'):param('length')] }) }}
-  ],
-  "count": {{ filtered|length }}
+  {{ partial("partial-product", { "products": category.productList }) }}
 }

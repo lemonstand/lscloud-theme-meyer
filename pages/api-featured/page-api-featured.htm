@@ -11,8 +11,6 @@ url: '/api/products/featured/:page'
 {% set featuredCollection = 'featured'|collection %}
 {% paginate featuredCollection.products by 10 %}
   {
-    "products": [
-      {{ partial("partial-product", { "products": pagination.items }) }}
-    ]
+    {{ partial("partial-product", { "products": pagination.items }) }}
   }
 {% endpaginate %}

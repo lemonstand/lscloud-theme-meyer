@@ -379,7 +379,9 @@ angular.module('lsAngularApp')
           {cache: true,
           params: {start: start, length: length, search: search}});
       } else {
-        return $http.get(LEMONSTAND.PRODUCTS, {cache: true});
+        return $http.get(LEMONSTAND.PRODUCTS,
+	  {cache: true,
+	  params: {start: start, length: length, search: search}});
       }
     };
 
