@@ -373,15 +373,23 @@ angular.module('lsAngularApp')
       }
     };
 
-    this.category = function(category, start, length, search){
+    this.category = function(category, start, length, filters){
       if(category) {
         return $http.get(LEMONSTAND.CATEGORIES + category,
           {cache: true,
-          params: {start: start, length: length, search: search}});
+          params: {
+            start: start,
+            length: length,
+            search: filters.search,
+            price: filters.price}});
       } else {
         return $http.get(LEMONSTAND.PRODUCTS,
 	  {cache: true,
-	  params: {start: start, length: length, search: search}});
+	  params: {
+      start: start,
+      length: length,
+      search: filters.search,
+      price: filters.price}});
       }
     };
 
@@ -620,10 +628,6 @@ angular.module('lsAngularApp')
     var setProducts = function(results){
       if (results.data.products.length){
         var maxPrice = Math.ceil($filter('orderBy')( results.data.products, 'price', true )[0].price /100)*100;
-        $scope.priceFilter = {
-          max: maxPrice,
-          min: 0
-        };
         $scope.filters.price = maxPrice;
         //add to the `brands` array using the indexOfObject global function
         angular.forEach( results.data.products, function(product) {
@@ -673,6 +677,7 @@ angular.module('lsAngularApp')
 
     $scope.updateFilter = function(){
       $location.search('search', $scope.filters.search);
+      $location.search('price', $scope.filters.price);
       /*
       var products = $scope.categoryProducts;
       //filter by search term
@@ -730,9 +735,16 @@ angular.module('lsAngularApp')
     $scope.goToPage = function(page){
       $scope.currentPage = page;
       var start = (page - 1) * $scope.productListLimit;
-      ProductService.category($scope.filters.category.join('/'),start,$scope.productListLimit,$scope.filters.search).then(function(results){
+      ProductService.category($scope.filters.category.join('/'),start,$scope.productListLimit,$scope.filters).then(function(results){
         $scope.productList = results.data.products;
         $scope.numProducts = results.data.count;
+        if(!$scope.filters.price || !$scope.priceFilter || $scope.filters.price == $scope.priceFilter.max) {
+          $scope.filters.price = results.data.max_price;
+        }
+        $scope.priceFilter = {
+          max: results.data.max_price,
+          min: 0
+        };
         $scope.productsLoading = false;
         $scope.newHeight(); //sets a min height of the container so it doesn't look weird
         var pages = Math.ceil($scope.numProducts / $scope.productListLimit);
