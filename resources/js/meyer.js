@@ -381,7 +381,8 @@ angular.module('lsAngularApp')
             start: start,
             length: length,
             search: filters.search,
-            price: filters.price}});
+            price: filters.price,
+	    sale: filters.sale}});
       } else {
         return $http.get(LEMONSTAND.PRODUCTS,
 	  {cache: true,
@@ -389,7 +390,8 @@ angular.module('lsAngularApp')
       start: start,
       length: length,
       search: filters.search,
-      price: filters.price}});
+      price: filters.price,
+      sale: filters.sale}});
       }
     };
 
@@ -622,7 +624,7 @@ angular.module('lsAngularApp')
       $scope.filters.price = null;
       $scope.filters.brand = null;
       $scope.filters.search = null;
-      $scope.filters.sale = $scope.showSaleItems ? true : false;
+      $scope.filters.sale = $scope.showSaleItems;
     }
 
     var setProducts = function(results){
@@ -679,6 +681,7 @@ angular.module('lsAngularApp')
       $scope.searchQuery = $scope.filters.search;
       $location.search('search', $scope.filters.search);
       $location.search('price', $scope.filters.price);
+      $location.search('sale', $scope.filters.sale);
       /*
       var products = $scope.categoryProducts;
       //filter by search term
