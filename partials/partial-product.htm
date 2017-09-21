@@ -7,7 +7,7 @@ description: 'Product object'
 {% for product in products %}
   {% if not param('search') or param('search')|lower in product.name|lower %}
     {% set max_filtered_price = max(product.price, max_filtered_price) %}
-    {% if not param('price') or param('price') > product.price %}
+    {% if not param('price') or param('price') >= product.price %}
       {% set filtered = filtered|merge([product]) %}
     {% endif %}
   {% endif %}
