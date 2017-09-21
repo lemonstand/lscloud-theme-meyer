@@ -674,25 +674,9 @@ angular.module('lsAngularApp')
       $location.search('price', $scope.filters.price);
       $location.search('sale', $scope.filters.sale);
       /*
-      var products = $scope.categoryProducts;
-      //filter by search term
-      if ($scope.filters.search){
-        products = $filter('filter')( products, { 'name': $scope.filters.search });
-      }
-
-      //filter by price
-      if ($scope.filters.price){
-        products = $filter('priceRange')( products, $scope.filters.price );
-      }
-
       //filter by brand
       if ( $scope.filters.brand ){
         products = $filter('filter')(products, { 'manufacturer_url': $scope.filters.brand }, true);
-      }
-
-      //filter by sale items
-      if ($scope.filters.sale ){
-        products = $filter('filter')(products, { 'on_sale': true }, true);
       }
       */
       $scope.goToPage(1);
