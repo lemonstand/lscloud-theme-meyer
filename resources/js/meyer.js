@@ -676,6 +676,7 @@ angular.module('lsAngularApp')
     }
 
     $scope.updateFilter = function(){
+      $scope.searchQuery = $scope.filters.search;
       $location.search('search', $scope.filters.search);
       $location.search('price', $scope.filters.price);
       /*
