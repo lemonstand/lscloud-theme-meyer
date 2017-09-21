@@ -618,15 +618,6 @@ angular.module('lsAngularApp')
       $scope.filters.sale = false;
     }
     
-    $scope.showSaleItems = false;
-    
-    $scope.toggleSaleItems = function() {
-      $scope.filters.price = null;
-      $scope.filters.brand = null;
-      $scope.filters.search = null;
-      $scope.filters.sale = $scope.showSaleItems;
-    }
-
     var setProducts = function(results){
       if (results.data.products.length){
         var maxPrice = Math.ceil($filter('orderBy')( results.data.products, 'price', true )[0].price /100)*100;
