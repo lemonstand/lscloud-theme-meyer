@@ -7,15 +7,16 @@ description: 'Product object'
 {% set brands = [] %}
 {% set max_filtered_price = 0 %}
 {% for product in products %}
+  {% if product.manufacturer.id and product.manufacturer.id not in brand_ids %}
+    {% set brands = brands|merge([product.manufacturer]) %}
+    {% set brand_ids = brand_ids|merge([product.manufacturer.id]) %}
+  {% endif %}
   {% if (not param('search') or param('search')|lower in product.name|lower)
-      and (not param('sale') or param('sale') != "true" or product.is_on_sale) %}
+      and (not param('sale') or param('sale') != "true" or product.is_on_sale)
+      and (not param('brand') or param('brand') == product.manufacturer.id) %}
     {% set max_filtered_price = max(product.price, max_filtered_price) %}
     {% if not param('price') or param('price') >= product.price %}
       {% set filtered = filtered|merge([product]) %}
-      {% if product.manufacturer.id and product.manufacturer.id not in brand_ids %}
-        {% set brands = brands|merge([product.manufacturer]) %}
-	{% set brand_ids = brand_ids|merge([product.manufacturer.id]) %}
-      {% endif %}
     {% endif %}
   {% endif %}
 {% endfor %}

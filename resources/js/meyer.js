@@ -374,24 +374,19 @@ angular.module('lsAngularApp')
     };
 
     this.category = function(category, start, length, filters){
+      var params = {
+        start: start,
+        length: length,
+        search: filters.search,
+        price: filters.price,
+        sale: filters.sale,
+        brand: filters.brand}
       if(category) {
         return $http.get(LEMONSTAND.CATEGORIES + category,
-          {cache: true,
-          params: {
-            start: start,
-            length: length,
-            search: filters.search,
-            price: filters.price,
-	    sale: filters.sale}});
+          {cache: true, params: params});
       } else {
         return $http.get(LEMONSTAND.PRODUCTS,
-	  {cache: true,
-	  params: {
-      start: start,
-      length: length,
-      search: filters.search,
-      price: filters.price,
-      sale: filters.sale}});
+          {cache: true, params: params});
       }
     };
 
@@ -673,6 +668,7 @@ angular.module('lsAngularApp')
       $location.search('search', $scope.filters.search);
       $location.search('price', $scope.filters.price);
       $location.search('sale', $scope.filters.sale);
+      $location.search('brand', $scope.filters.brand);
       /*
       //filter by brand
       if ( $scope.filters.brand ){

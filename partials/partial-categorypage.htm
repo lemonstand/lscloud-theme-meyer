@@ -93,7 +93,7 @@ description: 'Lists products, provides filters and search options.'
                   </md-menu-item>
 
                   <md-menu-item ng-repeat="brand in brands">
-                    <md-button ng-click="filters.brand = brand.url">
+                    <md-button ng-click="filters.brand = brand.id">
                       <span>[[ brand.name ]]</span>
                     </md-button>
                   </md-menu-item>
