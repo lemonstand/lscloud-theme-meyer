@@ -724,6 +724,7 @@ angular.module('lsAngularApp')
           max: results.data.max_price,
           min: 0
         };
+	$scope.brands = results.data.brands;
         $scope.productsLoading = false;
         $scope.newHeight(); //sets a min height of the container so it doesn't look weird
         var pages = Math.ceil($scope.numProducts / $scope.productListLimit);

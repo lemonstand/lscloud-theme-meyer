@@ -3,6 +3,8 @@ description: 'Product object'
 ---
 {# filter products #}
 {% set filtered = [] %}
+{% set brand_ids = [] %}
+{% set brands = [] %}
 {% set max_filtered_price = 0 %}
 {% for product in products %}
   {% if (not param('search') or param('search')|lower in product.name|lower)
@@ -10,6 +12,10 @@ description: 'Product object'
     {% set max_filtered_price = max(product.price, max_filtered_price) %}
     {% if not param('price') or param('price') >= product.price %}
       {% set filtered = filtered|merge([product]) %}
+      {% if product.manufacturer.id and product.manufacturer.id not in brand_ids %}
+        {% set brands = brands|merge([product.manufacturer]) %}
+	{% set brand_ids = brand_ids|merge([product.manufacturer.id]) %}
+      {% endif %}
     {% endif %}
   {% endif %}
 {% endfor %}
@@ -50,4 +56,14 @@ description: 'Product object'
 {% endfor %}
 ],
 "count": {{ filtered|length }},
-"max_price": {{ max_filtered_price }}
+"max_price": {{ max_filtered_price }},
+"brands": [
+{% for brand in brands %}
+  {
+    "id": {{ brand.id }},
+    "name": "{{ brand.name }}",
+    "url": "{{ brand.url_name }}"
+  }
+  {% if not loop.last %},{% endif %}
+{% endfor %}
+]
