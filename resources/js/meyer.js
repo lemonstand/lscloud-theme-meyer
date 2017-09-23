@@ -643,51 +643,29 @@ angular.module('lsAngularApp')
       }
     }
 
-    var categoryInit = function(parent,child){
-      $scope.brands = [];
-      if (angular.isUndefined($scope.productCategories)) {
-        getAllCategories(parent);
+    var updateProductMenuTile = function(parent){
+      if($scope.productCategories) {
+        $scope.currentCategory = $filter('filter')($scope.productCategories, { 'url_name': parent },true)[0];
+        $scope.childCategories = $scope.currentCategory.children;
+        bannerLoad($scope.currentCategory);
       }
-      else {
-        updateProductMenuTile(parent); //fetch and define categories if not done
-      }
-      //update filters
-      $scope.filters.category = [parent,child];
-      $scope.filters.brand = null;
-      $scope.activeFilter = $scope.filters.category[1] ? $scope.filters.category[1] : $scope.filters.category[0];
-      $location.path($scope.filters.category.join('/'));
     };
 
-    $scope.updateCategory = function(category, child) {
-      categoryInit(category,child);
-      updateFilters();
-    }
-
     $scope.updateFilter = function(){
+      $scope.activeFilter = $scope.filters.category.length ? $scope.filters.category[$scope.filters.category.length-1] : null;
+      $location.path($scope.filters.category.join('/'));
       $scope.searchQuery = $scope.filters.search;
       $location.search('search', $scope.filters.search);
       $location.search('price', $scope.filters.price);
       $location.search('sale', $scope.filters.sale);
       $location.search('brand', $scope.filters.brand);
-      /*
-      //filter by brand
-      if ( $scope.filters.brand ){
-        products = $filter('filter')(products, { 'manufacturer_url': $scope.filters.brand }, true);
-      }
-      */
+      updateProductMenuTile($scope.activeFilter);
       $scope.goToPage(1);
     };
 
     $scope.$watch('filters', function(){
-      $scope.activeFilter = $scope.filters.category[1] ? $scope.filters.category[1] : $scope.filters.category[0];
       $scope.updateFilter();
     },true);
-
-    var updateProductMenuTile = function(parent){
-      $scope.currentCategory = $filter('filter')($scope.productCategories, { 'url_name': parent },true)[0];
-      $scope.childCategories = $scope.currentCategory.children;
-      bannerLoad($scope.currentCategory);
-    };
 
     var getAllCategories = function(parent){
       //big list of all categories for dropdown menu

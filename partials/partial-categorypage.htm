@@ -49,11 +49,11 @@ description: 'Lists products, provides filters and search options.'
                       <md-button ng-click="$mdOpenMenu()">[[ category.name ]]</md-button>
                       <md-menu-content width="3">
                         <md-menu-item>
-                          <md-button ng-click="updateCategory(category.url_name)">All ([[ category.products_count ]])</md-button>
+                          <md-button ng-click="filters.category = [category.url_name]">All</md-button>
                         </md-menu-item>
                         <md-menu-divider></md-menu-divider>
                         <md-menu-item ng-repeat="child in category.children track by $index">
-                          <md-button ng-click="updateCategory(category.url_name, child.url_name)">[[ child.name ]] ([[ child.products_count ]])</md-button>
+                          <md-button ng-click="filters.category = [category.url_name, child.url_name]">[[ child.name ]]</md-button>
                         </md-menu-item>
                       </md-menu-content>
                     </md-menu>
