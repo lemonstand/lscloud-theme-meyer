@@ -643,9 +643,22 @@ angular.module('lsAngularApp')
       }
     }
 
-    var updateProductMenuTile = function(parent){
+    var topCategoryOf = function(category) {
+      for(var i = 0; i < $scope.productCategories.length; ++i) {
+        if($scope.productCategories[i].url_name == category) {
+          return $scope.productCategories[i];
+        }
+        for(var c = 0; c < $scope.productCategories[i].children.length; ++c) {
+          if($scope.productCategories[i].children[c].url_name == category) {
+            return $scope.productCategories[i];
+          }
+        }
+      }
+    };
+
+    var updateProductMenuTile = function(category){
       if($scope.productCategories) {
-        $scope.currentCategory = $filter('filter')($scope.productCategories, { 'url_name': parent },true)[0];
+        $scope.currentCategory = topCategoryOf(category);
         $scope.childCategories = $scope.currentCategory.children;
         bannerLoad($scope.currentCategory);
       }
