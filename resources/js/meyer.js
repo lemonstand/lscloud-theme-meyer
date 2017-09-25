@@ -643,22 +643,17 @@ angular.module('lsAngularApp')
       }
     }
 
-    var topCategoryOf = function(category) {
+    var topCategory = function(category) {
       for(var i = 0; i < $scope.productCategories.length; ++i) {
         if($scope.productCategories[i].url_name == category) {
           return $scope.productCategories[i];
-        }
-        for(var c = 0; c < $scope.productCategories[i].children.length; ++c) {
-          if($scope.productCategories[i].children[c].url_name == category) {
-            return $scope.productCategories[i];
-          }
         }
       }
     };
 
     var updateProductMenuTile = function(category){
       if($scope.productCategories) {
-        $scope.currentCategory = topCategoryOf(category);
+        $scope.currentCategory = topCategory(category);
         $scope.childCategories = $scope.currentCategory.children;
         bannerLoad($scope.currentCategory);
       }
@@ -672,7 +667,9 @@ angular.module('lsAngularApp')
       $location.search('price', $scope.filters.price);
       $location.search('sale', $scope.filters.sale);
       $location.search('brand', $scope.filters.brand);
-      updateProductMenuTile($scope.activeFilter);
+      if($scope.filters.category.length) {
+        updateProductMenuTile($scope.filters.category[0]);
+      }
       $scope.goToPage(1);
     };
 
@@ -680,13 +677,10 @@ angular.module('lsAngularApp')
       $scope.updateFilter();
     },true);
 
-    var getAllCategories = function(parent){
-      //big list of all categories for dropdown menu
+    var getAllCategories = function(){
+      //all top level categories for dropdown menu
       CategoryService.all().then(function(results){
         $scope.productCategories = results.data.categories;
-        if (!angular.isUndefined(parent)){
-          updateProductMenuTile(parent);
-        }
       });
     };
 
