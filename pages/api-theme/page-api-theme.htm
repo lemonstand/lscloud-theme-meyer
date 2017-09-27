@@ -8,29 +8,29 @@ name: 'Theme data'
 url: /api/theme
 ---
 {
-    "logo_image": "{{ theme.logoImage.thumbnail('auto', 'auto') }}",
-    "store_title": "{{ theme.storeTitle }}",
+    "logo_image": {{ theme.logoImage.thumbnail('auto', 'auto') | json_encode() | raw }},
+    "store_title": {{ theme.storeTitle | json_encode() | raw }},
     "banner": {
-      "image": "{{ theme.bannerImage.thumbnail('auto', 'auto') }}",
-      "title": "{{ theme.bannerTitleText }}",
-      "text": "{{ theme.bannerSentenceText }}",
-      "color": "{{ theme.bannerTextColor }}",
+      "image": {{ theme.bannerImage.thumbnail('auto', 'auto') | json_encode() | raw }},
+      "title": {{ theme.bannerTitleText | json_encode() | raw }},
+      "text": {{ theme.bannerSentenceText | json_encode() | raw }},
+      "color": {{ theme.bannerTextColor | json_encode() | raw }},
       "button": {
-        "background": "{{ theme.secondaryColor }}",
-        "color": "{{ theme.bannerButtonTextColor }}"
+        "background": {{ theme.secondaryColor | json_encode() | raw }},
+        "color": {{ theme.bannerButtonTextColor | json_encode() | raw }}
       }
     },
     "social": {
-      "facebook": "{{ theme.facebookUrl }}",
-      "twitter": "{{ theme.twitterUrl }}",
-      "pinterest": "{{ theme.pinterestUrl }}",
-      "instagram": "{{ theme.instagramUrl }}"
+      "facebook": {{ theme.facebookUrl | json_encode() | raw }},
+      "twitter": {{ theme.twitterUrl | json_encode() | raw }},
+      "pinterest": {{ theme.pinterestUrl | json_encode() | raw }},
+      "instagram": {{ theme.instagramUrl | json_encode() | raw }}
     },
     "mailchimp": {
-      "image": "{{ theme.signUpBackground.thumbnail(1920,'auto') }}",
-      "text": "{{ theme.signUpText }}",
-      "api_key": "{{ theme.mailchimpApiKey }}",
-      "list_id": "{{ theme.mailchimpListId }}"
+      "image": {{ theme.signUpBackground.thumbnail(1920,'auto') | json_encode() | raw }},
+      "text": {{ theme.signUpText | json_encode() | raw }},
+      "api_key": {{ theme.mailchimpApiKey | json_encode() | raw }},
+      "list_id": {{ theme.mailchimpListId | json_encode() | raw }}
     },
     "featured_sale": {
       {% set oneOnly = 'true' %}
@@ -44,19 +44,19 @@ url: /api/theme
 
         {% if isFeatured is same as ('true') and oneOnly is same as ('true') %}
           {% set oneOnly = 'false' %}
-          "title": "{{ post.title }}",
-          "slug": "{{ post.slug }}",
-          "image": "{{ post.featured_image.thumbnail(1920, 'auto')|default('http://placehold.it/1000x365') }}",
-          "permalink": "{{ post.slug }}",
+          "title": {{ post.title | json_encode() | raw }},
+          "slug": {{ post.slug | json_encode() | raw }},
+          "image": {{ post.featured_image.thumbnail(1920, 'auto')|default('http://placehold.it/1000x365') | json_encode() | raw }},
+          "permalink": {{ post.slug | json_encode() | raw }},
           "categories": [
             {% for category in post.categories %}
-              "{{ category.name }}"
+              {{ category.name | json_encode() | raw }}
               {% if not loop.last %},{% endif %}
             {% endfor %}
           ],
-          "publish_date": "{{ post.published_on }}",
-          "excerpt": "{{ post.excerpt | unescape }}",
-          "body": "{{ post.body | unescape }}"
+          "publish_date": {{ post.published_on | json_encode() | raw }},
+          "excerpt": {{ post.excerpt | unescape | json_encode() | raw }},
+          "body": {{ post.body | unescape | json_encode() | raw }}
         {% endif %}
       {% endfor %}
       }
