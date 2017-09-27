@@ -308,7 +308,7 @@ angular.module('lsAngularApp')
 angular.module('lsAngularApp')
   .service('ThemeService', function ($http, $q, LEMONSTAND) {
     this.get = function(){
-      return $http.get(LEMONSTAND.THEME);
+      return $http.get(LEMONSTAND.THEME, {cache: true});
     };
   });
 
