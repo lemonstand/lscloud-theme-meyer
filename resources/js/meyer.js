@@ -104,7 +104,7 @@ angular
  * Controller of the lsAngularApp
  */
 angular.module('lsAngularApp')
-  .controller('HomeCtrl', function ($scope,ThemeService, CategoryService, ProductService,$timeout) {
+  .controller('HomeCtrl', function ($scope,ThemeService, CategoryService, ProductService, BlogService, $timeout) {
 
     //variables
     $scope.productListLimit = 5;
@@ -128,6 +128,10 @@ angular.module('lsAngularApp')
       angular.forEach(results.data.products, function(product){
         $scope.productList.push(product);
       });
+    });
+
+    BlogService.all().then(function(results) {
+      $scope.blogPosts = results.data.blog;
     });
   });
 
