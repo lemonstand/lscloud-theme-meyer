@@ -10,37 +10,37 @@ url: '/api/products/:urlName'
 {% if product %}
 {
     "product": {
-      "id": {{ product.id }},
-      "name": "{{ product.name }}",
-      "manufacturer": "{{ product.manufacturer.name }}",
-      "url_name": "{{ product.url_name }}",
-      "short_description": "{{ product.short_description | escape("html_attr") }}",
-      "description": "{{ product.description | escape("html_attr") }}",
-      "price": {{ product.price }},
-      "is_on_sale": {{ product.is_on_sale }},
-      "sale_price_or_discount": "{{ product.sale_price_or_discount }}",
-      "in_stock_amount": "{{ product.in_stock_amount }}",
+      "id": {{ product.id | json_encode() | raw }},
+      "name": {{ product.name | json_encode() | raw }},
+      "manufacturer": {{ product.manufacturer.name | json_encode() | raw }},
+      "url_name": {{ product.url_name | json_encode() | raw }},
+      "short_description": {{ product.short_description | escape("html_attr") | json_encode() | raw }},
+      "description": {{ product.description | escape("html_attr") | json_encode() | raw }},
+      "price": {{ product.price | json_encode() | raw }},
+      "is_on_sale": {{ product.is_on_sale | json_encode() | raw }},
+      "sale_price_or_discount": {{ product.sale_price_or_discount | json_encode() | raw }},
+      "in_stock_amount": {{ product.in_stock_amount | json_encode() | raw }},
       "shipping_details": {
-        "height": "{{ product.height }}",
-        "width": "{{ product.width }}",
-        "depth": "{{ product.depth }}",
-        "weight": "{{ product.weight }}"
+        "height": {{ product.height | json_encode() | raw }},
+        "width": {{ product.width | json_encode() | raw }},
+        "depth": {{ product.depth | json_encode() | raw }},
+        "weight": {{ product.weight | json_encode() | raw }}
       },
-      "thumbnail": "{{ product.images.first.thumbnail(500, 'auto')|default('http://placehold.it/460x300') }}",
+      "thumbnail": {{ product.images.first.thumbnail(500, 'auto')|default('http://placehold.it/460x300') | json_encode() | raw }},
       "images": [
         {% for image in product.images %}
-        "{{ image.thumbnail(600, 'auto') }}"
+        {{ image.thumbnail(600, 'auto') | json_encode() | raw }}
         {% if not loop.last %},{% endif %}
         {% endfor %}
       ],
       "options": [
         {% for option in product.options %}
         {
-          "id": {{ option.id }},
-          "name": "{{ option.name }}",
+          "id": {{ option.id | json_encode() | raw }},
+          "name": {{ option.name | json_encode() | raw }},
           "values": [
             {% for value in option.values  %}
-              "{{ value }}"{% if not loop.last %},{% endif %}
+              {{ value | json_encode() | raw }}{% if not loop.last %},{% endif %}
             {% endfor %}
           ]
         }
@@ -49,7 +49,7 @@ url: '/api/products/:urlName'
       ],
       "reviews": [
         {% for review in product.reviews() %}
-          {{ review | raw }}
+          {{ review | raw | json_encode() | raw }}
           {% if not loop.last %},{% endif %}
         {% endfor %}
       ]
