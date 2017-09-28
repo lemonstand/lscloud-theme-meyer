@@ -23,29 +23,29 @@ description: 'Product object'
 "products": [
 {% for product in filtered[param('start')|default(0):param('length')|default(100)] %}
   {
-      "id": {{ product.id }},
-      "name" : "{{ product.name | unescape }}",
-      "sku" : "{{ product.sku }}",
-      "description" : "{{ product.short_description | escape("html_attr") }}",
-      "url_name": "{{ product.url_name }}",
-      "price": {{ product.price }},
-      "on_sale": {{ product.is_on_sale is same as(1) ? "true" : "false" }},
-      "manufacturer": "{{ product.manufacturer.name }}",
-      "manufacturer_url": "{{ product.manufacturer.url_name }}",
+      "id": {{ product.id | json_encode() | raw }},
+      "name" : {{ product.name | unescape | json_encode() | raw }},
+      "sku" : {{ product.sku | json_encode() | raw }},
+      "description" : {{ product.short_description | escape("html_attr") | json_encode() | raw }},
+      "url_name": {{ product.url_name | json_encode() | raw }},
+      "price": {{ product.price | json_encode() | raw }},
+      "on_sale": {{ product.is_on_sale is same as(1) ? "true" : "false" | json_encode() | raw }},
+      "manufacturer": {{ product.manufacturer.name | json_encode() | raw }},
+      "manufacturer_url": {{ product.manufacturer.url_name | json_encode() | raw }},
       "categories": [
         {% for category in product.categories %}
-          "{{ category.url_name }}"{% if not loop.last %},{% endif %}
+          {{ category.url_name | json_encode() | raw }}{% if not loop.last %},{% endif %}
         {% endfor %}
       ],
-      "thumbnail": "{{ product.images.first.thumbnail(500, 'auto')|default('http://placehold.it/460x300') }}",
+      "thumbnail": {{ product.images.first.thumbnail(500, 'auto')|default('http://placehold.it/460x300') | json_encode() | raw }},
       "options": [
         {% for option in product.options %}
         {
-          "id": {{ option.id }},
-          "name": "{{ option.name }}",
+          "id": {{ option.id | json_encode() | raw }},
+          "name": {{ option.name | json_encode() | raw }},
           "values": [
             {% for value in option.values  %}
-              "{{ value }}"{% if not loop.last %},{% endif %}
+              {{ value | json_encode() | raw }}{% if not loop.last %},{% endif %}
             {% endfor %}
           ]
         }
@@ -56,14 +56,14 @@ description: 'Product object'
 {% if not loop.last %},{% endif %}
 {% endfor %}
 ],
-"count": {{ filtered|length }},
-"max_price": {{ max_filtered_price }},
+"count": {{ filtered|length | json_encode() | raw }},
+"max_price": {{ max_filtered_price | json_encode() | raw }},
 "brands": [
 {% for brand in brands %}
   {
-    "id": {{ brand.id }},
-    "name": "{{ brand.name }}",
-    "url": "{{ brand.url_name }}"
+    "id": {{ brand.id | json_encode() | raw }},
+    "name": {{ brand.name | json_encode() | raw }},
+    "url": {{ brand.url_name | json_encode() | raw }}
   }
   {% if not loop.last %},{% endif %}
 {% endfor %}
