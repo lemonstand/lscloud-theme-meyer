@@ -18,10 +18,10 @@ description: 'Cart item list.'
             {{ item.product.name }}
 
             <p class="text-grey" show-xs>
-              [[ '$' + ({{ item.price }} | trailingZero) ]]
+              {{ item.price | currency }}
               {% if item.price != item.fullPrice() %}
                 <span class="original-price margin-left-small">
-                  [[ '$' + ({{ item.fullPrice() }} | trailingZero) ]]
+                  {{ item.fullPrice() | currency }}
                 </span>
               {% endif %}
             </p>

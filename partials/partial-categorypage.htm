@@ -73,7 +73,7 @@ description: 'Lists products, provides filters and search options.'
                       <md-slider flex md-discrete step="10" min="[[priceFilter.min]]" max="[[priceFilter.max]]" ng-model="filters.price" aria-label="Max price" id="max-price"></md-slider>
                     </md-slider-container>
                     <div layout="row" flex layout-align="space-between center">
-                      <span>$0</span>
+                      <span>{{ 0 | currency }}</span>
                       <span>$[[priceFilter.max]]</span>
                     </div>
                   </div>

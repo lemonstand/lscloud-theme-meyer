@@ -77,12 +77,12 @@ url: '/product/:urlName'
 
               {% if product.onSale %}
                 <h2 class="ls-heading-thin sale-price">
-                  [[ '$' + ({{ product.price|round(2, 'floor') }} | trailingZero) ]]
-                  <span class="strikethrough">[[ '$' + ({{ product.fullPrice|round(2, 'floor') }} | trailingZero) ]]</span>
+                  {{ product.price | currency }}
+                  <span class="strikethrough">{{ product.fullPrice | currency }}</span>
                 </h2>
               {% else %}
                 <h2 class="ls-heading-thin">
-                  [[ '$' + ({{ product.price|round(2, 'floor') }} | trailingZero) ]]
+                  {{ product.price | currency }}
                 </h2>
               {% endif %}
 
