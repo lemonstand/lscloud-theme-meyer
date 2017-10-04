@@ -707,6 +707,7 @@ angular.module('lsAngularApp')
         }
         $scope.priceFilter = {
           max: results.data.max_price,
+	  max_fmt: results.data.max_price_fmt,
           min: 0
         };
 	$scope.brands = results.data.brands;

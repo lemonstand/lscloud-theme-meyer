@@ -655,9 +655,6 @@
             transform: translate3d(0, 0, 0) scale(1);
   }
   md-slider[md-discrete] .md-sign .md-thumb-text { font-size: 10px; }
-  md-slider[md-discrete] .md-sign .md-thumb-text::before {
-    content: '$';
-  }
 
   .md-menu-content
   .md-button.pagination-button[disabled] { color:inherit; }

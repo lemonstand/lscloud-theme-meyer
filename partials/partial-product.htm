@@ -59,6 +59,7 @@ description: 'Product object'
 ],
 "count": {{ filtered|length | json_encode() | raw }},
 "max_price": {{ max_filtered_price | json_encode() | raw }},
+"max_price_fmt": {{ max_filtered_price | currency | json_encode() | raw }},
 "brands": [
 {% for brand in brands %}
   {
