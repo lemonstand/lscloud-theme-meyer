@@ -115,7 +115,7 @@ description: 'Navigation bar'
                     <a layout="row" class="no-link-style ls-subheading margin-bottom-small" ng-href="{{ site_url('/product/') ~ item.product.url_name }}">{{ item.product.name }}</a>
                     <p class="md-caption">
                       <span class="ls-caption">{{ item.quantity }} &times;</span>
-                      [[ '$' + ({{ item.price }} | trailingZero) ]]
+                      {{ item.price | currency }}
                     </p>
                   </div>
                   <div layout="column" layout-align="center center">
