@@ -84,7 +84,7 @@ description: 'Navigation bar'
                 <div layout="column" flex="50">
                   <a layout="row" class="no-link-style ls-subheading margin-bottom-small" ng-href="/product/[[ fav.url_name ]]">[[ fav.name ]]</a>
                   <p class="md-caption">
-                    [[ '$' + (fav.price | trailingZero) ]]
+                    [[ fav.price_fmt ]]
                   </p>
                 </div>
                 <div layout="column" layout-align="center center">
