@@ -119,7 +119,7 @@ url: '/product/:urlName'
                         {% if loop.first %}
                           ng-init="changeOption('{{option.id}}', '{{key}}', '{{ value }}'); viewOption['{{ option.id }}'] = '{{ value }}';"
                         {% endif %}
-                         ng-click="changeOption('{{option.id}}','{{ key }}', '{{ value }}'); updateSlug('{{ key }}' , '{{ option.id }}' , '{{value}}');; viewOption['{{ option.id }}'] = '{{ value }}'; $root.showLoadingScreen();">
+                         ng-click="changeOption('{{option.id}}','{{ key }}', '{{ value }}'); updateSlug('{{ key }}' , '{{ option.id }}' , '{{value}}'); viewOption['{{ option.id }}'] = '{{ value }}'; $root.showLoadingScreen();">
                           <span id="selectable-option-{{key}}">{{ value }}</span>
                         </md-button>
                       </md-menu-item>
