@@ -5,7 +5,7 @@
   "excerpt": "Meyer is a responsive theme built on Angular, with a clean design and robust customization settings.",
   "main": "theme.yaml",
   "lemonstand": {
-    "code": "meyer-test-3",
+    "code": "meyer",
     "type": "theme",
     "options": "options.json",
     "demo": "https://meyer.lemonstand.com",
