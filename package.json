@@ -1,15 +1,15 @@
 {
   "name": "Meyer",
-  "version": "1.0.0",
+  "version": "1.0.3",
   "description": "Meyer is a modern, responsive theme for showcasing beautiful merchandise. It is extremely customizable, and includes large product spaces, featured product cards, and extensive navigation and search pages. Meyer uses Material Design concepts and Angular, for a fast, responsive, and interactive store experience.",
   "excerpt": "Meyer is a responsive theme built on Angular, with a clean design and robust customization settings.",
   "main": "theme.yaml",
-  "lemonstand" : {
-    "code":"meyer",
+  "lemonstand": {
+    "code": "meyer",
     "type": "theme",
     "options": "options.json",
     "demo": "https://meyer.lemonstand.com",
-    "screenshots" : {
+    "screenshots": {
       "small": "https://raw.githubusercontent.com/lemonstand/lscloud-theme-meyer/master/resources/screenshots/tiny-square.png",
       "large": "https://raw.githubusercontent.com/lemonstand/lscloud-theme-meyer/master/resources/screenshots/large-square.png",
       "full": "https://raw.githubusercontent.com/lemonstand/lscloud-theme-meyer/master/resources/screenshots/full-size.png"
@@ -49,5 +49,8 @@
     "3-page-checkout",
     "material-design",
     "large-catalog"
-  ]
+  ],
+  "dependencies": {
+    "lemonsync": "^1.0.14"
+  }
 }
