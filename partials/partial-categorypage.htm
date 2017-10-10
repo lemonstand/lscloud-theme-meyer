@@ -49,11 +49,11 @@ description: 'Lists products, provides filters and search options.'
                       <md-button ng-click="$mdOpenMenu()">[[ category.name ]]</md-button>
                       <md-menu-content width="3">
                         <md-menu-item>
-                          <md-button ng-click="getCategoryProducts(category.url_name)">All ([[ category.products_count ]])</md-button>
+                          <md-button ng-click="filters.category = [category.url_name]">All</md-button>
                         </md-menu-item>
                         <md-menu-divider></md-menu-divider>
                         <md-menu-item ng-repeat="child in category.children track by $index">
-                          <md-button ng-click="getCategoryProducts(category.url_name, child.url_name)">[[ child.name ]] ([[ child.products_count ]])</md-button>
+                          <md-button ng-click="filters.category = [category.url_name, child.url_name]">[[ child.name ]]</md-button>
                         </md-menu-item>
                       </md-menu-content>
                     </md-menu>
@@ -92,8 +92,8 @@ description: 'Lists products, provides filters and search options.'
                     </md-button>
                   </md-menu-item>
 
-                  <md-menu-item ng-repeat="brand in brands track by $index">
-                    <md-button ng-click="filters.brand = brand.url_name">
+                  <md-menu-item ng-repeat="brand in brands">
+                    <md-button ng-click="filters.brand = brand.id">
                       <span>[[ brand.name ]]</span>
                     </md-button>
                   </md-menu-item>
@@ -102,7 +102,7 @@ description: 'Lists products, provides filters and search options.'
             </md-menu-bar>
             <md-menu-bar layout-xs="column" >
             <div layout-align="center center">
-                <md-checkbox ng-model="showSaleItems" ng-change="toggleSaleItems();" id="toggle_onsale" aria-label="Show sale items" layout-padding>
+                <md-checkbox ng-model="filters.sale" id="toggle_onsale" aria-label="Show sale items" layout-padding>
                  On Sale
                 </md-checkbox>
             </div>
@@ -117,16 +117,16 @@ description: 'Lists products, provides filters and search options.'
 
         </div>
         <div layout="row" layout-align="space-between center" ng-hide="pages.length <= 1">
-          <md-button class="md-square-button" ng-disabled="currentPage <= 1" ng-click="goToPage( currentPage - 1, filteredProducts )">
+          <md-button class="md-square-button" ng-disabled="currentPage <= 1" ng-click="goToPage( currentPage - 1 )">
             <md-icon>chevron_left</md-icon>
           </md-button>
 
           <div layout="row" layout-align="center center" layout-nowrap flex style="overflow-x:auto;">
-            <md-button class="md-small-button pagination-button" ng-class="{ 'page-active': currentPage === $index + 1 }" ng-disabled="currentPage === $index + 1" ng-repeat="page in pages track by $index" ng-click="goToPage( $index +1, filteredProducts )">
+            <md-button class="md-small-button pagination-button" ng-class="{ 'page-active': currentPage === $index + 1 }" ng-disabled="currentPage === $index + 1" ng-repeat="page in pages track by $index" ng-click="goToPage( $index +1 )">
               [[ $index +1 ]]
             </md-button>
           </div>
-          <md-button class="md-square-button" ng-disabled="currentPage >= pages.length" ng-click="goToPage( currentPage + 1, filteredProducts )">
+          <md-button class="md-square-button" ng-disabled="currentPage >= pages.length" ng-click="goToPage( currentPage + 1 )">
             <md-icon>chevron_right</md-icon>
           </md-button>
         </div>

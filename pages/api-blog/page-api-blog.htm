@@ -12,21 +12,21 @@ url: /api/blog
     {% for post in archives %}
       {% if post.type is same as('blog') %}
         {
-          "title": "{{ post.title }}",
+          "title": {{ post.title | json_encode() | raw }},
           "author": {
-            "name": "{{ post.author_name }}",
-            "image": "{{ profile_image.thumbnail(252, 'auto')|default('http://placehold.it/100x100') }}"
+            "name": {{ post.author_name | json_encode() | raw }},
+            "image": {{ profile_image.thumbnail(252, 'auto')|default('http://placehold.it/100x100') | json_encode() | raw }}
           },
-          "thumbnail": "{{ post.featured_image.thumbnail(1000, 'auto')|default('http://placehold.it/1000x365') }}",
-          "permalink": "{{ post.slug }}",
+          "thumbnail": {{ post.featured_image.thumbnail(1000, 'auto')|default('http://placehold.it/1000x365') | json_encode() | raw }},
+          "permalink": {{ post.slug | json_encode() | raw }},
           "categories": [
             {% for category in post.categories %}
-              "{{ category.name }}"
+              {{ category.name | json_encode() | raw }}
               {% if not loop.last %},{% endif %}
             {% endfor %}
           ],
-          "publish_date": "{{ post.published_on |  date("m-d-Y") }}",
-          "excerpt": "{{ post.excerpt | unescape }}"
+          "publish_date": {{ post.published_on |  date("m-d-Y") | json_encode() | raw }},
+          "excerpt": {{ post.excerpt | unescape | json_encode() | raw }}
         }
         {% if not loop.last %},{% endif %}
       {% endif %}

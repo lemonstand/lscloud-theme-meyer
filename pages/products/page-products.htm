@@ -1,0 +1,20 @@
+---
+description: 'A page showing products'
+action: 'shop:products'
+template: main
+protocol: all
+published: true
+name: Products
+url: /products
+---
+
+<div ng-controller="CategoriesCtrl">
+
+  {{ partial('partial-banner') }}
+
+  {{ partial('partial-categorypage') }}
+
+  {{ partial('partial-featured-sale') }}
+
+
+</div>

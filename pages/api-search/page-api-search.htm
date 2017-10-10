@@ -1,0 +1,12 @@
+---
+description: 'Used to retrieve lists of products filtered to search results.'
+action: 'shop:search'
+template: json-api
+protocol: all
+published: true
+name: 'Search API'
+url: /api/search
+---
+{
+  {{ partial("partial-product", { "products": products }) }}
+}

@@ -22,14 +22,14 @@ description: 'List of products'
     <div layout="column" class="theme-column">
       <ul class="theme-list">
         <li class="md-caption">
-          <a href="#" class="no-link-style" ng-class="{ 'filter-active': currentCategory.url_name === activeFilter }" onClick="return false;" ng-click="filters.category.child = null;">All ([[ currentCategory.products_count ]])</a>
+          <a href="#" class="no-link-style" ng-class="{ 'filter-active': currentCategory.url_name === activeFilter }" onClick="return false;" ng-click="filters.category = [currentCategory.url_name]; updateFilter()">All ([[ currentCategory.products_count ]])</a>
         </li>
         <md-divider></md-divider>
         <li class="md-caption" ng-repeat="child in childCategories track by $index">
-          <a href="#" class="no-link-style" ng-class="{ 'filter-active': child.url_name === activeFilter }" onClick="return false;" ng-click="filters.category.child = child.url_name;">[[ child.name ]] ([[ child.products_count ]])</a>
+          <a href="#" class="no-link-style" ng-class="{ 'filter-active': child.url_name === activeFilter }" onClick="return false;" ng-click="filters.category = [currentCategory.url_name, child.url_name]; updateFilter()">[[ child.name ]] ([[ child.products_count ]])</a>
           <ul class="theme-list" ng-if="child.children.length" layout-margin>
             <li ng-repeat="grandChild in child.children track by $index">
-                <a href="#" class="no-link-style" ng-class="{ 'filter-active': grandChild.url_name === activeFilter }" onClick="return false;" ng-click="filters.category.child = grandChild.url_name;">[[ grandChild.name ]] ([[ grandChild.products_count ]])</a>
+                <a href="#" class="no-link-style" ng-class="{ 'filter-active': grandChild.url_name === activeFilter }" onClick="return false;" ng-click="filters.category = [currentCategory.url_name, child.url_name, grandChild.url_name]; updateFilter()">[[ grandChild.name ]] ([[ grandChild.products_count ]])</a>
             </li>
           </ul>
         </li>

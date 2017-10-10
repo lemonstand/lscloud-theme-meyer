@@ -7,28 +7,6 @@ published: true
 name: Home
 url: /
 ---
-
-<script type="text/javascript">
-  var products = {
-    "products": [
-      {{ partial("partial-product", { "products": products }) }}
-    ]
-  };
-  var featuredProducts = 
-  {% set featuredCollection = 'featured'|collection.products %}
-  {% if not featuredCollection %}
-    {% set featuredCollection = products %}
-  {% endif %}
-  {% paginate featuredCollection by 10 %}
-    {
-      "products": [
-        {{ partial("partial-product", { "products": pagination.items }) }}
-      ]
-    }
-  {% endpaginate %}
-
-</script>
-
 <div ng-controller="HomeCtrl">
 
     {{ partial('partial-banner') }}
@@ -81,7 +59,7 @@ url: /
               <h2 class="ls-heading">[[ category.name ]]</h2>
             </md-grid-tile-header>
             <md-grid-tile-footer>
-              <md-button ng-href="categories/[[ category.url_name ]]" class="md-lowercase md-body-1 no-margin-left">
+              <md-button ng-href="products#/[[ category.url_name ]]" class="md-lowercase md-body-1 no-margin-left">
                 View Collection
               </md-button>
             </md-grid-tile-footer>
@@ -113,7 +91,7 @@ url: /
       <h1 class="ls-heading text-center padding-y-large">Blog</h1>
 
       <div layout="row" layout-align="start start" class="card-carousel">
-        <div ng-repeat="post in $theme.blog | orderBy:'-publish_date' | limitTo:blogPostLimit track by $index" class="card-carousel-card" flex>
+        <div ng-repeat="post in blogPosts | orderBy:'-publish_date' | limitTo:blogPostLimit track by $index" class="card-carousel-card" flex>
           {{ partial('partial-blog-card') }}
         </div>
       </div>

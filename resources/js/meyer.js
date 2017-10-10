@@ -104,7 +104,7 @@ angular
  * Controller of the lsAngularApp
  */
 angular.module('lsAngularApp')
-  .controller('HomeCtrl', function ($scope,ThemeService, CategoryService, ProductService,$timeout) {
+  .controller('HomeCtrl', function ($scope,ThemeService, CategoryService, ProductService, BlogService, $timeout) {
 
     //variables
     $scope.productListLimit = 5;
@@ -120,18 +120,18 @@ angular.module('lsAngularApp')
 
     CategoryService.all().then(function(results){
       angular.forEach(results.data.categories, function(category){
-        $timeout(function(){
-          $scope.categories.push(category);
-        },100);
+        $scope.categories.push(category);
       });
     });
 
     ProductService.featured().then(function(results){
       angular.forEach(results.data.products, function(product){
-        $timeout(function(){
-          $scope.productList.push(product);
-        },100);
+        $scope.productList.push(product);
       });
+    });
+
+    BlogService.all().then(function(results) {
+      $scope.blogPosts = results.data.blog;
     });
   });
 
@@ -145,7 +145,7 @@ angular.module('lsAngularApp')
   */
 
 angular.module('lsAngularApp')
-  .controller('NavCtrl', function ($rootScope,$scope,$filter,CartService,ProductService,CategoryService,$q,$timeout,$mdSidenav) {
+  .controller('NavCtrl', function ($rootScope,$scope,$filter,CartService,CategoryService,$q,$timeout,$mdSidenav, $http, LEMONSTAND) {
 
       //display the current nav item as 'active'
       var getCurrentNavItem = function(){
@@ -231,19 +231,13 @@ angular.module('lsAngularApp')
         });
       };
 
-      ProductService.all().then(function(results){
-        $scope.products = results.data.products;
-      });
-
       $scope.searchText = '';
 
       $scope.querySearch = function(query) {
-        var deferred = $q.defer();
-        var results = $filter('filter')( $scope.products, { 'name':  query } );
-        $timeout(function(){
-          deferred.resolve(results);
-        },Math.random() * 1000, false); //simulate a query loading time
-        return deferred.promise;
+        return $http.get(
+	  LEMONSTAND.SEARCH,
+	  {cache: true, params: {query: query}}).then(
+	  function(result) { return result.data.products; });
       };
 
       $scope.removeCartItem = function(e) {
@@ -287,7 +281,8 @@ angular.module('lsAngularApp')
       FEATURED: resource + '/products/featured/',
       CATEGORIES: resource + '/categories/',
       THEME: resource + '/theme/',
-      BLOG: resource + '/blog/'
+      BLOG: resource + '/blog/',
+      SEARCH: resource + '/search'
     };
   })());
 
@@ -313,7 +308,7 @@ angular.module('lsAngularApp')
 angular.module('lsAngularApp')
   .service('ThemeService', function ($http, $q, LEMONSTAND) {
     this.get = function(){
-      return $http.get(LEMONSTAND.THEME);
+      return $http.get(LEMONSTAND.THEME, {cache: true});
     };
   });
 
@@ -378,19 +373,24 @@ angular.module('lsAngularApp')
         return deferred.promise;
       }
       else {
-        return $http.get(LEMONSTAND.PRODUCTS);
+        return $http.get(LEMONSTAND.PRODUCTS, {cache: true});
       }
     };
 
-    this.category = function(){
-      if ( typeof categoryProducts !== 'undefined' ){
-        var deferred = $q.defer();
-        var results = { data: categoryProducts };
-        deferred.resolve(results);
-        return deferred.promise;
-      }
-      else {
-        return $http.get(LEMONSTAND.PRODUCTS);
+    this.category = function(category, start, length, filters){
+      var params = {
+        start: start,
+        length: length,
+        search: filters.search,
+        price: filters.price,
+        sale: filters.sale,
+        brand: filters.brand}
+      if(category) {
+        return $http.get(LEMONSTAND.CATEGORIES + category,
+          {cache: true, params: params});
+      } else {
+        return $http.get(LEMONSTAND.PRODUCTS,
+          {cache: true, params: params});
       }
     };
 
@@ -407,7 +407,7 @@ angular.module('lsAngularApp')
       }
       else {
         page = angular.isUndefined(page) ? 1 : page;
-        return $http.get(LEMONSTAND.FEATURED + page);
+        return $http.get(LEMONSTAND.FEATURED + page, {cache: true});
       }
     };
 
@@ -581,45 +581,35 @@ angular.module('lsAngularApp')
  * Controller of the lsAngularApp
  */
 angular.module('lsAngularApp')
-  .controller('CategoriesCtrl', function ($scope,CategoryService,$filter,$timeout,ProductService) {
-    var browsing = false;
-    var windowParams = {};
-    if (window.location.search) {
-        var parts = window.location.search.substring(1).split('&');
-        for (var i = 0; i < parts.length; i++) {
-            var nv = parts[i].split('=');
-            if (!nv[0]) continue;
-            windowParams[nv[0]] = nv[1] || true;
-        }
-    }
-    $route.current.params.category = !angular.isUndefined( windowParams.category ) ? windowParams.category : null;
-    $route.current.params.brand = !angular.isUndefined( windowParams.brand ) ? windowParams.brand : null;
-    $scope.productsLoading = true;
+  .controller('CategoriesCtrl', function ($scope,CategoryService,$filter,$timeout,ProductService,$location) {
 
+    $scope.productsLoading = true;
     /**
       Set the product list limit on load
-      # Get from localstorage if it exists; if not, default is 6
+      # Get from localstorage if it exists; if not, default is 5
       # On load, paginate all of that category's items
      */
-    $scope.productListLimit = Number($scope.$ls.productPageListLimit ? $scope.$ls.productPageListLimit : 6);
+    $scope.productListLimit = Number($scope.$ls.productPageListLimit ? $scope.$ls.productPageListLimit : 5);
     $scope.setProductLimit = function(int){
       $scope.productListLimit = int;
       $scope.$ls.productPageListLimit = int;
     };
 
+    var params = $location.search();
+    var paramOr = function(name, alt) {
+      return params.hasOwnProperty(name) ? params[name] : alt;
+    }
     $scope.filters = {
-      category: {
-        parent: $route.current.params.parentCategory,
-        child: !angular.isUndefined($route.current.params.category) ? $route.current.params.category : null
-      },
-      price: null,
-      brand: $route.current.params.brand ? $route.current.params.brand : null,
-      search: null,
-      sale: false,
+      category: $location.path().split('/').slice(1),
+      price: paramOr('price',null),
+      brand: paramOr('brand',null),
+      search: paramOr('search',null),
+      sale: paramOr('sale',false),
       limit: $scope.productListLimit
     };
 
    $scope.resetFilters = function(){
+      $scope.filters.category = [],
       $scope.filters.price = null;
       $scope.filters.brand = null;
       $scope.displayBrand = null;
@@ -627,22 +617,9 @@ angular.module('lsAngularApp')
       $scope.filters.sale = false;
     }
     
-    $scope.showSaleItems = false;
-    
-    $scope.toggleSaleItems = function() {
-      $scope.filters.price = null;
-      $scope.filters.brand = null;
-      $scope.filters.search = null;
-      $scope.filters.sale = $scope.showSaleItems ? true : false;
-    }
-
     var setProducts = function(results){
       if (results.data.products.length){
         var maxPrice = Math.ceil($filter('orderBy')( results.data.products, 'price', true )[0].price /100)*100;
-        $scope.priceFilter = {
-          max: maxPrice,
-          min: 0
-        };
         $scope.filters.price = maxPrice;
         //add to the `brands` array using the indexOfObject global function
         angular.forEach( results.data.products, function(product) {
@@ -659,10 +636,6 @@ angular.module('lsAngularApp')
       $scope.updateFilter();
     };
 
-    $scope.$watch('filters.brand',function(newBrand,oldBrand){
-      if (newBrand !== oldBrand){ browsing = true; }
-    });
-
     var bannerLoad = function(currentCategory) {
       $scope.title = currentCategory.name;
       $scope.shortDescription = currentCategory.short_description;
@@ -674,146 +647,78 @@ angular.module('lsAngularApp')
       }
     }
 
-    var categoryInit = function(parent,child){
-      $scope.brands = [];
-      if (angular.isUndefined($scope.productCategories)) {
-        getAllCategories(parent);
-      }
-      else {
-        updateProductMenuTile(parent); //fetch and define categories if not done
-      }
-      //update filters
-      $scope.filters.category.parent = parent;
-      $scope.filters.category.child = child;
-      $scope.filters.brand = null;
-      $scope.activeFilter = $scope.filters.category.child ? $scope.filters.category.child : $scope.filters.category.parent;
-    };
-
-    $scope.categoryProducts = [];
-    $scope.getCategoryProducts = function(parent,child){
-      $scope.productsLoading = true;
-      if ( parent === $route.current.params.parentCategory ){
-        CategoryService.get(parent).then(function(results){
-          categoryInit(parent,child);
-          ProductService.category().then(function(categoryResults){
-            setProducts(categoryResults);
-          });
-        });
-      }
-      else {
-        CategoryService.get(parent,true).then(function(results){
-          categoryInit(parent,child);
-          setProducts(results);
-        });
+    var topCategory = function(category) {
+      for(var i = 0; i < $scope.productCategories.length; ++i) {
+        if($scope.productCategories[i].url_name == category) {
+          return $scope.productCategories[i];
+        }
       }
     };
 
-    $scope.getAllProducts = function(){
-      $scope.productsLoading = true;
-      ProductService.all().then(function(results){
-        $scope.brands = [];
-        getAllCategories();
-
-        //update filters
-        $scope.filters.brand = $route.current.params.brand ? $route.current.params.brand : null;
-        $scope.currentCategory = { name: 'Categories' };
-        setProducts(results);
-      });
+    var updateProductMenuTile = function(category){
+      if($scope.productCategories) {
+        $scope.currentCategory = topCategory(category);
+        $scope.childCategories = $scope.currentCategory.children;
+        bannerLoad($scope.currentCategory);
+      }
     };
-
-    if(!angular.isUndefined($scope.filters.category.parent) && $scope.filters.category.parent !== null){
-      $scope.getCategoryProducts($scope.filters.category.parent, $scope.filters.category.child);
-    }
-    else {
-      $scope.getAllProducts();
-    }
 
     $scope.updateFilter = function(){
-      var products = $scope.categoryProducts;
-
-      //filter by search term
-      if ($scope.filters.search){
-        products = $filter('filter')( products, { 'name': $scope.filters.search });
+      $scope.activeFilter = $scope.filters.category.length ? $scope.filters.category[$scope.filters.category.length-1] : null;
+      $location.path($scope.filters.category.join('/'));
+      $scope.searchQuery = $scope.filters.search;
+      $location.search('search', $scope.filters.search);
+      $location.search('price', $scope.filters.price);
+      $location.search('sale', $scope.filters.sale);
+      $location.search('brand', $scope.filters.brand);
+      if($scope.filters.category.length) {
+        updateProductMenuTile($scope.filters.category[0]);
       }
-
-      //filter by category
-      var category = $scope.filters.category.child ? $scope.filters.category.child : $scope.filters.category.parent;
-      if (category){
-        products = $filter('filter')( products, { 'categories': category } );
-      }
-
-      //filter by price
-      if ($scope.filters.price){
-        products = $filter('priceRange')( products, $scope.filters.price );
-      }
-
-      //filter by brand
-      if ( $scope.filters.brand ){
-        products = $filter('filter')(products, { 'manufacturer_url': $scope.filters.brand }, true);
-      }
-
-      //filter by sale items
-      if ($scope.filters.sale ){
-        products = $filter('filter')(products, { 'on_sale': true }, true);
-      }
-
-      //paginate filtered products
-      $scope.pagination(products);
-      $scope.filteredProducts = products;
+      $scope.goToPage(1);
     };
 
-    $scope.$watch('filters', function(newFilters,oldFilters){
-      if (newFilters !== oldFilters){
-        $scope.activeFilter = $scope.filters.category.child ? $scope.filters.category.child : $scope.filters.category.parent;
-        $scope.updateFilter();
-      }
+    $scope.$watch('filters', function(){
+      $scope.updateFilter();
     },true);
 
-    var updateProductMenuTile = function(parent){
-      $scope.currentCategory = $filter('filter')($scope.productCategories, { 'url_name': parent },true)[0];
-      $scope.childCategories = $scope.currentCategory.children;
-      bannerLoad($scope.currentCategory);
-    };
-
-    var getAllCategories = function(parent){
-      //big list of all categories for dropdown menu
+    var getAllCategories = function(){
+      //all top level categories for dropdown menu
       CategoryService.all().then(function(results){
         $scope.productCategories = results.data.categories;
-        if (!angular.isUndefined(parent)){
-          updateProductMenuTile(parent);
-        }
       });
     };
 
-
-    $scope.$watch('productListLimit', function(newVal,oldVal){
-      if (newVal !== oldVal){ $scope.pagination($scope.productList); }
+    $scope.$on('$locationChangeSuccess', function() {
+      $scope.filters.category = $location.path().split('/').slice(1);
     });
 
-    //get the products filtered by category, then paginate them on the front-end
-    $scope.pagination = function(products){
-      var pages = Math.ceil(products.length / $scope.productListLimit); //how many pages?
-      $scope.newHeight(); //sets a min height of the container so it doesn't look weird
-      $scope.pages = new Array(pages);
-      $scope.goToPage(1,products);
-    };
+    $scope.$watch('productListLimit', function(){
+      $scope.goToPage(1);
+    });
 
-    //pagination navigation across the nation
-    $scope.goToPage = function(page,products){
+    $scope.goToPage = function(page){
       $scope.currentPage = page;
       var start = (page - 1) * $scope.productListLimit;
-      var end = ((page - 1) * $scope.productListLimit) + $scope.productListLimit;
-      $scope.productList = [];
-      $timeout(function(){
-        $scope.productsLoading = false;
-        if ($scope.filters.brand){
-          var brandName = $filter('filter')( $scope.brands, { url_name: $scope.filters.brand }, true );
-          $scope.displayBrand = brandName.length ? brandName[0].name : null;
+      ProductService.category($scope.filters.category.join('/'),start,$scope.productListLimit,$scope.filters).then(function(results){
+        $scope.productList = results.data.products;
+        $scope.numProducts = results.data.count;
+        if(!$scope.filters.price || !$scope.priceFilter || $scope.filters.price == $scope.priceFilter.max) {
+          $scope.filters.price = results.data.max_price;
         }
-        $scope.productList = products.slice(start,end);
-      },400);
+        $scope.priceFilter = {
+          max: results.data.max_price,
+          min: 0
+        };
+	$scope.brands = results.data.brands;
+        $scope.productsLoading = false;
+        $scope.newHeight(); //sets a min height of the container so it doesn't look weird
+        var pages = Math.ceil($scope.numProducts / $scope.productListLimit);
+        $scope.pages = new Array(pages);
+        });
     };
 
+    getAllCategories();
+    $scope.updateFilter();
   });
 
 
