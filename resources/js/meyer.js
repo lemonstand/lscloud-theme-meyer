@@ -843,7 +843,7 @@ angular.module('lsAngularApp')
     
     $scope.options = {};
     
-    $scope.changeOption = function(id , key , value){
+    $scope.changeOption = function(id , key){
      var decodedOptions = [];
      var queryString = location.search.substr(1).split('&');
  
@@ -852,7 +852,7 @@ angular.module('lsAngularApp')
     
             angular.forEach(queryString, function(arr, idx){
                var urlParam = arr.substr(0,arr.indexOf('='))
-               var urlParamIndex = urlParam.match(/\d/g).join();
+               var urlParamIndex = urlParam.match(/\d+/g).join();
                var paramVal = getUrlParameter(urlParam);
                decodedOptions.push([urlParamIndex , paramVal, value]);
             });
@@ -872,16 +872,25 @@ angular.module('lsAngularApp')
     };
     
 
-    $scope.updateSlug = function(key, id, value){
+    $scope.updateSlug = function(value, key){
         
         var baseProductUrl = $window.location.href.split("?")[0];
         var optionString = "";
-
+        var optionCount = 0;
         angular.forEach($scope.options, function(v, k, context){
-        optionString+='options['+id+']='+ key;
-        })
+            optionCount++;
+            if (k == key) {
+                optionString += 'options['+key+']='+ value;
+            } else {
+                optionString += 'options['+k+']='+ v;
+            }
+            
+            if (optionCount < Object.keys(context).length) {
+                optionString += '&';
+            }
+        });
         $timeout(function(){
-             $window.location.href = baseProductUrl + '?'+ optionString;
+             $window.location.href = baseProductUrl + '?' + optionString;
         },100);
     }
     

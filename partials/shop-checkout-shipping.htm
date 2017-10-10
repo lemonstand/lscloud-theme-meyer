@@ -66,9 +66,11 @@ description: '3 page checkout shipping info.'
   </md-input-container>
 </div>
 
-<div class="validation-row">
-    <input name="shippingInfo[countryId]" ng-model="shipping.country" class="input-hidden" type="text">
-    <span class="error"></span>
+<div class="validation-row" layout="row">
+    <input flex name="shippingInfo[countryId]" ng-model="shipping.country" class="input-hidden" type="text">
+    <span flex class="error"></span>
+    <input flex name="shippingInfo[stateId]" ng-model="shipping.state" class="input-hidden"  type="text">
+    <span flex class="error"></span>
 </div>
 
 <div layout="row">

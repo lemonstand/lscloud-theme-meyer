@@ -63,9 +63,11 @@ description: '3 page checkout billing info'
   </md-input-container>
 </div>
 
-<div class="validation-row">
-    <input name="billingInfo[countryId]" ng-model="billing.country" class="input-hidden"  type="text">
-    <span class="error"></span>
+<div class="validation-row" layout="row">
+    <input flex name="billingInfo[countryId]" ng-model="billing.country" class="input-hidden" type="text">
+    <span flex class="error"></span>
+    <input flex name="billingInfo[stateId]" ng-model="billing.state" class="input-hidden"  type="text">
+    <span flex class="error"></span>
 </div>
 
 <div layout="row">
