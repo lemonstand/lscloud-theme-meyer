@@ -845,33 +845,30 @@ angular.module('lsAngularApp')
     $scope.options = {};
     
     $scope.changeOption = function(id , key , value){
-     var decodedOptions = [];
-     var queryString = location.search.substr(1).split('&');
+      var decodedOptions = [];
+      var queryString = location.search.substr(1).split('&');
  
-      $timeout(function(){
-        if(queryString[0].length > 0){
-    
-            angular.forEach(queryString, function(arr, idx){
-               var urlParam = arr.substr(0,arr.indexOf('='))
-               var urlParamIndex = urlParam.match(/\d/g).join();
-               var paramVal = getUrlParameter(urlParam);
-               decodedOptions.push([urlParamIndex , paramVal, value]);
-            });
+      if(queryString[0].length > 0) {
 
-            angular.forEach(decodedOptions, function(val , id){
-                $scope.options[val[0]] = val[1];
-                var selectableOption = angular.element('#selectable-option-'+ val[1] );
-                angular.element('#selected-option-'+val[0] ).text(selectableOption.text());
-            });
- 
-        }else{
-         $scope.options[id] = key;
-         var selectableOption = angular.element('#selectable-option-'+key );
-         angular.element('#selected-option-'+id ).text(selectableOption.text());
-        }
-      },50);
-    };
-    
+        angular.forEach(queryString, function(arr, idx){
+          var urlParam = arr.substr(0,arr.indexOf('='))
+          var urlParamIndex = urlParam.match(/\d/g).join();
+          var paramVal = getUrlParameter(urlParam);
+          decodedOptions.push([urlParamIndex , paramVal, value]);
+          });
+
+        angular.forEach(decodedOptions, function(val , id){
+          $scope.options[val[0]] = val[1];
+          var selectableOption = angular.element('#selectable-option-'+ val[1] );
+          angular.element('#selected-option-'+val[0] ).text(selectableOption.text());
+          });
+
+      } else {
+        $scope.options[id] = key;
+        var selectableOption = angular.element('#selectable-option-'+key );
+        angular.element('#selected-option-'+id ).text(selectableOption.text());
+      }
+    }
 
     $scope.updateSlug = function(key, id, value){
         
