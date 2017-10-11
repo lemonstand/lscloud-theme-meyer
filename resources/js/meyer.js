@@ -844,43 +844,41 @@ angular.module('lsAngularApp')
     
     $scope.options = {};
     
-    $scope.changeOption = function(id , key , value){
-      var decodedOptions = [];
+    $scope.changeOption = function(id, val){
       var queryString = location.search.substr(1).split('&');
  
-      if(queryString[0].length > 0) {
+      if(queryString[0].length < 1) {
+        queryString = [];
+      }
 
-        angular.forEach(queryString, function(arr, idx){
-          var urlParam = arr.substr(0,arr.indexOf('='))
-          var urlParamIndex = urlParam.match(/\d/g).join();
-          var paramVal = getUrlParameter(urlParam);
-          decodedOptions.push([urlParamIndex , paramVal, value]);
-          });
-
-        angular.forEach(decodedOptions, function(val , id){
-          $scope.options[val[0]] = val[1];
-          var selectableOption = angular.element('#selectable-option-'+ val[1] );
-          angular.element('#selected-option-'+val[0] ).text(selectableOption.text());
-          });
-
-      } else {
-        $scope.options[id] = key;
-        var selectableOption = angular.element('#selectable-option-'+key );
+      var displayOption = function(id, val) {
+        var selectableOption = angular.element('#selectable-option-'+val );
         angular.element('#selected-option-'+id ).text(selectableOption.text());
       }
+
+      angular.forEach(queryString, function(param){
+        var param_parts = param.split('=');
+        var option = {
+            id: Number(param_parts[0].replace('options[', '').replace(']', '')),
+            val: decodeURIComponent(param_parts[1].replace(/\+/g, ' '))
+          };
+        displayOption(option.id, option.val);
+        $scope.options[option.id] = option.val;
+      });
+
+      $scope.options[id] = val;
+      displayOption(id, val);
     }
 
-    $scope.updateSlug = function(key, id, value){
+    $scope.updateSlug = function(){
         
         var baseProductUrl = $window.location.href.split("?")[0];
-        var optionString = "";
+        var stringedOptions = [];
 
-        angular.forEach($scope.options, function(v, k, context){
-        optionString+='options['+id+']='+ key;
+        angular.forEach($scope.options, function(val, id){
+          stringedOptions.push('options['+id+']=' + val);
         })
-        $timeout(function(){
-             $window.location.href = baseProductUrl + '?'+ optionString;
-        },100);
+        $window.location.href = baseProductUrl + '?' + stringedOptions.join('&');
     }
     
     angular.forEach(reviews, function(review, index){
