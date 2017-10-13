@@ -256,8 +256,8 @@ angular.module('lsAngularApp')
       };
 
     });
-    
-    
+
+
 angular.module('lsAngularApp')
   .controller('footerNavCtrl', function ($scope) {
       $scope.footerCmsNav = angular.element('#cms-footer').find('a').map(function(idx, el ){
@@ -616,7 +616,7 @@ angular.module('lsAngularApp')
       $scope.filters.search = null;
       $scope.filters.sale = false;
     }
-    
+
     var setProducts = function(results){
       if (results.data.products.length){
         var maxPrice = Math.ceil($filter('orderBy')( results.data.products, 'price', true )[0].price /100)*100;
@@ -841,7 +841,7 @@ angular.module('lsAngularApp')
         var results = regex.exec(location.search);
         return results === null ? '' : decodeURIComponent(results[1].replace(/\+/g, ' '));
     };
-    
+
     $scope.options = {};
     
     $scope.changeOption = function(id, val){
@@ -880,7 +880,7 @@ angular.module('lsAngularApp')
         })
         $window.location.href = baseProductUrl + '?' + stringedOptions.join('&');
     }
-    
+
     angular.forEach(reviews, function(review, index){
       //convert the 'n/5' rating to a number
       var rating = review.item_rating.split('/');
@@ -948,7 +948,7 @@ angular.module('lsAngularApp')
               //pass to front-end archive list
               if ( $scope.categories.indexOf(category) === -1 ){
                 $scope.categories.push(category);
-               
+
               }
             })
         });
@@ -988,10 +988,10 @@ angular.module('lsAngularApp')
             angular.element('#select_shipping_continue').click();
         },250);
     };
-  
+
 
     $scope.isAutoUpdatedPayment = false;
-    
+
     $scope.autoUpdateSinglePaymentMethod = function() {
         if(!$scope.isAutoUpdatedPayment){
             $timeout(function() {
@@ -1004,7 +1004,7 @@ angular.module('lsAngularApp')
         }
     }
 
-    
+
     $scope.isUpdateCoupon = false;
 
     $scope.nextStep = function(){
@@ -1018,7 +1018,7 @@ angular.module('lsAngularApp')
         $(window).off('onAfterAjaxUpdate onAjaxFailure');
         $rootScope.hideLoadingScreen();
       });
-      
+
     }
 
     //nothing to see here, move along
@@ -1029,7 +1029,7 @@ angular.module('lsAngularApp')
     $scope.getValue = function(model,elem){
       $scope[model+'_name'] = $(elem+ ' option:selected').text().trim();
     };
-    
+
     $scope.onCountryChange =function() {
         $timeout(function() {
             $scope.billing.state = "";
@@ -1037,21 +1037,21 @@ angular.module('lsAngularApp')
                 $scope.billing.state = "";
             }else{
                 $scope.billing.state = "";
-            } 
+            }
             $scope.onStateChange();
             $scope.$apply();
         }, 500)
     };
-    
+
     $scope.stateTextValue = "";
-    
+
     $scope.onStateChange = function(){
       $timeout(function() {
           $scope.stateTextValue = angular.element('#billing_state option:selected').text().trim();
           $scope.$apply();
       });
     };
-    
+
     $scope.initBillingIsShipping = function() {
         $timeout(function() {
             $scope.shippingIsBilling =  $scope.billing.street === $scope.shipping.street;
@@ -1059,24 +1059,24 @@ angular.module('lsAngularApp')
             $scope.shipping = $scope.billing;
         }, 1000);
     }
-    
+
     $scope.$watch('shippingIsBilling', function(newval, oldval) {
-        
+
         $scope.onStateChange();
-        
+
         if(newval){
              $scope.shipping = $scope.billing;
         }else{
              $scope.shipping = {};
         }
     })
-    
+
     function htmlDecode(input){
       var e = document.createElement('div');
       e.innerHTML = input;
       return e.childNodes.length === 0 ? "" : e.childNodes[0].nodeValue;
     }
-    
+
     $scope.parseTrackingCodes = function(orderid){
         angular.forEach(trackingCodes, function(code){
             if(code[0] == orderid){
@@ -1138,7 +1138,7 @@ angular.module('lsAngularApp')
                     var e = $(attrs.compileOnClick).contents();
                     $elem.empty().append($compile(e)(scope));
                   });
-                }  
+                }
               }
               $(window).off('onAfterAjaxUpdate onAjaxFailure');
               $rootScope.hideLoadingScreen();

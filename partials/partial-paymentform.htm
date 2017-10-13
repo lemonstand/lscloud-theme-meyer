@@ -40,7 +40,7 @@ description: 'Displays correct payment form based on customers selection.'
             },
             paymentMethod
         ) }}
-    {% elseif paymentMethod.isCustom() %}
+    {% elseif paymentMethod.isAlternative() %}
         {% set name = paymentMethod.getFrontendPartialName() %}
         {{ partial(name, {paymentMethod: paymentMethod, payment: payment}) }}
     {% endif %}
