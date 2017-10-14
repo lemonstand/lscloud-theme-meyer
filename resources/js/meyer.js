@@ -842,36 +842,37 @@ angular.module('lsAngularApp')
         return results === null ? '' : decodeURIComponent(results[1].replace(/\+/g, ' '));
     };
 
-    $scope.options = {};
-    
-    $scope.changeOption = function(id, val){
+    var displayOption = function(id, val) {
+      var selectableOption = angular.element('#selectable-option-'+val );
+      //angular.element('#selected-option-'+id ).text(selectableOption.text());
+    }
+
+    var loadOptionsFromUrl = function() {
+      $scope.options = {};
       var queryString = location.search.substr(1).split('&');
- 
+
       if(queryString[0].length < 1) {
         queryString = [];
-      }
-
-      var displayOption = function(id, val) {
-        var selectableOption = angular.element('#selectable-option-'+val );
-        angular.element('#selected-option-'+id ).text(selectableOption.text());
       }
 
       angular.forEach(queryString, function(param){
         var param_parts = param.split('=');
         var option = {
-            id: Number(param_parts[0].replace('options[', '').replace(']', '')),
-            val: decodeURIComponent(param_parts[1].replace(/\+/g, ' '))
-          };
+          id: Number(param_parts[0].replace('options[', '').replace(']', '')),
+          val: decodeURIComponent(param_parts[1].replace(/\+/g, ' '))
+        };
         displayOption(option.id, option.val);
         $scope.options[option.id] = option.val;
       });
+    }
+    loadOptionsFromUrl();
 
+    $scope.changeOption = function(id, val){
       $scope.options[id] = val;
       displayOption(id, val);
     }
 
     $scope.updateSlug = function(){
-        
         var baseProductUrl = $window.location.href.split("?")[0];
         var stringedOptions = [];
 

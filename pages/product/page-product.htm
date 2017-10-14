@@ -116,9 +116,6 @@ url: '/product/:urlName'
                       {% for key, value in option.values %}
                       <md-menu-item>
                         <md-button
-                        {% if loop.first %}
-                          ng-init="changeOption('{{option.id}}', '{{key}}'); viewOption['{{ option.id }}'] = '{{ value }}';"
-                        {% endif %}
                          ng-click="changeOption('{{option.id}}','{{ key }}'); updateSlug(); viewOption['{{ option.id }}'] = '{{ value }}'; $root.showLoadingScreen();">
                           <span id="selectable-option-{{key}}">{{ value }}</span>
                         </md-button>
