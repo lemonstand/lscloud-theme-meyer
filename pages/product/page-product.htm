@@ -109,7 +109,7 @@ url: '/product/:urlName'
                   <md-menu md-position-mode="target-right target" style="margin-bottom:5px;">
                     <md-button aria-label="Product {{option.name}}" ng-click="$mdOpenMenu($event)" class="ls-subheading">
                       <strong>{{ option.name }}</strong>
-                      <span class="selected-value">{{ option.values[postedOptions[option.id]] }}</span>
+                      <span class="selected-value">{{ option.values[postedOptions[option.id]] | default(option.values[(option.values | keys)[0]]) }}</span>
                       <md-icon>arrow_drop_down</md-icon>
                     </md-button>
                     <md-menu-content width="2">
