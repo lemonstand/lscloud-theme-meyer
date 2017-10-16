@@ -363,7 +363,12 @@ url: '/product/:urlName'
       </div>
     </div>
     {% for index, option in product.options %}
-      <input type="hidden" id="{{ 'option-'~index }}" ng-model="options['{{ option.id }}']" watch-change name="options[{{ option.id }}]" value="{{ postedOptions[option.id] }}">
+      <input 
+        type="hidden"
+        id="{{ 'option-'~index }}"
+        ng-model="options['{{ option.id }}']"
+        watch-change name="options[{{ option.id }}]"
+        value="{{ postedOptions[option.id] | default(option.values | keys[0]) }}">
     {% endfor %}
   {{ close_form() }}
 </div>
