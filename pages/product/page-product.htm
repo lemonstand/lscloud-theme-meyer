@@ -108,15 +108,15 @@ url: '/product/:urlName'
                   {% for option in product.options %}
                   <md-menu md-position-mode="target-right target" style="margin-bottom:5px;">
                     <md-button aria-label="Product {{option.name}}" ng-click="$mdOpenMenu($event)" class="ls-subheading">
-                      <strong>{{ option.name }}[[ viewOption['{{ option.id }}'] ? ':'  : '' ]]</strong><span class="selected-value" id="selected-option-{{option.id}}"></span>
-                      {#<span class="selected-value">[[ viewOption['{{ option.id }}'] | lowercase ]]</span>#}
+                      <strong>{{ option.name }}</strong>
+                      <span class="selected-value">{{ option.values[postedOptions[option.id]] }}</span>
                       <md-icon>arrow_drop_down</md-icon>
                     </md-button>
                     <md-menu-content width="2">
                       {% for key, value in option.values %}
                       <md-menu-item>
                         <md-button
-                         ng-click="changeOption('{{option.id}}','{{ key }}'); updateSlug(); viewOption['{{ option.id }}'] = '{{ value }}'; $root.showLoadingScreen();">
+                         ng-click="options['{{option.id}}'] = '{{ key }}'; updateSlug(); $root.showLoadingScreen();">
                           <span id="selectable-option-{{key}}">{{ value }}</span>
                         </md-button>
                       </md-menu-item>

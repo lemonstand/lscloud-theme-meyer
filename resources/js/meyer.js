@@ -835,18 +835,6 @@ angular.module('lsAngularApp')
       $scope.carouselIndex = index;
     };
 
-    function getUrlParameter(name) {
-        name = name.replace(/[\[]/, '\\[').replace(/[\]]/, '\\]');
-        var regex = new RegExp('[\\?&]' + name + '=([^&#]*)');
-        var results = regex.exec(location.search);
-        return results === null ? '' : decodeURIComponent(results[1].replace(/\+/g, ' '));
-    };
-
-    var displayOption = function(id, val) {
-      var selectableOption = angular.element('#selectable-option-'+val );
-      //angular.element('#selected-option-'+id ).text(selectableOption.text());
-    }
-
     var loadOptionsFromUrl = function() {
       $scope.options = {};
       var queryString = location.search.substr(1).split('&');
@@ -861,16 +849,10 @@ angular.module('lsAngularApp')
           id: Number(param_parts[0].replace('options[', '').replace(']', '')),
           val: decodeURIComponent(param_parts[1].replace(/\+/g, ' '))
         };
-        displayOption(option.id, option.val);
         $scope.options[option.id] = option.val;
       });
     }
     loadOptionsFromUrl();
-
-    $scope.changeOption = function(id, val){
-      $scope.options[id] = val;
-      displayOption(id, val);
-    }
 
     $scope.updateSlug = function(){
         var baseProductUrl = $window.location.href.split("?")[0];
