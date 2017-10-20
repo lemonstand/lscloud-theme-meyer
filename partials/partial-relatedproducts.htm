@@ -8,7 +8,7 @@ description: 'Displays related products.'
         <div flex layout="row" layout-align="space-between center" layout-fill class="padding-regular">
           <div layout="row" layout-align="center center" class="on-sale-container">
             <h3 class="ls-subheading text-black letter-spacing-none" >
-              [[ '$' + ({{ related.price }} | trailingZero ) ]]
+              {{ related.price | currency }}
             </h3>
           </div>
         </div>

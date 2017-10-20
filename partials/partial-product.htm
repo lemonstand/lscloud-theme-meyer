@@ -29,6 +29,7 @@ description: 'Product object'
       "description" : {{ product.short_description | escape("html_attr") | json_encode() | raw }},
       "url_name": {{ product.url_name | json_encode() | raw }},
       "price": {{ product.price | json_encode() | raw }},
+      "price_fmt": {{ product.price | currency | json_encode() | raw }},
       "on_sale": {{ product.is_on_sale is same as(1) ? "true" : "false" | json_encode() | raw }},
       "manufacturer": {{ product.manufacturer.name | json_encode() | raw }},
       "manufacturer_url": {{ product.manufacturer.url_name | json_encode() | raw }},
@@ -58,6 +59,7 @@ description: 'Product object'
 ],
 "count": {{ filtered|length | json_encode() | raw }},
 "max_price": {{ max_filtered_price | json_encode() | raw }},
+"max_price_fmt": {{ max_filtered_price | currency | json_encode() | raw }},
 "brands": [
 {% for brand in brands %}
   {
