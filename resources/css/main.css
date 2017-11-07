@@ -689,6 +689,8 @@
   ul.ls-cart li.ls-cart-item div.cart-item-info div.cart-item-text ul.cart-item-variant-list { list-style-type: none; }
   ul.ls-cart li.ls-cart-item div.cart-item-info div.cart-item-text ul li { margin: 4px 0; }
   ul.ls-cart li.ls-cart-item div.cart-item-price p span, ul.ls-cart li.ls-cart-item div.cart-item-text p span { text-decoration: line-through; color:#ED3C3C; }
+  ul.ls-cart h3:nth-child(2) { margin-left: 50px;}
+  ul.ls-cart h3:nth-child(3) { padding-right: 50px;}
   div.coupon-code { word-wrap: break-word; overflow-wrap: break-word; white-space: normal; }
 
   #cart md-input-container:not(md-input-focused) input { min-width:230px; background-color: #fafafa; }
