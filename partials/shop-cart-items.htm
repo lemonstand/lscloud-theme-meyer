@@ -2,14 +2,14 @@
 description: 'Cart item list.'
 ---
 <li layout="row" flex class="ls-cart-heading" hide-xs>
-    <h3 flex="55" class="ls-heading text-grey font-13 letter-spacing-none">Product</h3>
-    <h3 flex="35" class="ls-heading text-grey font-13 letter-spacing-none">QTY</h3>
-    <h3 flex class="ls-heading text-grey font-13 letter-spacing-none">Price</h3>
+    <h3 flex="45" class="ls-heading text-grey font-13 letter-spacing-none">Product</h3>
+    <h3 flex="40" class="ls-heading text-grey font-13 letter-spacing-none">QTY</h3>
+    <h3 flex class="ls-heading text-grey font-13 letter-spacing-none text-right">Price</h3>
   </li>
 
   {% for item in cart.items %}
     <li class="ls-cart-item" layout="row" layout-xs="column" ng-hide="items['{{ item.key }}'].removed">
-      <div class="cart-item-info no-padding-mobile" layout="row" layout-xs="column" flex="40" flex-xs="100">
+      <div class="cart-item-info no-padding-mobile" layout="row" layout-xs="column" flex="45" flex-xs="100">
         <div class="cart-item-image-container" layout="column">
           <img class="cart-item-image" src="{{ item.product.images.first.thumbnail(136, 136) }}" alt="product-image" />
         </div>
@@ -45,7 +45,7 @@ description: 'Cart item list.'
 
         </div>
       </div>
-      <div class="cart-item-qty" layout="row" layout-align="center center" flex="40" flex-xs="100">
+      <div class="cart-item-qty" layout="row" layout-align="center center" flex="45" flex-xs="100">
         <div layout="row" ng-init="items['{{ item.key }}'] = { qty: {{ item.quantity }}, initialQty: {{ item.quantity }}}; " class="order-quantity" layout-align="center center" flex-order-xs="2">
           <a ng-href="#" ng-click="items['{{ item.key }}'].qty = items['{{ item.key }}'].qty - 1 >= 1 ? items['{{ item.key }}'].qty - 1 : 1; $root.showLoadingScreen();" md-ink-ripple class="md-button md-icon-button" compile-on-click="#cart">
             <md-icon>remove</md-icon>
@@ -84,3 +84,6 @@ description: 'Cart item list.'
       </div>
     </li>
   {% endfor %}
+
+
+
