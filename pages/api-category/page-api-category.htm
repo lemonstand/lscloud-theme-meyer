@@ -5,7 +5,7 @@ template: json-api
 protocol: all
 published: true
 name: 'Category API'
-url: '/api/categories/:urlName'
+url: '/api/categories/:urlName@'
 ---
 {
   "name": {{ category.name | json_encode() | raw }},
