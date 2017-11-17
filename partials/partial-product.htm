@@ -14,9 +14,14 @@ description: 'Product object'
   {% if (not param('search') or param('search')|lower in product.name|lower)
       and (not param('sale') or param('sale') != "true" or product.is_on_sale)
       and (not param('brand') or param('brand') == product.manufacturer.id) %}
-    {% set max_filtered_price = max(product.price, max_filtered_price) %}
-    {% if not param('price') or param('price') >= product.price %}
-      {% set filtered = filtered|merge([product]) %}
+    {% if not product.track_inventory
+        or not product.hide_out_of_stock
+        or product.in_stock_amount > 0
+        or product.allow_preorder %}
+      {% set max_filtered_price = max(product.price, max_filtered_price) %}
+      {% if not param('price') or param('price') >= product.price %}
+        {% set filtered = filtered|merge([product]) %}
+      {% endif %}
     {% endif %}
   {% endif %}
 {% endfor %}
