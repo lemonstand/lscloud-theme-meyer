@@ -12,7 +12,7 @@ customFields:
     megaMenuAdTile: { type: checkbox, title: 'Show featured ad tile in products dropdown menu', default: '1' }
     featuredAdPanel: { type: checkbox, title: 'Show featured ad panel on the home page', default: '1' }
     showUpsellCrossSell: { type: checkbox, title: 'Show upsell or Cross sell Items in the cart', default: '1' }
-    faviconImage: { type: image, title: 'Favicon Image', default: '', comment: 'Upload your favicon! Recommended dimmensions of 16px by 16px. You must use a .png file.' }
+    faviconImage: { type: image, title: 'Favicon Image', default: '@images/favicon.png', comment: 'Upload your favicon! Recommended dimmensions of 16px by 16px. You must use a .png file.' }
     logoImage: { type: image, title: 'Logo Image', default: '@images/meyer-logo.png', comment: 'Upload your logo! Recommended height of 80px.' }
     logoImageWhite: { type: image, title: 'Logo Image - white version', default: '@images/meyer-logo-white.png', comment: 'Upload your logo, but in white! Recommended height of 80px.' }
     bannerImage: { type: image, title: 'Banner Image', default: '@images/meyer-hero.jpg', comment: 'Upload your own homepage banner! Recommended dimensions of 1920px by 1080px.' }
@@ -26,7 +26,6 @@ customFields:
     headerBackgroundColor: { type: color, title: 'Header/footer background color', default: '#FFFFFF', comment: 'Color used for the header and footer background.' }
     headerTextColor: { type: color, title: 'Header/footer text color', default: '#212121', comment: 'Color used for all header and footer text.' }
     storeTitle: { type: text, title: 'Title of your Store', default: Meyer }
-    bannerTitleText: { type: text, title: 'Banner Title Text', default: Meyer, comment: 'Text used for the homepage banner title.' }
     bannerSentenceText: { type: text, title: 'Banner Sentence Text', default: 'A responsive LemonStand theme', comment: 'Text used for the homepage banner sentence.' }
     signUpText: { type: text, title: 'Newsletter sign up text', default: 'Sign up for our newsletter.', comment: 'An incentive for people to sign up for your newsletter.' }
     storeReturnPolicy: { type: text, title: 'Store return policy', default: 'Up to 30 days from purchase.  Must not be opened or damaged.', comment: 'Let people know if they can return items after purchase.' }
@@ -37,7 +36,6 @@ customFields:
     featuredAdPanelLinkText: { type: text, title: 'Featured ad link text for the home page', default: 'View collection', comment: 'Eg. "View collection"' }
     featuredAdPanelTitle: { type: text, title: 'Title for the featured ad panel on the home page', default: 'Summer sale', comment: 'What are you trying to advertise?' }
     featuredAdPanelText: { type: text, title: 'Description for the featured ad panel on the home page', default: 'Check out this awesome sale!', comment: 'Let people know why they would want to click the link.' }
-    storeLatLng: { type: text, title: 'Google Maps Latitude and Longitude', default: '49.2838684,-123.1146013' }
     pinterestUrl: { type: text, title: 'Pinterest URL', default: 'http://pinterest.com/lemonstand', comment: 'If you don''t have Pinterest enter "none"' }
     facebookUrl: { type: text, title: 'Facebook URL', default: 'http://facebook.com/lemonstand', comment: 'If you don''t have Facebook enter "none"' }
     twitterUrl: { type: text, title: 'Twitter username (without @)', default: lemonstand, comment: 'If you don''t have Twitter enter "none"' }
@@ -47,7 +45,6 @@ customFields:
     headingFont: { type: dropdown, title: 'Heading font', comment: 'Used for headings.', default: 'Montserrat, sans-serif', options: { 'Montserrat, sans-serif': Montserrat, 'Roboto, sans-serif': Roboto, 'Open Sans, sans-serif': 'Open Sans', 'PT Serif, serif': 'PT Serif', 'Alex Brush, cursive': 'Alex Brush', 'Merriweather, serif': Merriweather, 'Oswald, sans-serif': Oswald, 'Lato, sans-serif': Lato, 'Droid Sans, sans-serif': 'Droid Sans', 'Source Sans Pro, sans-serif': 'Source Sans Pro', 'Arvo, serif': Arvo, 'Arial, sans-serif': Arial, 'Georgia, serif': Georgia } }
     bodyFont: { type: dropdown, title: 'Body font', comment: 'Used for all other text.', default: 'Roboto, sans-serif', options: { 'Montserrat, sans-serif': Montserrat, 'Roboto, sans-serif': Roboto, 'Open Sans, sans-serif': 'Open Sans', 'PT Serif, serif': 'PT Serif', 'Alex Brush, cursive': 'Alex Brush', 'Merriweather, serif': Merriweather, 'Oswald, sans-serif': Oswald, 'Lato, sans-serif': Lato, 'Droid Sans, sans-serif': 'Droid Sans', 'Source Sans Pro, sans-serif': 'Source Sans Pro', 'Arvo, serif': Arvo, 'Arial, sans-serif': Arial, 'Georgia, serif': Georgia } }
     buttonShape: { type: dropdown, title: 'Button shape', comment: 'The default button shape.', default: 0px, options: { 0px: Sharp, 3px: 'Slightly rounded', 25px: Pill } }
-    bannerButtonStyle: { type: dropdown, title: 'Banner button style', comment: 'The style for the button on the hero banner.', default: solid, options: { solid: Solid, outline: 'Empty, with outline' } }
     productTileOverlay: { type: dropdown, title: 'Product tile text background', comment: 'The background behind text on each product tile.', default: 'rgba(255,255,255,0.75)', options: { transparent: None, 'rgba(0,0,0,0.5)': 'Transparent black', 'rgba(255,255,255,0.75)': 'Transparent white' } }
     categoryTileOverlay: { type: dropdown, title: 'Category tile text background', comment: 'The background behind text on each category tile on homepage.', default: 'rgba(0,0,0,0.5)', options: { transparent: None, 'rgba(0,0,0,0.5)': 'Transparent black', 'rgba(255,255,255,0.75)': 'Transparent white' } }
 ---
