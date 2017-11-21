@@ -25,7 +25,7 @@ description: 'Item list for receipt page and order page.'
           <strong hide show-xs>unit price: </strong><i>{% if item.product.onSale() %}<s class="discount">{{ item.product.fullPrice()|currency }}</s>{% endif %} {{ item.original_price|currency }}</i>
         </td>
         <td class="padding-x-small text-center" colspan="2">
-          <strong hide show-xs>total: </strong><i>{{ item.total()|currency }}</i>
+          <strong hide show-xs>Total: </strong><i>{{ item.total()|currency }}</i>
         </td>
       </tr>
   

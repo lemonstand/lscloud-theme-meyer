@@ -19,27 +19,35 @@ description: 'Totals for receipt page and order page.'
     {% set discount = invoice.total_discount %}
     {% set itemTotalNoTax = itemTotalNoTax %}
     {% if itemTotalNoTax > 0 %}
+    	<div class="text-right">
         <md-list-item>
          <p><strong>Item Totals:</strong> <i>{{ itemTotalNoTax |currency }}</i></p>
         </md-list-item>
+    	</div>
     {% endif %}
     {% if invoice.total_shipping_quote > 0 %}
-         <md-list-item>
-            <p><strong>Shipping:</strong> <i>{{ invoice.total_shipping_quote|currency }}</i></p>
-         </md-list-item>
+    		<div class="text-right">
+	         <md-list-item>
+	            <p><strong>Shipping:</strong> <i>{{ invoice.total_shipping_quote|currency }}</i></p>
+	         </md-list-item>
+    		</div>
     {% endif %}
     {% if invoice.tax_total > 0 %}
-        <md-list-item>
-            <p><strong>Tax:</strong> <i>{{ invoice.tax_total|currency }}</i></p>
-        </md-list-item>
+    		<div class="text-right">
+	        <md-list-item>
+	            <p><strong>Tax:</strong> <i>{{ invoice.tax_total|currency }}</i></p>
+	        </md-list-item>
+    		</div>
     {% endif %}
     {% if discount > 0 %}
-         <md-list-item>
-            <p><strong>Total Discount:</strong> <i class="discount"> - {{ discount|currency }}</i></p>
-         </md-list-item>
+    		<div class="text-right">
+	         <md-list-item>
+	            <p><strong>Total Discount:</strong> <i class="discount"> - {{ discount|currency }}</i></p>
+	         </md-list-item>
+    		</div>
     {% endif %}
-        <md-list-item>
-            <h3 class="ls-heading letter-spacing-2 padding-y-medium" layout-align="left center"><strong>Total:</strong>  <i>{{ invoice.total|currency }}</i></h3>
-         </md-list-item>
+    		<div class="text-right">
+            <h3 class="ls-heading letter-spacing-2 padding-y-medium padding-x-small" layout-align="right center"><strong>Total:</strong>  <i>{{ invoice.total|currency }}</i></h3>
+    		</div>
      </md-list>
 </div>

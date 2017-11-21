@@ -47,14 +47,14 @@ url: '/receipt/:paymenthash'
            {% endif %}
       
         
-        <div layout="row">
+        <div layout="row" layout-align="center center">
           <md-button class="ls-button md-button-outline  opacity-50 no-margin" ng-href="{{ site_url('products') }}">Continue shopping</md-button>
         </div>
-      </div>
     {% else %}
+    </div>
     <div layout="column" layout-align="center center">
       <h2 class="ls-heading padding-y-medium">No receipt found.</h2>
-      <md-button class="ls-button  no-margin" ng-href="{{ site_url('products') }}">
+      <md-button class="ls-button no-margin" ng-href="{{ site_url('products') }}">
         Continue shopping
       </md-button>
     </div>
