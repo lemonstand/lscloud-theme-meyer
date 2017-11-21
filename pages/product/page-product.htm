@@ -161,16 +161,27 @@ url: '/product/:urlName'
                 </div>
 
                 <input type="hidden" name="productId" value="{{ product.id }}"/>
-                <md-button
-                  ng-href="#"
-                  ng-click="$root.showLoadingScreen();"
-                  data-ajax-handler="shop:onAddToCart"
-                  data-ajax-redirect="{{ site_url('cart') }}"
-                  id="product-add"
-                  flex-order-xs="3"
-                  class="ls-button  no-margin-y margin-x-small">
-                  Add to cart
-                </md-button>
+                {% if not product.track_inventory
+                    or product.in_stock_amount > 0
+                    or product.allow_preorder %}
+                  <md-button
+                    ng-href="#"
+                    ng-click="$root.showLoadingScreen();"
+                    data-ajax-handler="shop:onAddToCart"
+                    data-ajax-redirect="{{ site_url('cart') }}"
+                    id="product-add"
+                    flex-order-xs="3"
+                    class="ls-button  no-margin-y margin-x-small">
+                    Add to cart
+                  </md-button>
+                {% else %}
+                  <md-button
+                    flex-order-xs="3"
+                    mg-disabled="true"
+                    class="ls-button  no-margin-y margin-x-small">
+                    Out of stock
+                  </md-button>
+                {% endif %}
 
                 <md-button flex-order-xs="1" md-ink-ripple="#ED3C3C" ng-click="$root.isFavourite(product) ? $root.removeFavourite(product) : $root.addFavourite(product); product.favourite = !product.favourite" class="ls-subheading no-margin-left">
                   <md-icon class="icon-small" ng-class="{ 'text-red': product.favourite }">[[ product.favourite ? 'favorite' : 'favorite_border' ]]</md-icon>
