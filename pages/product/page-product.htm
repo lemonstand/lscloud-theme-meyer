@@ -384,6 +384,16 @@ url: '/product/:urlName'
         watch-change name="options[{{ option.id }}]"
         value="{{ postedOptions[option.id] | default(option.values | keys[0]) }}">
     {% endfor %}
+
+    <div class="input-hidden">
+      {% for index, extra in product.extras %}
+        {% if extra.enabled %}
+            <input type="checkbox" ng-model="extra['{{extra.id}}']" id="{{ 'extra-'~index }}" {{ checkbox_state(postedExtras[extra.id], extra.id) }} name="extras[{{ extra.id }}]" watch-change data-ajax-handler="shop:product">
+        {% else %}
+            <input type="checkbox" disabled="disabled">
+        {% endif %}
+      {% endfor %}
+    </div>
   {{ close_form() }}
 </div>
 
