@@ -91,12 +91,15 @@ url: '/product/:urlName'
               </p>
 
               {% if product.productAttributes %}
-              <div layout="row" layout-xs="column" class="padding-y-small" style="display: table;">
+              <div layout="row" layout-xs="column" class="padding-y-small margin-bottom-small" style="display: table;">
+                	<p class="ls-subheading ls-caption">
+                		Product Specs:
+                	</p>
                 <table>
                   {% for attr in product.productAttributes %}
                   <tr>
-                    <td class="ls-caption float-right">{{ attr.name }}:</td>
-                    <td class="ls-caption md-caption padding-x-small">{{ attr.value }}</td>
+                    <td class="ls-caption">{{ attr.name }}:</td>
+                    <td><span class="ls-caption padding-x-small">{{ attr.value }}</span></td>
                   </tr>
                   {% endfor %}
                 </table>
