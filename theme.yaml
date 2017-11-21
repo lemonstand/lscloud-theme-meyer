@@ -20,6 +20,7 @@ customFields:
     loginPageBackground: { type: image, title: 'Log in page sign up background image', default: '@images/meyer-hero.jpg', comment: 'Upload your own log in background image! Recommended dimensions of 1920px by 1080px.' }
     megaMenuAdTileImage: { type: image, title: 'Image for the ad tile in the products dropdown menu', default: '', comment: 'Upload your own featured ad image! Recommended dimensions of 400px by 400px.' }
     featuredAdPanelImage: { type: image, title: 'Image for the featured ad panel on the home page', default: '', comment: 'Upload your own featured ad image! Recommended dimensions of 1920px by 1080px.' }
+    contactPageImage: { type: image, title: 'Image for the contact page', default: '@images/living-room-tile.jpg', comment: 'Upload your own contact page image! Recommended dimensions of 1920px by 1080px.' }
     primaryColor: { type: color, title: 'Theme primary color', default: '#64CDE0', comment: 'Used for input fields.' }
     secondaryColor: { type: color, title: 'Theme secondary color', default: '#FFCB40', comment: 'Used for buttons.' }
     accentColor: { type: color, title: 'Theme accent color', default: '#EE728F', comment: 'Used for links and loading spinners.' }
