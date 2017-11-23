@@ -34,21 +34,14 @@ angular
       'contrastDefaultColor': 'light'
     });
 
-    var lemonstandAccent = $mdThemingProvider.extendPalette('pink', {
-      '500': themeAccentColor,
-      'contrastDefaultColor': 'light'
-    });
-
     // Register the new color palette map with the name <code>neonRed</code>
     $mdThemingProvider.definePalette('lsPrimary', lemonstandPrimary);
     $mdThemingProvider.definePalette('lsSecondary', lemonstandSecondary);
-    $mdThemingProvider.definePalette('lsAccent', lemonstandAccent);
 
     // Use that theme for the primary intentions
     $mdThemingProvider.theme('default')
       .primaryPalette('lsPrimary')
       .accentPalette('lsSecondary')
-      .warnPalette('lsAccent');
 
   })
   .run(function(ThemeService,$rootScope,$window,$timeout){
