@@ -187,8 +187,8 @@
   #navbar nav .md-button:hover { background: transparent !important; }
   #navbar md-backdrop { background-color:rgba(0,0,0,0.2); z-index: 3; }
 
-  #navbar div.featured-ad { background-size: cover; background-position:center center; }
-  #navbar div.featured-ad .md-button { margin-left:-5px; }
+  #navbar div.featured-panel { background-size: cover; background-position:center center; }
+  #navbar div.featured-panel .md-button { margin-left:-5px; }
   div.banner-alt img#banner-alt-image { max-height: 80px; }
 
   #flash-container {
@@ -209,7 +209,7 @@
 /*category menu*/
   div#category-menu { z-index:4; position:fixed; top:60px; width:100%; -webkit-transform: translateY(-100%); transform: translateY(-100%); opacity:0; }
   div#category-menu.category-menu-active { -webkit-transform: translateY(0); transform: translateY(0); opacity: 1; }
-  div#category-menu .featured-ad { background-color:#fafafa; }
+  div#category-menu .featured-panel { background-color:#fafafa; }
   div#category-menu ul.theme-list li:last-of-type { margin-bottom:0; }
 
 /*featured categories */
