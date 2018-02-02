@@ -160,7 +160,7 @@
 
 
 /*banner*/
-  div.banner-container { padding:50px 0; position: relative;padding: 0px;width: 100%;margin-bottom: 0px;background-position: top center;background-size: contain;height: 40vw !important;min-height: auto;}
+  div.banner-container { padding:50px 0; position: relative;padding: 0px;width: 100%;margin-bottom: 0px;background-position: top center;background-size: contain;height: 39.2vw !important;min-height: auto;}
   div.banner-container.banner-short { min-height: 400px; }
   div.banner-container .banner-text { text-align: center; color:#FFF; z-index: 2; }
   div.banner-container .banner-text h1,
