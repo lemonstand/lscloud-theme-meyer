@@ -558,6 +558,7 @@
   #blog-body blockquote { margin: 15px 15px 15px 0; padding: 15px 0 15px 40px; }
   #blog-body blockquote:after { margin-top: 10px; }
   #blog-after { border-bottom: 1px solid #e5e5e5; }
+  div.banner-container {padding: 0px;width: 100%;margin-bottom: 0px;background-position: top center;background-size: contain;height: 40vw !important;min-height: auto;}
 }
 
 @media only screen and (max-width:959px) {
