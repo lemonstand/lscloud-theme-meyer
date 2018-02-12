@@ -55,7 +55,9 @@
                             "is_visible": {{ grandChild.is_visible is same as(1) ? "true" : "false" }},
                             "thumbnail": "{{ category.images.first.thumbnail(800, 'auto')|default('http://placehold.it/460x300') }}",
                             "background_image": "{{ category.images[1].thumbnail(800, 'auto')|default('http://placehold.it/460x300') }}"
-                        },
+                        {#},#}}
+                        {% if not loop.last %},
+                        {% endif %}
 
                         {% endfor %}
                     {% endif %}
