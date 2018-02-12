@@ -1,6 +1,3 @@
----
-description: 'Retrieves category info and puts it into objects for angular.'
----
 {% tree categories %}
 
     {% set parentCategories = 0 %}{# Sets variable #}
@@ -54,7 +51,7 @@ description: 'Retrieves category info and puts it into objects for angular.'
                             "is_visible": {{ grandChild.is_visible is same as(1) ? "true" : "false" }},
                             "thumbnail": "{{ category.images.first.thumbnail(800, 'auto')|default('http://placehold.it/460x300') }}",
                             "background_image": "{{ category.images[1].thumbnail(800, 'auto')|default('http://placehold.it/460x300') }}"
-                        }
+                        },
 
                         {% endfor %}
                     {% endif %}
