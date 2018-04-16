@@ -7,10 +7,16 @@ published: true
 name: 'Blog API'
 url: /api/blog
 ---
+{# Set up a filtered posts array #}
+{% set posts = [] %}
+{% for post in archives %}
+  {% if post.type is same as('blog') %}
+    {% set posts = posts | merge([post]) %}
+  {% endif %}
+{% endfor %}
 {
   "blog": [
-    {% for post in archives %}
-      {% if post.type is same as('blog') %}
+    {% for post in posts %}
         {
           "title": {{ post.title | json_encode() | raw }},
           "author": {
@@ -29,7 +35,6 @@ url: /api/blog
           "excerpt": {{ post.excerpt | unescape | json_encode() | raw }}
         }
         {% if not loop.last %},{% endif %}
-      {% endif %}
     {% endfor %}
   ]
 }
