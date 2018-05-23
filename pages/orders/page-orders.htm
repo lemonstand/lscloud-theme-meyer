@@ -12,7 +12,7 @@ url: /account/orders
 <script>
 var trackingCodes = []
 {%for order in orders %}
-    trackingCodes.push([{{order.id}} , "{{ order.outputTrackingCodes() | raw }}"])
+    trackingCodes.push([{{order.id}} , "{{ order.outputTrackingCodes() }}"])
 {% endfor %}
 
 </script>
