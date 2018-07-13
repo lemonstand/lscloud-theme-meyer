@@ -26,6 +26,7 @@ customFields:
     headerBackgroundColor: { type: color, title: 'Header/footer background color', default: '#FFFFFF', comment: 'Color used for the header and footer background.' }
     headerTextColor: { type: color, title: 'Header/footer text color', default: '#212121', comment: 'Color used for all header and footer text.' }
     storeTitle: { type: text, title: 'Title of your Store', default: Meyer }
+    bannerTitleText: { type: text, title: 'Banner Title Text', default: Meyer }
     bannerSentenceText: { type: text, title: 'Banner Sentence Text', default: 'A responsive LemonStand theme', comment: 'Text used for the homepage banner sentence.' }
     signUpText: { type: text, title: 'Newsletter sign up text', default: 'Sign up for our newsletter.', comment: 'An incentive for people to sign up for your newsletter.' }
     storeReturnPolicy: { type: text, title: 'Store return policy', default: 'Up to 30 days from purchase.  Must not be opened or damaged.', comment: 'Let people know if they can return items after purchase.' }
