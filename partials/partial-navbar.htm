@@ -52,7 +52,7 @@ description: 'Navigation bar'
                   <div class="md-avatar background-cover" ng-style="{ 'background-image': 'url(' + item.thumbnail + ')' }"></div>
                   <div class="md-list-item-text">
                     <h3 md-highlight-text="searchText" md-highlight-flags="^i">[[item.name]]</h3>
-                    <p>[[ item.price ]]</p>
+                    <p>[[ item.price | currency ]]</p>
                   </div>
                 </md-list-item>
               </md-item-template>

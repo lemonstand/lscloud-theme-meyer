@@ -24,6 +24,24 @@ angular
     $interpolateProvider.startSymbol('[[');
     $interpolateProvider.endSymbol(']]');
 
+     // pass the theme colours from main.htm to Angular's theming provider	
+     var lemonstandPrimary = $mdThemingProvider.extendPalette('cyan', {	
+       '500': themePrimaryColor,	
+       'contrastDefaultColor': 'light'	
+     });	
+     var lemonstandSecondary = $mdThemingProvider.extendPalette('amber', {	
+       '500': themeSecondaryColor,	
+       'contrastDefaultColor': 'light'	
+     });	
+        // Register the new color palette map with the name <code>neonRed</code>	
+     $mdThemingProvider.definePalette('lsPrimary', lemonstandPrimary);	
+     $mdThemingProvider.definePalette('lsSecondary', lemonstandSecondary);	
+        // Use that theme for the primary intentions	
+     $mdThemingProvider.theme('default')	
+       .primaryPalette('lsPrimary')	
+       .accentPalette('lsSecondary')	
+          })
+
   })
   .run(function(ThemeService,$rootScope,$window,$timeout){
     $rootScope.$ls = $window.localStorage;
