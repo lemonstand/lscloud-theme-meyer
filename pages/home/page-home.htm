@@ -32,7 +32,9 @@ url: /
     <div layout="column" layout-align="center center" id="featured-categories" >
       <div layout-fill class="content-container">
         <md-grid-list
-          md-cols="4"
+          md-cols="4"\
+          <img src="{{ category.images.first.thumbnail(800, 'auto')|default('http://placehold.it/460x300') }}"/><br>
+
           md-row-height="1:1"
           md-gutter="20px"
 
